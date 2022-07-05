@@ -4,7 +4,7 @@ export const environment = {
     en: 'en',
     ua: 'ua'
   },
-  defaultLocale: 'en',
+  defaultLocale: 'ua',
 };
 
 /*

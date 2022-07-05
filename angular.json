@@ -60,7 +60,6 @@
             },
             "development": {
               "buildOptimizer": false,
-              "serviceWorker": true,
               "optimization": false,
               "vendorChunk": true,
               "extractLicenses": false,

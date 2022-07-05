@@ -22,8 +22,10 @@ export class AppComponent implements OnInit {
   }
 
   onChangeLang(): void {
+    console.log(environment.defaultLocale);
+    console.log(this.translate.currentLang);
     if (this.translate.currentLang === environment.defaultLocale) {
-      this.translate.use(environment.locales.ua);
+      this.translate.use(environment.locales.en);
       return;
     }
     this.translate.use(environment.defaultLocale);

@@ -12,3 +12,8 @@
   </button>
 </mat-toolbar>
 <mat-slider min="1" max="100" step="1" value="50"></mat-slider>
+
+<div *ngIf="data$ | async as data">
+  <p *ngFor="let item of data" [ngStyle]="{color: '#fff'}"> {{item | json}}</p>
+</div>
+

@@ -1,3 +1,8 @@
 export const environment = {
-  production: true
+  production: true,
+  locales: {
+    en: 'en',
+    ua: 'ua'
+  },
+  defaultLocale: 'en',
 };

@@ -1,4 +1,5 @@
-@import "~@angular/material/prebuilt-themes/purple-green.css";
+//@import "~@angular/material/prebuilt-themes/purple-green.css";
+@import 'app/app.component.scss-theme.scss';
 
 html, body {
   height: 100%;
@@ -8,4 +9,8 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background: #303030;
+}
+
+.spacer {
+  flex: 1 1 auto;
 }

@@ -2,12 +2,12 @@
   "name": "Memologist",
 
   "short_name": "Memologist",
-  "theme_color": "#1976d2",
+  "theme_color": "#ffc107",
   "background_color": "transparent",
   "display": "standalone",
   "orientation": "any",
   "scope": "./",
-  "start_url": "http://localhost:8080/",
+  "start_url": "https://memologist.herokuapp.com/",
   "lang": "ua",
   "icons": [
     {

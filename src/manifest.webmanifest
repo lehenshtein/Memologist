@@ -2,8 +2,8 @@
   "name": "Memologist",
 
   "short_name": "Memologist",
-  "theme_color": "#ffc107",
-  "background_color": "transparent",
+  "theme_color": "#1976d2",
+  "background_color": "#ffc107",
   "display": "standalone",
   "orientation": "any",
   "scope": "./",

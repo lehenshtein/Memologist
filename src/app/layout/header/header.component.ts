@@ -11,6 +11,7 @@ export class HeaderComponent implements OnInit {
   @Input() title: string = '';
   @Output() changeLang: EventEmitter<any> = new EventEmitter<any>();
   data$: Observable<any[]> = this.httpTest.getTestData();
+  myServerData$: Observable<any> = this.httpTest.getTestDataFromMyServer();
 
   constructor(private httpTest: LayoutTestService) {
   }

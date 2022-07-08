@@ -24,7 +24,7 @@
         <mat-card-title>{{item.title}}</mat-card-title>
         <mat-card-subtitle>{{item.author.name}} created at: {{item.createdAt | date:'dd.MM.yyyy'}}</mat-card-subtitle>
       </mat-card-header>
-      <img mat-card-image [ngStyle]="{width: '50%', margin: '0 auto'}" [src]="item.imgUrl" alt="Photo of a Shiba Inu">
+      <img mat-card-image [ngStyle]="{width: '50%', margin: '0 auto'}" [src]="item.imgUrl" alt="Photo">
       <mat-card-content>
         {{item.text}}
       </mat-card-content>

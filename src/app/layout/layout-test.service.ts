@@ -12,7 +12,7 @@ export class LayoutTestService {
   }
 
   getTestData(): Observable<any[]> {
-    return this.http.get<any[]>('https://jsonplaceholder.typicode.com/posts');
+    return this.http.get<any[]>('https://memologist-be.herokuapp.com/posts/get');
   }
   getTestDataFromMyServer(): Observable<any> {
     return this.http.get<any>('https://memologist-be.herokuapp.com/authors/get');

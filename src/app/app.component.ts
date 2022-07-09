@@ -11,6 +11,7 @@ import {filter} from 'rxjs/operators';
 })
 export class AppComponent implements OnInit {
   updateMessage = this.translate.instant('Messages.update');
+  showFiller = false;
 
   constructor(private swUpdate: SwUpdate, public translate: TranslateService) {
   }

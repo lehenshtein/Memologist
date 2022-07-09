@@ -2,5 +2,37 @@
   "Memologist": "Memologist",
   "Messages": {
     "update": "New version available. Load new version?"
+  },
+  "Common": {
+    "created": "created at: "
+  },
+  "Forms": {
+    "Buttons": {
+      "post": "Post"
+    },
+    "Post": {
+      "Title": {
+        "title": "Title",
+        "placeholder": "Give it a name"
+      },
+      "Text": {
+        "title": "Text",
+        "placeholder": "Write something interesting"
+      },
+      "Tags": {
+        "title": "Hashtags",
+        "placeholder": "Add hashtags separated by commas"
+      },
+      "Img": {
+        "title": "Image",
+        "placeholder": "Add link to an image"
+      }
+    }
+  },
+  "Validations": {
+    "required": "This field is required",
+    "minLength": "Min length is: ",
+    "maxLength": "Max length is: ",
+    "urlPattern": "That's not look like an image"
   }
 }

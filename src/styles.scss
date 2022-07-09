@@ -11,6 +11,17 @@ body {
   background: #303030;
 }
 
+//form {
+//  display: flex;
+//  flex-direction: column;
+//  align-items: flex-start;
+//}
+
+input.mat-input-element, textarea.mat-input-element {
+  color: white;
+}
+
 .spacer {
   flex: 1 1 auto;
 }
+

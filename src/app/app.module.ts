@@ -13,6 +13,7 @@ import {environment} from '@environment/environment';
 import {MissingTranslationHandler, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {MissingTranslationService} from '@app/core/services/missing-translation.service';
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -36,12 +37,13 @@ import {MissingTranslationService} from '@app/core/services/missing-translation.
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
+        deps: [ HttpClient ]
       },
-      missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationService },
+      missingTranslationHandler: {provide: MissingTranslationHandler, useClass: MissingTranslationService},
       defaultLanguage: environment.defaultLocale
     }),
-    LayoutModule
+    LayoutModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,7 @@
 export const environment = {
   production: false,
+  apiUrl: 'https://memologist-be.herokuapp.com/',
+  testApiUrl: 'http://localhost:3000/',
   locales: {
     en: 'en',
     ua: 'ua'

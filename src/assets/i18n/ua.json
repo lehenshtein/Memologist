@@ -2,5 +2,37 @@
   "Memologist": "Мемолог",
   "Messages": {
     "update": "Доступна нова версія. Оновити?"
+  },
+  "Common": {
+    "created": "дата створення: "
+  },
+  "Forms": {
+    "Buttons": {
+      "post": "Створити"
+    },
+    "Post": {
+      "Title": {
+        "title": "Назва",
+        "placeholder": "Назви мене"
+      },
+      "Text": {
+        "title": "Текст",
+        "placeholder": "Напиши тут щось цікаве"
+      },
+      "Tags": {
+        "title": "Теги",
+        "placeholder": "Додай теги через кому"
+      },
+      "Img": {
+        "title": "Зображення",
+        "placeholder": "Додай посилання на зображення"
+      }
+    }
+  },
+  "Validations": {
+    "required": "Це поле обов'язкове",
+    "minLength": "Мінімальна довжина: ",
+    "maxLength": "Максимальна довжина: ",
+    "urlPattern": "Це не схоже на посилання"
   }
 }

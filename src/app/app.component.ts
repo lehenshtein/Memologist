@@ -3,6 +3,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {environment} from '@environment/environment';
 import {SwUpdate, VersionReadyEvent} from '@angular/service-worker';
 import {filter} from 'rxjs/operators';
+import { navigatorHelper } from '@shared/helpers/navigator.helper';
 
 @Component({
   selector: 'app-root',
@@ -17,14 +18,16 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(navigator);
+    (async () => {
+      console.log(await navigatorHelper())
+    })();
     this.translate.use(environment.defaultLocale);
     this.translateMsg();
     this.checkSw();
   }
 
   onChangeLang(): void {
-    console.log(environment.defaultLocale);
-    console.log(this.translate.currentLang);
     if (this.translate.currentLang === environment.defaultLocale) {
       this.translate.use(environment.locales.en);
       return;
@@ -54,7 +57,6 @@ export class AppComponent implements OnInit {
   private translateMsg(): void {
     this.translate.stream('Messages').subscribe(() => {
       this.updateMessage = this.translate.instant('Messages.update');
-      console.log(this.updateMessage);
     })
   }
 }

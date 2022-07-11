@@ -31,8 +31,7 @@
     {
       "name": "cache-first",
       "urls": [
-        "https://fonts.gstatic.com",
-        "https://--jsonplaceholder.typicode.com/posts"
+        "https://fonts.gstatic.com"
       ],
       "cacheConfig": {
         "strategy": "performance",
@@ -43,7 +42,8 @@
     {
       "name": "network-first",
       "urls": [
-        "https://jsonplaceholder.typicode.com/posts"
+        "https://memologist-be.herokuapp.com",
+        "http://localhost:3000"
       ],
       "cacheConfig": {
         "strategy": "freshness",

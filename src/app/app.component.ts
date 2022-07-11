@@ -4,6 +4,7 @@ import {environment} from '@environment/environment';
 import {SwUpdate, VersionReadyEvent} from '@angular/service-worker';
 import {filter} from 'rxjs/operators';
 import { navigatorHelper } from '@shared/helpers/navigator.helper';
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-root',
@@ -13,8 +14,9 @@ import { navigatorHelper } from '@shared/helpers/navigator.helper';
 export class AppComponent implements OnInit {
   updateMessage = this.translate.instant('Messages.update');
   showFiller = false;
+  showSidebar = true;
 
-  constructor(private swUpdate: SwUpdate, public translate: TranslateService) {
+  constructor(private swUpdate: SwUpdate, public translate: TranslateService, private breakpointObserver: BreakpointObserver) {
   }
 
   ngOnInit(): void {
@@ -22,9 +24,27 @@ export class AppComponent implements OnInit {
     (async () => {
       console.log(await navigatorHelper())
     })();
+    this.resize();
     this.translate.use(environment.defaultLocale);
     this.translateMsg();
     this.checkSw();
+  }
+
+  resize() {
+    this.breakpointObserver.observe([
+      "(max-width: 900px)",
+      "(max-width: 1024px)"
+    ]).subscribe((result: BreakpointState) => {
+      console.log(result);
+      if (result.breakpoints['(max-width: 900px)']) {
+        console.log('a');
+        this.showSidebar = false;
+        // hide stuff
+      } else {
+        this.showSidebar = true;
+        // show stuff
+      }
+    });
   }
 
   onChangeLang(): void {

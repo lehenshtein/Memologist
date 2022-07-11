@@ -1,7 +1,9 @@
 <app-header [title]="'Memologist' | translate" (changeLang)="onChangeLang()"></app-header>
-<div class="content-wrapper">
-  <app-content></app-content>
-  <app-sidebar></app-sidebar>
+<div class="wrapper">
+  <div class="content-wrapper">
+    <router-outlet></router-outlet>
+    <app-sidebar *ngIf="showSidebar"></app-sidebar>
+  </div>
 </div>
 <mat-drawer-container class="example-container" autosize>
   <mat-drawer #drawer class="example-sidenav" mode="side">

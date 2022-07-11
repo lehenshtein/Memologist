@@ -14,10 +14,23 @@
 .example-sidenav {
   padding: 20px;
 }
+.wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
 .content-wrapper {
   margin-top: 64px;
   display: flex;
   justify-content: space-between;
-  padding: 0 30px;
+  padding: 20px 30px;
+  app-sidebar {
+    padding-left: 10px;
+  }
+}
+@media screen and (max-width: 900px) {
+  .content-wrapper {
+    justify-content: center;
+  }
 }

@@ -22,6 +22,6 @@ export class LayoutTestService {
     return this.http.post<PostInterfaceToSend>(`${environment.testApiUrl}posts/create`, post);
   }
   deletePost(id: string): Observable<string> {
-    return this.http.delete<string>(`${environment.testApiUrl}posts/delete/${id}`)
+    return this.http.delete<string>(`${environment.apiUrl}posts/delete/${id}`)
   }
 }

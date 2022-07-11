@@ -7,7 +7,6 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { CreatePostFormComponent } from './create-post-form/create-post-form.component';
-import { ContentComponent } from './content/content.component';
 
 
 @NgModule({
@@ -15,13 +14,11 @@ import { ContentComponent } from './content/content.component';
     HeaderComponent,
     SidebarComponent,
     LoginFormComponent,
-    CreatePostFormComponent,
-    ContentComponent
+    CreatePostFormComponent
   ],
   exports: [
     HeaderComponent,
-    SidebarComponent,
-    ContentComponent
+    SidebarComponent
   ],
   imports: [
     CommonModule,

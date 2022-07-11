@@ -1,5 +1,5 @@
 <div *ngIf="data$ | async as data" [ngStyle]="{display: 'flex', flexDirection: 'column', alignItems: 'center'}">
-  <p *ngFor="let item of data" [ngStyle]="{color: '#fff', width: '60vw'}">
+  <p *ngFor="let item of data" class="content-block">
     <mat-card>
       <mat-card-header>
         <!--        <div mat-card-avatar class="example-header-image"></div>-->
@@ -9,7 +9,7 @@
       <mat-card-content>
         {{item.text}}
       </mat-card-content>
-      <img *ngIf="item.imgUrl" mat-card-image [ngStyle]="{width: '50%', margin: '0 auto'}" [src]="item.imgUrl" alt="Photo">
+      <img *ngIf="item.imgUrl" mat-card-image [src]="item.imgUrl" alt="Photo">
       <mat-card-actions>
         <button mat-button  *ngFor="let tag of item.tags">{{tag}}</button>
       </mat-card-actions>

@@ -7,18 +7,19 @@ import { environment } from '@environment/environment';
 @Component({
   selector: 'app-content',
   templateUrl: './content.component.html',
-  styleUrls: ['./content.component.scss']
+  styleUrls: [ './content.component.scss' ]
 })
 export class ContentComponent implements OnInit {
   data$: Observable<PostInterfaceGet[]> = this.httpTest.getTestData();
   devEnv = !environment.production;
 
-  constructor(private httpTest: LayoutTestService) { }
+  constructor (private httpTest: LayoutTestService) {
+  }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
   }
 
   delete (id: string) {
-    this.httpTest.deletePost(id).pipe(take(1)).subscribe()
+    this.httpTest.deletePost(id).pipe(take(1)).subscribe();
   }
 }

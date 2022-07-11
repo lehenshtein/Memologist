@@ -54,7 +54,7 @@ $custom-palette-example: (
 
 // mandatory stuff for theming
 $my-dark-primary: mat-palette(mat.$amber-palette);
-$my-dark-accent:  mat-palette(mat.$lime-palette);
+$my-dark-accent:  mat-palette(mat.$blue-palette);
 
 // include the custom theme components into a theme object
 $bv-theme: mat-dark-theme($my-dark-primary, $my-dark-accent);

@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
       "(max-width: 1024px)"
     ]).subscribe((result: BreakpointState) => {
       console.log(result);
-      if (result.breakpoints['(max-width: 900px)']) {
+      if (result.breakpoints['(max-width: 1024px)']) {
         console.log('a');
         this.showSidebar = false;
         // hide stuff

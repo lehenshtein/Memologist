@@ -1,3 +1,4 @@
+@import './src/assets/scss/variables';
 .example-container {
   width: 500px;
   height: 300px;
@@ -29,7 +30,7 @@
     padding-left: 10px;
   }
 }
-@media screen and (max-width: 900px) {
+@media screen and (max-width: $breakpoint-sidebar) {
   .content-wrapper {
     justify-content: center;
   }

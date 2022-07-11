@@ -8,6 +8,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { CreatePostFormComponent } from '@shared/components/create-post-form/create-post-form.component';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { ImageModalComponent } from './modals/image-modal/image-modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const material = [
   MatToolbarModule,
@@ -16,19 +22,32 @@ const material = [
   MatSliderModule,
   MatCardModule,
   MatFormFieldModule,
-  MatSidenavModule
+  MatSidenavModule,
+  MatInputModule,
+  MatDialogModule
+]
+const components = [
+  CreatePostFormComponent,
+  ImageModalComponent
 ]
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ...components
+  ],
   imports: [
+    ...material,
     CommonModule,
     TranslateModule,
-    ...material
+    RouterModule,
+    ReactiveFormsModule,
   ],
   exports: [
+    ...components,
+    ...material,
     TranslateModule,
-    ...material
+    RouterModule,
+    ReactiveFormsModule,
   ]
 })
 export class SharedModule { }

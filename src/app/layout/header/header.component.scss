@@ -1,5 +1,10 @@
+@import './src/assets/scss/variables';
 .header {
   position: fixed;
   top: 0;
   z-index: 1000;
+}
+
+.button-space {
+  margin-right: $padding-default;
 }

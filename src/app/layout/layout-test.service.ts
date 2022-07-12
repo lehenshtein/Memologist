@@ -15,13 +15,7 @@ export class LayoutTestService {
   getTestData(): Observable<any[]> {
     return this.http.get<any[]>('https://memologist-be.herokuapp.com/posts/get');
   }
-  getTestDataFromMyServer(): Observable<any> {
-    return this.http.get<any>('https://memologist-be.herokuapp.com/authors/get');
-  }
   createPost(post: PostInterfaceToSend): Observable<PostInterfaceToSend> {
     return this.http.post<PostInterfaceToSend>(`${environment.testApiUrl}posts/create`, post);
-  }
-  deletePost(id: string): Observable<string> {
-    return this.http.delete<string>(`${environment.apiUrl}posts/delete/${id}`)
   }
 }

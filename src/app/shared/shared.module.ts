@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ImageModalComponent } from './modals/image-modal/image-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 const material = [
   MatToolbarModule,
@@ -41,6 +42,7 @@ const components = [
     TranslateModule,
     RouterModule,
     ReactiveFormsModule,
+    NgxSpinnerModule
   ],
   exports: [
     ...components,
@@ -48,6 +50,7 @@ const components = [
     TranslateModule,
     RouterModule,
     ReactiveFormsModule,
+    NgxSpinnerModule
   ]
 })
 export class SharedModule { }

@@ -4,7 +4,8 @@
     "update": "New version available. Load new version?"
   },
   "Common": {
-    "created": "created at: "
+    "created": "created at: ",
+    "loading": "Loading"
   },
   "Forms": {
     "Buttons": {

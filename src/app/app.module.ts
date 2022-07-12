@@ -14,6 +14,7 @@ import {MissingTranslationHandler, TranslateLoader, TranslateModule} from '@ngx-
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {MissingTranslationService} from '@app/core/services/missing-translation.service';
 import { SharedModule } from '@shared/shared.module';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { SharedModule } from '@shared/shared.module';
     HttpClientModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    NgxSpinnerModule.forRoot({ type: 'pacman' }),
     environment.production ? [] : AkitaNgDevtools.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,

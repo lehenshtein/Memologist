@@ -5,12 +5,15 @@ import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
 import { ContentComponent } from '@app/main/content/content.component';
 import { SharedModule } from '@shared/shared.module';
-
+import { PostPageComponent } from './post-page/post-page.component';
+import { PostCardComponent } from './post-card/post-card.component';
 
 @NgModule({
   declarations: [
     MainComponent,
-    ContentComponent
+    ContentComponent,
+    PostPageComponent,
+    PostCardComponent
   ],
   imports: [
     CommonModule,

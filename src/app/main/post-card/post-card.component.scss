@@ -1,0 +1,16 @@
+mat-card {
+  min-height: 450px;
+  height: 100%;
+}
+img, mat-card-title {
+  cursor: pointer;
+}
+.social {
+  button.telegram {
+    background-color: #00bfff;
+  }
+  img {
+    width: 24px;
+    height: 24px;
+  }
+}

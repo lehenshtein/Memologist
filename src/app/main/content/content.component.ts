@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, switchMap, take, takeUntil } from 'rxjs';
 import { PostInterfaceGet } from '@shared/models/post.interface';
 import { environment } from '@environment/environment';
-import { MainHttpService } from '@app/main/main-http.service';
 import { PostsService } from '@app/main/state/posts.service';
 import { PostsQuery } from '@app/main/state/posts.query';
 import { UnsubscribeAbstract } from '@shared/helpers/unsubscribe.abstract';
@@ -17,7 +16,7 @@ export class ContentComponent extends UnsubscribeAbstract implements OnInit {
   data$: Observable<PostInterfaceGet[]> = this.query.getPosts().pipe(
     takeUntil(this.ngUnsubscribe$),
     switchMap((posts: PostInterfaceGet[]) => {
-      if (posts && posts.length) {
+      if (posts && posts.length > 1) { // if post was created, then it was pushed to store and there is at least 1 item
         return this.query.getPosts();
       }
       return this.postsService.get<PostInterfaceGet[]>();

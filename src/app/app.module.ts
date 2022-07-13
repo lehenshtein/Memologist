@@ -15,6 +15,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {MissingTranslationService} from '@app/core/services/missing-translation.service';
 import { SharedModule } from '@shared/shared.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,14 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     LayoutModule,
     SharedModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: NG_ENTITY_SERVICE_CONFIG,
+      useValue: {
+        baseUrl: 'http://localhost:3000'
+      }
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -5,7 +5,9 @@
   },
   "Common": {
     "created": "created at: ",
-    "loading": "Loading"
+    "loading": "Loading",
+    "notFound": "Not Found",
+    "back": "Back"
   },
   "Forms": {
     "Buttons": {

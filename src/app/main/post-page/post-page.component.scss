@@ -1,3 +1,7 @@
+@import './src/assets/scss/_variables.scss';
 app-post-card {
   position: relative;
+}
+.notification-text {
+  color: $white;
 }

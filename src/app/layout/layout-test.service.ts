@@ -16,6 +16,6 @@ export class LayoutTestService {
     return this.http.get<any[]>('https://memologist-be.herokuapp.com/posts/get');
   }
   createPost(post: PostInterfaceToSend): Observable<PostInterfaceToSend> {
-    return this.http.post<PostInterfaceToSend>(`${environment.testApiUrl}posts/create`, post);
+    return this.http.post<PostInterfaceToSend>(`${environment.testApiUrl}/posts`, post);
   }
 }

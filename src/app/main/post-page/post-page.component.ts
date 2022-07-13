@@ -3,8 +3,11 @@ import { MainHttpService } from '@app/main/main-http.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { UnsubscribeAbstract } from '@shared/helpers/unsubscribe.abstract';
 import { catchError, EMPTY, Observable, switchMap, takeUntil, throwError } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
+
 import { PostInterfaceGet } from '@shared/models/post.interface';
+import { PostsQuery } from '@app/main/state/posts.query';
+import { HttpErrorResponse } from '@angular/common/http';
+import { PostsService } from '@app/main/state/posts.service';
 
 @Component({
   selector: 'app-post-page',
@@ -13,24 +16,25 @@ import { PostInterfaceGet } from '@shared/models/post.interface';
 })
 export class PostPageComponent extends UnsubscribeAbstract implements OnInit {
 
-  constructor (private http: MainHttpService, private route: ActivatedRoute) {
+  constructor (
+    private http:MainHttpService,
+    private route: ActivatedRoute,
+    private query: PostsQuery,
+    private postService: PostsService
+  ) {
     super();
   }
 
-  item$: Observable<PostInterfaceGet> = this.route.params.pipe(
+  item$: Observable<PostInterfaceGet | undefined> = this.route.params.pipe(
     takeUntil(this.ngUnsubscribe$),
-    catchError((err: HttpErrorResponse) => {
-      return throwError(() => err);
-    }),
     switchMap((params: Params) => {
       if (!params['id']) {
         return EMPTY;
       }
-      return this.http.getPost(params['id']).pipe(
+      return this.postService.get<PostInterfaceGet>(params['id'],{skipWrite: true}).pipe(
         catchError((err: HttpErrorResponse) => {
           return throwError(() => err);
-        })
-      );
+        }))
     })
   );
 

@@ -13,7 +13,9 @@ import { environment } from '@environment/environment';
 })
 export class PostCardComponent implements OnInit {
   @Input() item!: PostInterfaceGet;
+  @Input() clickable = true;
   websiteUrl = environment.websiteUrl;
+
 
   constructor (private dialog: MatDialog, private spinner: NgxSpinnerService) {
   }

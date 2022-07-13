@@ -1,1 +1,7 @@
-<app-post-card [item]="(item$ | async)!"></app-post-card>
+<app-post-card *ngIf="item$ | async as item else notFound" [item]="item" [clickable]="false"></app-post-card>
+<ng-template #notFound>
+  <p class="notification-text">
+    {{'Common.notFound' | translate}}
+  </p>
+  <button mat-raised-button color="accent" [routerLink]="'/'"><{{'Common.back' | translate}}</button>
+</ng-template>

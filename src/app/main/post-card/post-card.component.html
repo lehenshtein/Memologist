@@ -2,7 +2,10 @@
   <ng-container *ngIf="item; else loading">
     <mat-card-header>
       <!--        <div mat-card-avatar class="example-header-image"></div>-->
-      <mat-card-title [routerLink]="[item._id]">{{item.title}}</mat-card-title>
+      <mat-card-title *ngIf="clickable else notClickable" [routerLink]="[item._id]">{{item.title}}</mat-card-title>
+      <ng-template #notClickable>
+        <mat-card-title #notClickable>{{item.title}}</mat-card-title>
+      </ng-template>
       <mat-card-subtitle>{{item.author.name}} {{'Common.created' | translate}} {{item.createdAt | date:'dd.MM.yyyy'}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>

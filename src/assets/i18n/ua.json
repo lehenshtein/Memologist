@@ -5,7 +5,9 @@
   },
   "Common": {
     "created": "дата створення: ",
-    "loading": "Завантаження"
+    "loading": "Завантаження",
+    "notFound": "Не знайдено",
+    "back": "Назад"
   },
   "Forms": {
     "Buttons": {

@@ -1,0 +1,7 @@
+<div class="wrapper">
+  <h1>{{page === 'sign-in' ? ('Common.login' | translate) : 'Common.toSignUp' | translate}}</h1>
+  <app-sign-in-form *ngIf="page === 'sign-in' else signUp"></app-sign-in-form>
+  <ng-template #signUp>
+    <app-sign-up-form></app-sign-up-form>
+  </ng-template>
+</div>

@@ -15,6 +15,8 @@ import { RouterModule } from '@angular/router';
 import { ImageModalComponent } from './modals/image-modal/image-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { SignInFormComponent } from '@shared/components/sign-in-form/sign-in-form.component';
+import { SignUpFormComponent } from '@shared/components/sign-up-form/sign-up-form.component';
 
 const material = [
   MatToolbarModule,
@@ -29,6 +31,8 @@ const material = [
 ]
 const components = [
   CreatePostFormComponent,
+  SignInFormComponent,
+  SignUpFormComponent,
   ImageModalComponent
 ]
 

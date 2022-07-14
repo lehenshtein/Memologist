@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { LayoutTestService } from '@app/layout/layout-test.service';
 import { take } from 'rxjs';
 import { PostsService } from '@app/main/state/posts.service';
 import { Router } from '@angular/router';
@@ -16,7 +15,6 @@ export class CreatePostFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private layoutTestService: LayoutTestService,
     private postService: PostsService,
     private router: Router
   ) { }

@@ -1,8 +1,10 @@
 //@import "~@angular/material/prebuilt-themes/purple-green.css";
 @import 'app/app.component.scss-theme.scss';
+@import 'assets/scss/variables';
 
 html, body {
   height: 100%;
+  color: $white;
 }
 
 body {
@@ -27,6 +29,11 @@ a {
 
 input.mat-input-element, textarea.mat-input-element {
   color: white;
+}
+
+.main-content-size {
+  width: 100%;
+  max-width: 700px;
 }
 
 .spacer {

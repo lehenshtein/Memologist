@@ -7,11 +7,35 @@
     "created": "created at: ",
     "loading": "Loading",
     "notFound": "Not Found",
-    "back": "Back"
+    "back": "Back",
+    "signIn": "Sign in",
+    "login": "Sign in",
+    "signUp": "Sign up",
+    "toSignUp": "Create account"
   },
   "Forms": {
     "Buttons": {
       "post": "Post"
+    },
+    "Auth": {
+      "Login": {
+        "title": "Login",
+        "placeholder1": "Write username",
+        "placeholder2": "Create cool username"
+      },
+      "Email": {
+        "title": "Email",
+        "placeholder": "Your email address"
+      },
+      "Password": {
+        "title": "Password",
+        "placeholder1": "Сall to mind your password",
+        "placeholder2": "Super hard password"
+      },
+      "PasswordRepeat": {
+        "title": "Repeat password",
+        "placeholder": "Yes again... We know"
+      }
     },
     "Post": {
       "Title": {
@@ -36,6 +60,9 @@
     "required": "This field is required",
     "minLength": "Min length is: ",
     "maxLength": "Max length is: ",
-    "urlPattern": "That's not look like an image"
+    "urlPattern": "That's not look like an image",
+    "passPattern": "At least one uppercase, one lowercase letter and one number",
+    "email": "That's not look like an email",
+    "notSame": "Passwords are different"
   }
 }

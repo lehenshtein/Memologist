@@ -15,7 +15,6 @@ import { PostsService } from '@app/main/state/posts.service';
   styleUrls: [ './post-page.component.scss' ]
 })
 export class PostPageComponent extends UnsubscribeAbstract implements OnInit {
-  descriptionTags = [];
   constructor (
     private http:MainHttpService,
     private route: ActivatedRoute,

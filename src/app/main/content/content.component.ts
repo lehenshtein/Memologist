@@ -6,6 +6,7 @@ import { PostsService } from '@app/main/state/posts.service';
 import { PostsQuery } from '@app/main/state/posts.query';
 import { UnsubscribeAbstract } from '@shared/helpers/unsubscribe.abstract';
 import { ID } from '@datorama/akita';
+import { MetaHelper } from '@shared/helpers/meta.helper';
 
 @Component({
   selector: 'app-content',
@@ -26,7 +27,7 @@ export class ContentComponent extends UnsubscribeAbstract implements OnInit {
   // data$: Observable<PostInterfaceGet[]> = this.http.getPosts();
   devEnv = !environment.production;
 
-  constructor (private http: PostsService, private postsService: PostsService, private query: PostsQuery) {
+  constructor (private http: PostsService, private postsService: PostsService, private query: PostsQuery, private metaHelper: MetaHelper) {
     super();
   }
 
@@ -35,5 +36,9 @@ export class ContentComponent extends UnsubscribeAbstract implements OnInit {
   }
 
   ngOnInit (): void {
+    this.updateMeta();
+  }
+  private updateMeta () {
+    this.metaHelper.resetMeta();
   }
 }

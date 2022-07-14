@@ -6,7 +6,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { spinnerConfig } from '@shared/helpers/spinner-config';
 import { environment } from '@environment/environment';
 import { CoreQuery } from '@app/core/state/core.query';
-import { NavigatorInterface } from '@shared/models/navigator.interface';
+import { MetaHelper } from '@shared/helpers/meta.helper';
 
 @Component({
   selector: 'app-post-card',
@@ -15,15 +15,18 @@ import { NavigatorInterface } from '@shared/models/navigator.interface';
 })
 export class PostCardComponent implements OnInit {
   @Input() item!: PostInterfaceGet;
-  @Input() clickable = true;
+  @Input() mainPage = true;
   websiteUrl = environment.websiteUrl;
 
 
-  constructor (private dialog: MatDialog, private spinner: NgxSpinnerService, private coreQuery: CoreQuery) {
+  constructor (private dialog: MatDialog, private spinner: NgxSpinnerService, private coreQuery: CoreQuery, private metaHelper: MetaHelper) {
   }
 
   ngOnInit (): void {
     this.spinner.show('spinner', spinnerConfig);
+    if (!this.mainPage) {
+      this.updateMeta();
+    }
   }
 
   openImage (img: string) {
@@ -34,22 +37,27 @@ export class PostCardComponent implements OnInit {
   }
 
   share (social: 'telegram') {
-    console.log(this.coreQuery.navigator);
-    this.coreQuery.navigator$.subscribe(res => {
-      console.log('Observable', res);
-    })
-    console.log(typeof navigator.share);
     if (typeof navigator.share === 'function' && this.coreQuery.navigator && this.coreQuery.navigator.mobile) {
       navigator.share({
         url: environment.websiteUrl + this.item._id,
         title: this.item.title,
         text: this.item.text,
       })
-        .then(res => console.log(res));
+        .then().catch(err => console.log(err))
+    } else {
+      if (social === 'telegram') {
+        window.open(`https://telegram.me/share/url?url=${this.websiteUrl}${this.item._id}&amp;text=${this.item.title}`,'_blank');
+      }
     }
+  }
 
-    if (social === 'telegram') {
-      window.open(`https://telegram.me/share/url?url=${this.websiteUrl}${this.item._id}&amp;text=${this.item.title}`,'_blank');
-    }
+  private updateMeta () {
+    this.metaHelper.updateMeta({
+      title: this.item.title,
+      text: this.item.text,
+      type: 'article',
+      url: `${environment.apiUrl}/${this.item._id}`,
+      imgUrl: this.item.imgUrl
+    });
   }
 }

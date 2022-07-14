@@ -10,6 +10,7 @@ export class PostsService extends NgEntityService<PostsState> {
   constructor(protected store: PostsStore, private httpService: MainHttpService, private query: PostsQuery) {
     super(store);
   }
+
   // get<T>(): Observable<PostInterfaceGet[]> {
   //   return this.httpService.getPosts().pipe(tap(entities => {
   //     this.store.set(entities);

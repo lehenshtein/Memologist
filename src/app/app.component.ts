@@ -5,6 +5,7 @@ import {SwUpdate, VersionReadyEvent} from '@angular/service-worker';
 import {filter} from 'rxjs/operators';
 import { navigatorHelper } from '@shared/helpers/navigator.helper';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
+import { CoreService } from '@app/core/state/core.service';
 
 @Component({
   selector: 'app-root',
@@ -16,13 +17,16 @@ export class AppComponent implements OnInit {
   showFiller = false;
   showSidebar = true;
 
-  constructor(private swUpdate: SwUpdate, public translate: TranslateService, private breakpointObserver: BreakpointObserver) {
+  constructor(private swUpdate: SwUpdate,
+              public translate: TranslateService,
+              private breakpointObserver: BreakpointObserver,
+              private coreService: CoreService
+  ) {
   }
 
   ngOnInit(): void {
-    console.log(navigator);
     (async () => {
-      console.log(await navigatorHelper())
+      this.coreService.addNavigator(await navigatorHelper())
     })();
     this.resize();
     this.translate.use(environment.defaultLocale);

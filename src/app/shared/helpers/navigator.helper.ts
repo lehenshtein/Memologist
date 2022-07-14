@@ -1,5 +1,7 @@
-export async function navigatorHelper () {
-  const unknown = '-';
+import { NavigatorInterface } from '@shared/models/navigator.interface';
+
+export async function navigatorHelper (): Promise<NavigatorInterface> {
+  const unknown = '';
 
   // screen
   let screenSize: {width: string | number, height: string | number} = {
@@ -14,9 +16,9 @@ export async function navigatorHelper () {
   // browser
   let nVer = navigator.appVersion;
   let nAgt = navigator.userAgent;
-  let browser = navigator.appName;
-  let version = '' + parseFloat(navigator.appVersion);
-  let majorVersion = parseInt(navigator.appVersion, 10);
+  let browser: string = navigator.appName;
+  let version: string = '' + parseFloat(navigator.appVersion);
+  let majorVersion: number = parseInt(navigator.appVersion, 10);
   let nameOffset, verOffset, ix;
 
   // Opera
@@ -90,10 +92,10 @@ export async function navigatorHelper () {
   }
 
   // mobile version
-  let mobile = /Mobile|mini|Fennec|Android|iP(ad|od|hone)/.test(nVer);
+  let mobile: boolean = /Mobile|mini|Fennec|Android|iP(ad|od|hone)/.test(nVer);
 
   // cookie
-  let cookieEnabled = (navigator.cookieEnabled);
+  let cookieEnabled: boolean = (navigator.cookieEnabled);
 
   if (typeof navigator.cookieEnabled == 'undefined' && !cookieEnabled) {
     document.cookie = 'testcookie';
@@ -101,7 +103,7 @@ export async function navigatorHelper () {
   }
 
   // system
-  let os = unknown;
+  let os: string = unknown;
   let clientStrings = [
     {s:'Windows 10', r:/(Windows 10.0|Windows NT 10.0)/},
     {s:'Windows 8.1', r:/(Windows 8.1|Windows NT 6.3)/},

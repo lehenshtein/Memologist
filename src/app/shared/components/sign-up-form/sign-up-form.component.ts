@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { take } from 'rxjs';
 import { PostsService } from '@app/main/state/posts.service';
 import { compareValidator } from '@shared/validators/compare.validator';
+import { AuthService } from '@app/core/auth/auth.service';
 
 @Component({
   selector: 'app-sign-up-form',
@@ -16,7 +16,8 @@ export class SignUpFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private postService: PostsService
+    private postService: PostsService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -55,13 +56,23 @@ export class SignUpFormComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
-    console.log(this.form.getRawValue());
+    const form = this.form.getRawValue();
+    console.log(form);
+    const authData = {
+      name: form.login,
+      email: form.email,
+      password: form.password
+    }
 
-    this.postService.add(this.form.getRawValue(), {prepend: true}).pipe(take(1)).subscribe((res: any) => {
-      if(!res['message']) {
-        // this.router.navigate(['/']);
-      }
+    this.authService.register(authData).subscribe(res => {
+      console.log(res);
     })
+
+    // this.postService.add(this.form.getRawValue(), {prepend: true}).pipe(take(1)).subscribe((res: any) => {
+    //   if(!res['message']) {
+    //     // this.router.navigate(['/']);
+    //   }
+    // })
     // this.layoutTestService.createPost(formValue).pipe(take(1)).subscribe(res => {
     //   console.log(res);
     // })

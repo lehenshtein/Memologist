@@ -26,6 +26,9 @@ a {
 //  flex-direction: column;
 //  align-items: flex-start;
 //}
+.page-height {
+  height: calc(100vh - $header-height);
+}
 
 input.mat-input-element, textarea.mat-input-element {
   color: white;

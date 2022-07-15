@@ -1,9 +1,4 @@
 @import './src/assets/scss/variables';
-.example-container {
-  width: 500px;
-  height: 300px;
-  border: 1px solid rgba(0, 0, 0, 0.5);
-}
 
 .example-sidenav-content {
   display: flex;
@@ -12,17 +7,38 @@
   justify-content: center;
 }
 
-.example-sidenav {
+.sidenav {
   padding: 20px;
+  position: fixed;
+  margin-top: $header-height;
+  height: calc(100vh - $header-height);
+  display: flex;
+  flex-direction: column;
+  & ::ng-deep.mat-drawer-inner-container {
+    display: flex;
+    flex-direction: column;
+  }
+  ::ng-deep.mat-card {
+    box-shadow: none;
+  }
+  & .version {
+    color: $light;
+    margin-top: auto;
+    font-size: .6rem;
+  }
 }
+.drawer {
+  margin-top: $header-height;
+}
+
 .wrapper {
   width: 100%;
   max-width: 1200px;
+  height: calc(100vh - $header-height);
   margin: 0 auto;
 }
 
 .content-wrapper {
-  margin-top: 64px;
   display: flex;
   justify-content: space-between;
   padding: 20px 30px;

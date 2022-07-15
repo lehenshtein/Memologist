@@ -1,5 +1,5 @@
 <mat-toolbar color="primary" class="header">
-  <button mat-icon-button>
+  <button mat-icon-button (click)="toggleMenu.emit();">
     <mat-icon>menu</mat-icon>
   </button>
   <a [routerLink]="'/'">{{title}}</a>

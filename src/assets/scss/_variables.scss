@@ -1,5 +1,17 @@
+:root {
+  --header-height: 64px;
+}
+$header-height: var(--header-height);
 $breakpoint-sidebar: 1024px;
+$breakpoint-M: 600px;
 $content-size: 700px;
 $padding-default: 15px;
 
 $white: #fff;
+$light: #7c7c7c;
+
+@media screen and (max-width: $breakpoint-M) {
+  :root {
+    --header-height: 56px;
+  }
+}

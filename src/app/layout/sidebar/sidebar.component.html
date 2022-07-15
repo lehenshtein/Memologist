@@ -1,9 +1,11 @@
 <div class="wrapper">
   <button mat-raised-button color="accent" class="button-space"
+          (click)="closeMenu.emit()"
           [routerLink]="['auth', 'sign-in']"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{exact: true}">{{'Common.signIn' | translate}}</button>
   <button mat-raised-button color="accent" class="button-space"
+          (click)="closeMenu.emit()"
           [routerLink]="['auth', 'sign-up']"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{exact: true}">{{'Common.signUp' | translate}}</button>

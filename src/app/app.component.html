@@ -1,24 +1,15 @@
-<app-header [title]="'Memologist' | translate" (changeLang)="onChangeLang()"></app-header>
-<div class="wrapper">
-  <div class="content-wrapper">
-    <router-outlet></router-outlet>
-    <app-sidebar *ngIf="showSidebar"></app-sidebar>
+<app-header (toggleMenu)="drawer.toggle()" [title]="'Memologist' | translate" (changeLang)="onChangeLang()"></app-header>
+
+<mat-drawer-container class="drawer">
+  <mat-drawer #drawer class="sidenav" mode="push">
+    <app-sidebar (closeMenu)="drawer.close()"></app-sidebar>
+    <small class="version">v-0.0.7</small>
+  </mat-drawer>
+
+  <div class="wrapper">
+    <div class="content-wrapper">
+      <router-outlet></router-outlet>
+      <app-sidebar *ngIf="showSidebar"></app-sidebar>
+    </div>
   </div>
-</div>
-<!--<mat-drawer-container class="example-container" autosize>-->
-<!--  <mat-drawer #drawer class="example-sidenav" mode="side">-->
-<!--    <p>Auto-resizing sidenav</p>-->
-<!--    <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>-->
-<!--    <button (click)="showFiller = !showFiller" mat-raised-button>-->
-<!--      Toggle extra text-->
-<!--    </button>-->
-<!--  </mat-drawer>-->
-
-<!--  <div class="example-sidenav-content">-->
-<!--    <button type="button" mat-button (click)="drawer.toggle()">-->
-<!--      Toggle sidenav-->
-<!--    </button>-->
-<!--  </div>-->
-
-<!--</mat-drawer-container>-->
-Version - 6
+</mat-drawer-container>

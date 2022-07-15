@@ -10,6 +10,6 @@ export class AuthService {
   constructor(private http: HttpClient) { }
   register(data: any): Observable<any> {
     console.log(data);
-    return this.http.post<any>(`http://localhost:3000/auth/register`, data);
+    return this.http.post<any>(`https://memologist.herokuapp.com/auth/register`, data);
   }
 }

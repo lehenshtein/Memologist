@@ -5,6 +5,7 @@
     </section>
     <section>
       <button mat-raised-button color="accent" class="button-space"
+              (click)="closeMenu.emit()"
               [routerLink]="['create-post']"
               routerLinkActive="active"
               [routerLinkActiveOptions]="{exact: true}">

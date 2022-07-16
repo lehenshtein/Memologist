@@ -33,12 +33,12 @@ export class AuthService {
   }
 
   setAllUserData(token: string | null) {
+    this.setToken = token;
     this.setAuthentication();
     this.updateStoreUserToken(token);
     if (token) {
       localStorage.setItem('auth-token', token);
     }
-    this.setToken = token;
   }
 
   setAuthentication(): void {

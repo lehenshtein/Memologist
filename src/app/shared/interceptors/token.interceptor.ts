@@ -16,6 +16,8 @@ export class TokenInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    console.log(this.coreQuery.isAuthenticated);
+    console.log(this.authService.getToken);
     if (this.coreQuery.isAuthenticated && this.authService.getToken) {
       request = request.clone({
         setHeaders: {

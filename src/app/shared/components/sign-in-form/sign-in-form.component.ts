@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { take } from 'rxjs';
-import { PostsService } from '@app/main/state/posts.service';
+import { UserLoginInterface } from '@shared/models/user.interface';
 
 @Component({
   selector: 'app-sign-in-form',
@@ -9,13 +8,13 @@ import { PostsService } from '@app/main/state/posts.service';
   styleUrls: ['./sign-in-form.component.scss']
 })
 export class SignInFormComponent implements OnInit {
+  @Output() onSubmit = new EventEmitter<UserLoginInterface>();
   form!: FormGroup;
   passPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]/;
   showPass = false;
 
   constructor(
-    private fb: FormBuilder,
-    private postService: PostsService
+    private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
@@ -28,13 +27,13 @@ export class SignInFormComponent implements OnInit {
 
   private initForm() {
     this.form = this.fb.group({
-      login: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+      email: ['', [Validators.required, Validators.email, Validators.minLength(8), Validators.maxLength(50)]],
       password: ['', [Validators.required, Validators.pattern(this.passPattern), Validators.minLength(8), Validators.maxLength(40)]]
     });
   }
 
-  get formLogin() {
-    return this.form.get('login') as FormControl;
+  get formEmail() {
+    return this.form.get('email') as FormControl;
   }
   get formPassword() {
     return this.form.get('password') as FormControl;
@@ -44,15 +43,6 @@ export class SignInFormComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
-    console.log(this.form.getRawValue());
-
-    this.postService.add(this.form.getRawValue(), {prepend: true}).pipe(take(1)).subscribe((res: any) => {
-      if(!res['message']) {
-        // this.router.navigate(['/']);
-      }
-    })
-    // this.layoutTestService.createPost(formValue).pipe(take(1)).subscribe(res => {
-    //   console.log(res);
-    // })
+    this.onSubmit.emit(this.form.getRawValue());
   }
 }

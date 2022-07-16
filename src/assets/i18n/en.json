@@ -4,6 +4,8 @@
     "update": "New version available. Load new version?"
   },
   "Common": {
+    "hello": "Hello",
+    "guest": "Guest",
     "created": "created at: ",
     "loading": "Loading",
     "notFound": "Not Found",
@@ -15,7 +17,8 @@
   },
   "Forms": {
     "Buttons": {
-      "post": "Post"
+      "post": "Post",
+      "logout": "Logout"
     },
     "Auth": {
       "Login": {

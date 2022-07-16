@@ -7,7 +7,7 @@ export interface UserPostInterface {
 
 export interface UserInterface {
   _id: ID,
-  username: string,
+  name: string,
   email: string,
   role: 'superAdmin' | 'admin' | 'moderator' | 'user',
   rate: number,
@@ -23,4 +23,20 @@ interface UserOptionsInterface {
   locale: string,
   showContent: 'en' | 'ua' | 'all',
   nsfw: boolean
+}
+
+export interface UserLoginInterface {
+  email: string,
+  password: string
+}
+
+export interface UserRegisterInterface extends UserLoginInterface {
+  name: string
+}
+
+export interface UserTokenInterface {
+  name: string | null,
+  email: string | null,
+  expirationDate: Date | null,
+  tokenExpired: boolean
 }

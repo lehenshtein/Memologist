@@ -6,6 +6,7 @@ import {filter} from 'rxjs/operators';
 import { navigatorHelper } from '@shared/helpers/navigator.helper';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { CoreService } from '@app/core/state/core.service';
+import { AuthService } from '@app/core/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -20,11 +21,13 @@ export class AppComponent implements OnInit {
   constructor(private swUpdate: SwUpdate,
               public translate: TranslateService,
               private breakpointObserver: BreakpointObserver,
-              private coreService: CoreService
+              private coreService: CoreService,
+              private authService: AuthService
   ) {
   }
 
   ngOnInit(): void {
+    this.isLoggedIn();
     (async () => {
       this.coreService.addNavigator(await navigatorHelper())
     })();
@@ -34,7 +37,24 @@ export class AppComponent implements OnInit {
     this.checkSw();
   }
 
-  resize() {
+  onChangeLang(): void {
+    if (this.translate.currentLang === environment.defaultLocale) {
+      this.translate.use(environment.locales.en);
+      return;
+    }
+    this.translate.use(environment.defaultLocale);
+  }
+
+  private isLoggedIn() {
+    const potentialToken = localStorage.getItem('auth-token');
+    if (potentialToken) {
+      this.authService.setToken = potentialToken;
+      this.authService.updateStoreUserToken(potentialToken);
+      this.authService.setAuthentication();
+    }
+  };
+
+  private resize() {
     this.breakpointObserver.observe([
       "(max-width: 900px)",
       "(max-width: 1024px)"
@@ -49,12 +69,10 @@ export class AppComponent implements OnInit {
     });
   }
 
-  onChangeLang(): void {
-    if (this.translate.currentLang === environment.defaultLocale) {
-      this.translate.use(environment.locales.en);
-      return;
-    }
-    this.translate.use(environment.defaultLocale);
+  private translateMsg(): void {
+    this.translate.stream('Messages').subscribe(() => {
+      this.updateMessage = this.translate.instant('Messages.update');
+    })
   }
 
   private checkSw(): void {
@@ -73,12 +91,6 @@ export class AppComponent implements OnInit {
       if (confirm(this.updateMessage)) {
         window.location.reload();
       }
-    })
-  }
-
-  private translateMsg(): void {
-    this.translate.stream('Messages').subscribe(() => {
-      this.updateMessage = this.translate.instant('Messages.update');
     })
   }
 }

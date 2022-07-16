@@ -6,7 +6,9 @@
   align-items: center;
   justify-content: center;
 }
-
+::ng-deep .mat-drawer-backdrop.mat-drawer-shown {
+  background-color: rgba(65, 65, 65, 0.7);
+}
 .sidenav {
   padding: 20px;
   position: fixed;
@@ -21,6 +23,7 @@
   ::ng-deep.mat-card {
     box-shadow: none;
   }
+
   & .version {
     color: $light;
     margin-top: auto;
@@ -44,6 +47,12 @@
   padding: 20px 30px;
   app-sidebar {
     padding-left: 10px;
+  }
+}
+
+@media screen and (max-width: $breakpoint-M) {
+  .content-wrapper {
+    padding: 10px 0;
   }
 }
 @media screen and (max-width: $breakpoint-sidebar) {

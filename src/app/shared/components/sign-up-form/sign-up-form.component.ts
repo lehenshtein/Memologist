@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { PostsService } from '@app/main/state/posts.service';
 import { compareValidator } from '@shared/validators/compare.validator';
-import { AuthService } from '@app/core/auth/auth.service';
+import { UserRegisterInterface } from '@shared/models/user.interface';
 
 @Component({
   selector: 'app-sign-up-form',
@@ -10,14 +9,13 @@ import { AuthService } from '@app/core/auth/auth.service';
   styleUrls: ['./sign-up-form.component.scss']
 })
 export class SignUpFormComponent implements OnInit {
+  @Output() onSubmit = new EventEmitter<UserRegisterInterface>();
   form!: FormGroup;
   passPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]/;
   showPass = false;
 
   constructor(
-    private fb: FormBuilder,
-    private postService: PostsService,
-    private authService: AuthService
+    private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
@@ -57,16 +55,12 @@ export class SignUpFormComponent implements OnInit {
       return;
     }
     const form = this.form.getRawValue();
-    console.log(form);
     const authData = {
       name: form.login,
       email: form.email,
       password: form.password
     }
-
-    this.authService.register(authData).subscribe(res => {
-      console.log(res);
-    })
+    this.onSubmit.emit(authData);
 
     // this.postService.add(this.form.getRawValue(), {prepend: true}).pipe(take(1)).subscribe((res: any) => {
     //   if(!res['message']) {

@@ -1,21 +1,22 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MissingTranslationService } from '@app/core/services/missing-translation.service';
 
+import { LayoutModule } from '@app/layout/layout.module';
+import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
+import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { MissingTranslationHandler, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { environment } from '@environment/environment';
+import { SharedModule } from '@shared/shared.module';
+import { TokenInterceptor } from '@shared/interceptors/token.interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {AkitaNgDevtools} from '@datorama/akita-ngdevtools';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {ReactiveFormsModule} from '@angular/forms';
-import {LayoutModule} from '@app/layout/layout.module';
-import {environment} from '@environment/environment';
-import {MissingTranslationHandler, TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {MissingTranslationService} from '@app/core/services/missing-translation.service';
-import { SharedModule } from '@shared/shared.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
     HttpClientModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    NgxSpinnerModule.forRoot({ type: 'pacman' }),
+    NgxSpinnerModule.forRoot({type: 'pacman'}),
     environment.production ? [] : AkitaNgDevtools.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
@@ -50,16 +51,22 @@ import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
   ],
   providers: [
     {
+      provide: HTTP_INTERCEPTORS,
+      multi: true,
+      useClass: TokenInterceptor
+    },
+    {
       provide: NG_ENTITY_SERVICE_CONFIG,
       useValue: {
         baseUrl: environment.apiUrl
       }
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent ]
 })
-export class AppModule { }
+export class AppModule {
+}
 
-export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
+export function HttpLoaderFactory (http: HttpClient): TranslateLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }

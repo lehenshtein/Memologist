@@ -1,13 +1,36 @@
 <div class="wrapper">
-  <button mat-raised-button color="accent" class="button-space"
-          (click)="closeMenu.emit()"
-          [routerLink]="['auth', 'sign-in']"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{exact: true}">{{'Common.signIn' | translate}}</button>
-  <button mat-raised-button color="accent" class="button-space"
-          (click)="closeMenu.emit()"
-          [routerLink]="['auth', 'sign-up']"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{exact: true}">{{'Common.signUp' | translate}}</button>
+  <ng-container *ngIf="userName$ | async as userName else notAuthenticated">
+    <section class="user-data">
+      <span>{{'Common.hello' | translate}}: <b *ngIf="userName">{{userName}}</b></span>
+    </section>
+    <section>
+      <button mat-raised-button color="accent" class="button-space"
+              [routerLink]="['create-post']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact: true}">
+        {{'Forms.Buttons.post' | translate}}
+      </button>
+      <button mat-stroked-button color="warn" class="button-space"
+              (click)="logout()">
+        {{'Forms.Buttons.logout' | translate}}
+      </button>
+    </section>
+  </ng-container>
+
+  <ng-template #notAuthenticated>
+    <section class="user-data">
+      <span>{{'Common.hello' | translate}}: <b>{{'Common.guest' | translate}}</b></span>
+    </section>
+    <button mat-raised-button color="accent" class="button-space"
+            (click)="closeMenu.emit()"
+            [routerLink]="['auth', 'sign-in']"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}">{{'Common.signIn' | translate}}</button>
+    <button mat-raised-button color="accent" class="button-space"
+            (click)="closeMenu.emit()"
+            [routerLink]="['auth', 'sign-up']"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}">{{'Common.signUp' | translate}}</button>
+  </ng-template>
   <app-create-post-form></app-create-post-form>
 </div>

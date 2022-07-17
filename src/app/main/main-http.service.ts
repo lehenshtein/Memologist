@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '@environment/environment';
 import { HttpClient } from '@angular/common/http';
 import { ID } from '@datorama/akita';
 
@@ -8,7 +7,6 @@ import { ID } from '@datorama/akita';
   providedIn: 'root'
 })
 export class MainHttpService {
-  url = environment.testApiUrl;
 
   constructor(private http: HttpClient) { }
   // getPosts(): Observable<PostInterfaceGet[]> {
@@ -18,6 +16,6 @@ export class MainHttpService {
   //   return this.http.get<PostInterfaceGet>(`${this.url}posts/${id}`);
   // }
   deletePost(id: ID): Observable<string> {
-    return this.http.delete<string>(`${this.url}/posts/${id}`)
+    return this.http.delete<string>(`/posts/${id}`)
   }
 }

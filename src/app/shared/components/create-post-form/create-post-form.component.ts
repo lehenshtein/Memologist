@@ -28,8 +28,7 @@ export class CreatePostFormComponent implements OnInit {
       title: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(30)]],
       text: ['', [Validators.required, Validators.minLength(20), Validators.maxLength(2000)]],
       tags: ['', Validators.maxLength(100)],
-      imgUrl: [null, [Validators.pattern(this.urlPattern), Validators.maxLength(120)]],
-      author: ['62c98cdcf9a8287650a18942', Validators.required]
+      imgUrl: [null, [Validators.pattern(this.urlPattern), Validators.maxLength(120)]]
     });
   }
 
@@ -64,7 +63,6 @@ export class CreatePostFormComponent implements OnInit {
     this.postService.add(formValue, {prepend: true}).pipe(take(1)).subscribe((res: any) => {
       if(!res['message']) {
         this.form.reset();
-        this.form.get('author')?.setValue('62c98cdcf9a8287650a18942');
         Object.keys(this.form.controls).forEach(key => {
           this.form.get(key)!.setErrors(null) ;
         });

@@ -1,4 +1,4 @@
-import { Meta } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { environment } from '@environment/environment';
 import { Injectable } from '@angular/core';
 
@@ -15,7 +15,14 @@ export interface MetaInterface {
 })
 export class MetaHelper {
 
-  constructor (private meta: Meta) {
+  constructor (private meta: Meta, private title: Title) {
+  }
+  resetTitle(){
+    this.title.setTitle('Мемолог');
+  }
+
+  updateTitle(title: string){
+    this.title.setTitle(title);
   }
 
   resetMeta () {

@@ -17,6 +17,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { SignInFormComponent } from '@shared/components/sign-in-form/sign-in-form.component';
 import { SignUpFormComponent } from '@shared/components/sign-up-form/sign-up-form.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 const material = [
   MatToolbarModule,
@@ -27,7 +28,8 @@ const material = [
   MatFormFieldModule,
   MatSidenavModule,
   MatInputModule,
-  MatDialogModule
+  MatDialogModule,
+  MatButtonToggleModule
 ]
 const components = [
   CreatePostFormComponent,

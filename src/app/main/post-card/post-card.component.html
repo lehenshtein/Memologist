@@ -6,22 +6,41 @@
       <ng-template #notClickable>
         <mat-card-title #notClickable>{{item.title}}</mat-card-title>
       </ng-template>
-      <mat-card-subtitle>{{item.author.name}} {{'Common.created' | translate}} {{item.createdAt | date:'dd.MM.yyyy'}}</mat-card-subtitle>
+      <mat-card-subtitle>{{item.author.name}}</mat-card-subtitle>
+      <mat-card-subtitle>{{'Common.created' | translate}} {{item.createdAt | date:'dd.MM.yyyy'}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       {{item.text}}
     </mat-card-content>
     <img *ngIf="item.imgUrl" mat-card-image [src]="item.imgUrl" alt="Photo" (click)="openImage(item.imgUrl)">
 
-    <mat-card-actions class="social" [align]="'end'">
-      <button class="telegram" mat-mini-fab (click)="share('telegram')">
-        <img src="./assets/svg/icons8-telegram-app.svg" alt="share">
-      </button>
-    </mat-card-actions>
-
     <mat-card-actions>
       <button mat-button *ngFor="let tag of item.tags">{{tag}}</button>
     </mat-card-actions>
+
+    <mat-card-footer class="footer">
+      <div class="social">
+        <button class="telegram" mat-mini-fab (click)="share('telegram')">
+          <img src="./assets/svg/icons8-telegram-app.svg" alt="share">
+        </button>
+      </div>
+
+      <div class="rate">
+        <mat-button-toggle-group multiple (change)="toggleButtons($event)" aria-label="rate">
+
+          <mat-button-toggle class="like" [checked]="markedAs === 'liked'" (click)="mark('liked')">
+            <mat-icon>play_arrow</mat-icon>
+          </mat-button-toggle>
+
+          <mat-button-toggle class="score" disabled>{{ score }}</mat-button-toggle>
+
+          <mat-button-toggle class="dislike" [checked]="markedAs === 'disliked'" (click)="mark('disliked')">
+            <mat-icon color="warn">play_arrow</mat-icon>
+          </mat-button-toggle>
+
+        </mat-button-toggle-group>
+      </div>
+    </mat-card-footer>
   </ng-container>
 
   <ng-template #loading>

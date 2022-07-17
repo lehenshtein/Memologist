@@ -1,4 +1,6 @@
-<app-post-card *ngIf="item$ | async as item else notFound" [item]="item" [mainPage]="false"></app-post-card>
+<p>
+  <app-post-card *ngIf="item$ | async as item else notFound" [item]="item" [mainPage]="false"></app-post-card>
+</p>
 <ng-template #notFound>
   <p class="notification-text">
     {{'Common.notFound' | translate}}

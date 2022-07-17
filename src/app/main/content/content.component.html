@@ -1,6 +1,15 @@
-<div *ngIf="data$ | async as data" class="wrapper">
+<!--if there is no data or only 1 item in store, ask server.-->
+<div *ngIf="data && data.length > 1 else asyncTemplate" class="wrapper">
   <p *ngFor="let item of data" class="content-block">
     <app-post-card [item]="item"></app-post-card>
     <button *ngIf="devEnv" mat-raised-button color="warn" (click)="delete(item._id)">Delete</button>
   </p>
 </div>
+<ng-template #asyncTemplate>
+  <div *ngIf="data$ | async as data" class="wrapper">
+    <p *ngFor="let item of data" class="content-block">
+      <app-post-card [item]="item"></app-post-card>
+      <button *ngIf="devEnv" mat-raised-button color="warn" (click)="delete(item._id)">Delete</button>
+    </p>
+  </div>
+</ng-template>

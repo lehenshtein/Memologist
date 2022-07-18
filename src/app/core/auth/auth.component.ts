@@ -3,8 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '@app/core/auth/auth.service';
 import { UserLoginInterface, UserRegisterInterface } from '@shared/models/user.interface';
 import { UnsubscribeAbstract } from '@shared/helpers/unsubscribe.abstract';
-import { catchError, takeUntil, throwError } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
+import { takeUntil } from 'rxjs';
 
 export type authPagesTypes = 'sign-in' | 'sign-up';
 
@@ -26,9 +25,6 @@ export class AuthComponent extends UnsubscribeAbstract implements OnInit {
   login(data: UserLoginInterface) {
     this.authService.login(data).pipe(
       takeUntil(this.ngUnsubscribe$),
-      catchError((err: HttpErrorResponse) => {
-        return throwError(() => err);
-      })
     ).subscribe(() => {
       this.router.navigate(['/']);
     })
@@ -36,9 +32,6 @@ export class AuthComponent extends UnsubscribeAbstract implements OnInit {
   register(data: UserRegisterInterface) {
     this.authService.register(data).pipe(
       takeUntil(this.ngUnsubscribe$),
-      catchError((err: HttpErrorResponse) => {
-        return throwError(() => err);
-      })
     ).subscribe(() => {
       this.router.navigate(['/']);
     })

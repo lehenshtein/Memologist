@@ -2,7 +2,7 @@
   <ng-container *ngIf="item; else loading">
     <mat-card-header>
       <!--        <div mat-card-avatar class="example-header-image"></div>-->
-      <mat-card-title *ngIf="mainPage else notClickable" [routerLink]="[item._id]">{{item.title}}</mat-card-title>
+      <mat-card-title *ngIf="mainPage else notClickable"><a [routerLink]="[item._id]" target="_blank">{{item.title}}</a></mat-card-title>
       <ng-template #notClickable>
         <mat-card-title #notClickable>{{item.title}}</mat-card-title>
       </ng-template>

@@ -9,10 +9,8 @@ import { CoreQuery } from '@app/core/state/core.query';
 import { MetaHelper } from '@shared/helpers/meta.helper';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
 import { PostsService } from '@app/main/state/posts.service';
-import { PostsStore } from '@app/main/state/posts.store';
 import { ID } from '@datorama/akita';
-import { catchError, takeUntil, throwError } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
+import { takeUntil } from 'rxjs';
 import { UnsubscribeAbstract } from '@shared/helpers/unsubscribe.abstract';
 
 @Component({
@@ -117,9 +115,6 @@ export class PostCardComponent extends UnsubscribeAbstract implements OnInit {
   }
   private sendMarkRequest(id: ID, markType: marks) {
     this.postsService.changeScore(id, markType).pipe(
-      takeUntil(this.ngUnsubscribe$),
-      catchError((err: HttpErrorResponse) => {
-        return throwError(() => err);
-      })).subscribe();
+      takeUntil(this.ngUnsubscribe$)).subscribe();
   }
 }

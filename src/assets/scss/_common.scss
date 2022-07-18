@@ -1,0 +1,70 @@
+@import './src/assets/scss/variables';
+
+.dark-snackbar {
+  background-color: $extraDark;
+  color: $white;
+  &--border {
+    border-radius: 12px!important;
+  }
+}
+
+.d-block {
+  display: block !important;
+}
+
+.d-i-block {
+  display: inline-block !important;
+}
+
+.d-flex {
+  display: -ms-flexbox !important;
+  display: flex !important;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.m-l-0 {
+  margin-left: 0 !important;
+}
+
+.m-r-5 {
+  margin-right: 5px;
+}
+
+.m-r-10 {
+  margin-right: 10px;
+}
+
+.m-b-5 {
+  margin-bottom: 5px;
+}
+
+.m-b-10 {
+  margin-bottom: 10px;
+}
+
+.p-r-10 {
+  padding-right: 10px;
+}
+
+.p-r-25 {
+  padding-right: 25px;
+}
+
+.position-relative {
+  position: relative !important;
+}
+
+.position-absolute {
+  position: absolute !important;
+}
+
+.position-fixed {
+  position: fixed !important;
+}

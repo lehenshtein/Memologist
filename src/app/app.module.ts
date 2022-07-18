@@ -17,6 +17,7 @@ import { TokenInterceptor } from '@shared/interceptors/token.interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ErrorInterceptor } from '@shared/interceptors/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,11 @@ import { NgxSpinnerModule } from 'ngx-spinner';
       provide: HTTP_INTERCEPTORS,
       multi: true,
       useClass: TokenInterceptor
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      multi: true,
+      useClass: ErrorInterceptor
     },
     {
       provide: NG_ENTITY_SERVICE_CONFIG,

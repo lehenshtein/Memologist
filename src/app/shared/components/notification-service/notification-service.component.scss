@@ -1,0 +1,27 @@
+@import './src/assets/scss/variables';
+b {
+  font-weight: 500;
+  color: $light;
+}
+
+.success {
+  mat-icon {
+    color: $green;
+  }
+}
+
+.error {
+  mat-icon {
+    color: $warn;
+  }
+}
+
+.info {
+  mat-icon {
+    color: $accent;
+  }
+}
+
+mat-icon {
+  font-size: 22px;
+}

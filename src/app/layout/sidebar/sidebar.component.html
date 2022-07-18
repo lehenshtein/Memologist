@@ -1,7 +1,8 @@
 <div class="wrapper">
+  <mat-card>
   <ng-container *ngIf="userName$ | async as userName else notAuthenticated">
     <section class="user-data">
-      <span>{{'Common.hello' | translate}}: <b *ngIf="userName">{{userName}}</b></span>
+      <span class="d-i-block m-b-10">{{'Common.hello' | translate}}: <b *ngIf="userName">{{userName}}</b></span>
     </section>
     <section>
       <button mat-raised-button color="accent" class="button-space"
@@ -20,7 +21,7 @@
 
   <ng-template #notAuthenticated>
     <section class="user-data">
-      <span>{{'Common.hello' | translate}}: <b>{{'Common.guest' | translate}}</b></span>
+      <span class="d-i-block m-b-10">{{'Common.hello' | translate}}: <b>{{'Common.guest' | translate}}</b></span>
     </section>
     <button mat-raised-button color="accent" class="button-space"
             (click)="closeMenu.emit()"
@@ -33,5 +34,9 @@
             routerLinkActive="active"
             [routerLinkActiveOptions]="{exact: true}">{{'Common.signUp' | translate}}</button>
   </ng-template>
-  <app-create-post-form></app-create-post-form>
+  <button mat-icon-button class="favorite-icon" (click)="changeLang.emit()">
+    <mat-icon>language</mat-icon>
+  </button>
+<!--  <app-create-post-form></app-create-post-form>-->
+  </mat-card>
 </div>

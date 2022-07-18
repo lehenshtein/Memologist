@@ -1,8 +1,8 @@
 <mat-toolbar color="primary" class="header">
-  <button mat-icon-button (click)="toggleMenu.emit();">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <a [routerLink]="'/'">{{title}}</a>
+  <a [routerLink]="'/'" class="logo-block">
+    <img src="./assets/oldicons/icon-72x72.png" alt="logo">
+    <span>{{title}}</span>
+  </a>
   <span class="spacer"></span>
   <button mat-raised-button color="accent" class="button-space"
           [routerLink]="['create-post']"
@@ -10,8 +10,8 @@
           [routerLinkActiveOptions]="{exact: true}">
     {{'Forms.Buttons.post' | translate}}
   </button>
-  <button mat-icon-button class="favorite-icon" (click)="changeLang.emit()">
-    <mat-icon>language</mat-icon>
+  <button mat-icon-button (click)="toggleMenu.emit();" class="menu-btn">
+    <mat-icon>menu</mat-icon>
   </button>
   <!--  <button mat-icon-button>-->
   <!--    <mat-icon>share</mat-icon>-->

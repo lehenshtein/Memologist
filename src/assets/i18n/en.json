@@ -59,6 +59,13 @@
       }
     }
   },
+  "Notifications": {
+    "success": "Success",
+    "error": "Error",
+    "updated": "updated",
+    "created": "created",
+    "deleted": "deleted"
+  },
   "Validations": {
     "required": "This field is required",
     "minLength": "Min length is: ",

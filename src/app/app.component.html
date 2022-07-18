@@ -1,15 +1,23 @@
-<app-header (toggleMenu)="drawer.toggle()" [title]="'Memologist' | translate" (changeLang)="onChangeLang()"></app-header>
+<app-header (toggleMenu)="drawer.toggle()" [title]="'Memologist' | translate"></app-header>
 
-<mat-drawer-container class="drawer">
-  <mat-drawer #drawer class="sidenav" mode="push">
-    <app-sidebar (closeMenu)="drawer.close()"></app-sidebar>
-    <small class="version">v-0.0.8</small>
-  </mat-drawer>
+  <mat-drawer-container class="drawer" #scrollable>
+    <mat-drawer #drawer class="sidenav" mode="push" position="end">
+      <app-sidebar (changeLang)="onChangeLang()" (closeMenu)="drawer.close()"></app-sidebar>
+      <small class="version">v-0.0.8</small>
+    </mat-drawer>
+    <div class="wrapper">
+      <div class="content-wrapper">
+        <router-outlet></router-outlet>
+        <aside [ngStyle]="{width: '330px'}" *ngIf="showSidebar">
+          <app-sidebar (changeLang)="onChangeLang()" class="position-fixed"></app-sidebar>
+        </aside>
+      </div>
 
-  <div class="wrapper">
-    <div class="content-wrapper">
-      <router-outlet></router-outlet>
-      <app-sidebar *ngIf="showSidebar"></app-sidebar>
+      <button mat-fab *ngIf="showToTop" color="primary" (click)="scrollToTop()" class="to-top">
+        <mat-icon>keyboard_arrow_up</mat-icon>
+      </button>
     </div>
-  </div>
-</mat-drawer-container>
+  </mat-drawer-container>
+
+
+

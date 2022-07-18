@@ -59,6 +59,13 @@
       }
     }
   },
+  "Notifications": {
+    "success": "Успішно",
+    "error": "Помилка",
+    "updated": "оновлено",
+    "created": "створено",
+    "deleted": "видалено"
+  },
   "Validations": {
     "required": "Це поле обов'язкове",
     "minLength": "Мінімальна довжина: ",

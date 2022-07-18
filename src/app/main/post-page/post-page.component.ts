@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MainHttpService } from '@app/main/main-http.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { UnsubscribeAbstract } from '@shared/helpers/unsubscribe.abstract';
-import { catchError, EMPTY, Observable, of, switchMap, takeUntil, throwError } from 'rxjs';
+import { EMPTY, Observable, of, switchMap, takeUntil } from 'rxjs';
 
 import { PostInterfaceGet } from '@shared/models/post.interface';
 import { PostsQuery } from '@app/main/state/posts.query';
-import { HttpErrorResponse } from '@angular/common/http';
 import { PostsService } from '@app/main/state/posts.service';
 
 @Component({
@@ -33,10 +32,7 @@ export class PostPageComponent extends UnsubscribeAbstract implements OnInit {
       if (this.query.getPost(params['id'])) { // check if post exists in store
         return of(this.query.getPost(params['id']));
       }
-      return this.postService.get<PostInterfaceGet>(params['id'],{skipWrite: true}).pipe( // if no => request
-        catchError((err: HttpErrorResponse) => {
-          return throwError(() => err);
-        }))
+      return this.postService.get<PostInterfaceGet>(params['id'],{skipWrite: true}) // if no => request
     })
   );
 

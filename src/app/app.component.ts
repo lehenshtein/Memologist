@@ -1,35 +1,39 @@
-import {Component, OnInit} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
-import {environment} from '@environment/environment';
-import {SwUpdate, VersionReadyEvent} from '@angular/service-worker';
-import {filter} from 'rxjs/operators';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { environment } from '@environment/environment';
+import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
+import { filter, throttleTime } from 'rxjs/operators';
 import { navigatorHelper } from '@shared/helpers/navigator.helper';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { CoreService } from '@app/core/state/core.service';
 import { AuthService } from '@app/core/auth/auth.service';
+import { MatDrawerContainer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: [ './app.component.scss' ]
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
+  @ViewChild('scrollable') scrollable!: MatDrawerContainer;
   updateMessage = this.translate.instant('Messages.update');
   showFiller = false;
   showSidebar = true;
+  showToTop = false;
 
-  constructor(private swUpdate: SwUpdate,
-              public translate: TranslateService,
-              private breakpointObserver: BreakpointObserver,
-              private coreService: CoreService,
-              private authService: AuthService
+  constructor (private swUpdate: SwUpdate,
+                public translate: TranslateService,
+                private breakpointObserver: BreakpointObserver,
+                private coreService: CoreService,
+                private authService: AuthService,
+                private ref: ChangeDetectorRef
   ) {
   }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
     this.isLoggedIn();
     (async () => {
-      this.coreService.addNavigator(await navigatorHelper())
+      this.coreService.addNavigator(await navigatorHelper());
     })();
     this.resize();
     this.translate.use(environment.defaultLocale);
@@ -37,7 +41,19 @@ export class AppComponent implements OnInit {
     this.checkSw();
   }
 
-  onChangeLang(): void {
+  ngAfterViewInit (): void {
+    this.scrollable.scrollable.elementScrolled().pipe(
+      throttleTime(300)
+    ).subscribe(res => {
+      this.showToTop = this.scrollable.scrollable.getElementRef().nativeElement.scrollTop > 1000;
+      this.ref.detectChanges();
+    });
+  }
+  scrollToTop() {
+    this.scrollable.scrollable.getElementRef().nativeElement.scrollTo({left: 0, top: 0, behavior: 'smooth'});
+  }
+
+  onChangeLang (): void {
     if (this.translate.currentLang === environment.defaultLocale) {
       this.translate.use(environment.locales.en);
       return;
@@ -45,7 +61,7 @@ export class AppComponent implements OnInit {
     this.translate.use(environment.defaultLocale);
   }
 
-  private isLoggedIn() {
+  private isLoggedIn () {
     const potentialToken = localStorage.getItem('auth-token');
     if (potentialToken) {
       this.authService.setToken = potentialToken;
@@ -54,10 +70,10 @@ export class AppComponent implements OnInit {
     }
   };
 
-  private resize() {
+  private resize () {
     this.breakpointObserver.observe([
-      "(max-width: 900px)",
-      "(max-width: 1024px)"
+      '(max-width: 900px)',
+      '(max-width: 1024px)'
     ]).subscribe((result: BreakpointState) => {
       if (result.breakpoints['(max-width: 1024px)']) {
         this.showSidebar = false;
@@ -69,13 +85,13 @@ export class AppComponent implements OnInit {
     });
   }
 
-  private translateMsg(): void {
+  private translateMsg (): void {
     this.translate.stream('Messages').subscribe(() => {
       this.updateMessage = this.translate.instant('Messages.update');
-    })
+    });
   }
 
-  private checkSw(): void {
+  private checkSw (): void {
     if (!this.swUpdate.isEnabled) {//if no service worker
       return;
     }
@@ -91,6 +107,6 @@ export class AppComponent implements OnInit {
       if (confirm(this.updateMessage)) {
         window.location.reload();
       }
-    })
+    });
   }
 }

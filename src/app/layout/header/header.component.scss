@@ -4,7 +4,22 @@
   top: 0;
   z-index: 1000;
 }
+.logo-block {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  & img {
+    height: 100%;
+    margin-right: 16px;
+  }
+}
 
 .button-space {
   margin-right: $padding-default;
+}
+
+@media screen and (min-width: calc($breakpoint-sidebar + 1px)) {
+  .menu-btn {
+    display: none;
+  }
 }

@@ -16,7 +16,6 @@ export class AuthService {
 
   constructor(private http: HttpClient, private coreService: CoreService) { }
   register(data: UserRegisterInterface): Observable<{token: string}> {
-    console.log(data);
     return this.http.post<{token: string}>(`${environment.apiUrl}/auth/register`, data).pipe(
       tap(({token}) => {
         this.setAllUserData(token)

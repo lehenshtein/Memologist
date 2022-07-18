@@ -8,6 +8,7 @@ import { AuthService } from '@app/core/auth/auth.service';
   styleUrls: [ './sidebar.component.scss' ]
 })
 export class SidebarComponent implements OnInit {
+  @Output() changeLang: EventEmitter<any> = new EventEmitter<any>();
   @Output() closeMenu: EventEmitter<any> = new EventEmitter<any>();
   // userName: string | null = null;
   userName$ = this.coreQuery.userName$;

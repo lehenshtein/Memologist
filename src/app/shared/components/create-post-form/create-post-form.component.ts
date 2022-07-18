@@ -3,6 +3,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { take } from 'rxjs';
 import { PostsService } from '@app/main/state/posts.service';
 import { Router } from '@angular/router';
+import { NotificationService } from '@shared/services/notification.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-create-post-form',
@@ -16,12 +18,20 @@ export class CreatePostFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private postService: PostsService,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationService,
+    private translate: TranslateService
   ) { }
 
   ngOnInit(): void {
     this.initForm();
   }
+
+  // private translateMsg(): void {
+  //   this.translate.stream('Messages').subscribe(() => {
+  //     this.updateMessage = this.translate.instant('Messages.update');
+  //   })
+  // }
 
   private initForm() {
     this.form = this.fb.group({
@@ -68,6 +78,8 @@ export class CreatePostFormComponent implements OnInit {
         });
         this.form.updateValueAndValidity();
         // TODO: remove form reset, after changing sidebar
+        this.notificationService.openSnackBar('success',
+          `${this.translate.instant('Notifications.success')} ${this.translate.instant('Notifications.created')}`);
         this.router.navigate(['/']);
       }
     })

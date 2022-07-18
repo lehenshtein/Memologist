@@ -18,6 +18,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { SignInFormComponent } from '@shared/components/sign-in-form/sign-in-form.component';
 import { SignUpFormComponent } from '@shared/components/sign-up-form/sign-up-form.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { NotificationServiceComponent } from '@shared/components/notification-service/notification-service.component';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 const material = [
   MatToolbarModule,
@@ -29,7 +31,8 @@ const material = [
   MatSidenavModule,
   MatInputModule,
   MatDialogModule,
-  MatButtonToggleModule
+  MatButtonToggleModule,
+  MatSnackBarModule
 ]
 const components = [
   CreatePostFormComponent,
@@ -40,6 +43,7 @@ const components = [
 
 @NgModule({
   declarations: [
+    NotificationServiceComponent,
     ...components
   ],
   imports: [

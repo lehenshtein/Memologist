@@ -7,6 +7,7 @@ import {
 } from '@angular/common/http';
 import { delay, mergeMap, Observable, of, retryWhen } from 'rxjs';
 import { NotificationService } from '@shared/services/notification.service';
+import { TranslateService } from '@ngx-translate/core';
 
 export const maxRetries = 1;
 export const delayMs = 3000;
@@ -15,6 +16,9 @@ export const delayMs = 3000;
 export class ErrorInterceptor implements HttpInterceptor {
   get notificationService() {
     return this.injector.get(NotificationService);
+  }
+  get translate() {
+    return this.injector.get(TranslateService);
   }
   constructor(private injector: Injector) {}
 
@@ -27,12 +31,32 @@ export class ErrorInterceptor implements HttpInterceptor {
               this.notificationService.openSnackBar('info', 'Trying again')
               return of(error).pipe(delay(delayMs));
             }
+
+            if (error.status == 401) {
+              this.notificationService.openSnackBar('error', this.translate.instant('Notifications.401'));
+              throw error;
+            }
+
             this.notificationService.openSnackBar('error', error.error && error.error.message
-              ? error.error.message : 'Something went wrong', error.status ? 'Error: ' + error.status : undefined);
+              ? error.error.message
+              : error.error.err && error.error.err.details.length ? this.showAllErrors(error.error.err.details)
+              :'Something went wrong', error.status ? 'Error: ' + error.status : undefined);
             throw error;
           })
         )
       })
     )
+  }
+
+  showAllErrors(messages: { message: string }[]) {
+    let allMessages = '';
+    messages.forEach((msg) => {
+      if (!allMessages) {
+        allMessages += msg.message;
+        return
+      }
+      allMessages += msg.message + '\n';
+    })
+    return allMessages;
   }
 }

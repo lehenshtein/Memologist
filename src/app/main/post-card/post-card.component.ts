@@ -12,6 +12,9 @@ import { PostsService } from '@app/main/state/posts.service';
 import { ID } from '@datorama/akita';
 import { takeUntil } from 'rxjs';
 import { UnsubscribeAbstract } from '@shared/helpers/unsubscribe.abstract';
+import { AuthService } from '@app/core/auth/auth.service';
+import { NotificationService } from '@shared/services/notification.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-post-card',
@@ -31,7 +34,10 @@ export class PostCardComponent extends UnsubscribeAbstract implements OnInit {
     private spinner: NgxSpinnerService,
     private coreQuery: CoreQuery,
     private metaHelper: MetaHelper,
-    private postsService: PostsService
+    private postsService: PostsService,
+    private authService: AuthService,
+    private notificationService: NotificationService,
+    private translate: TranslateService
   ) {
     super();
   }
@@ -88,9 +94,15 @@ export class PostCardComponent extends UnsubscribeAbstract implements OnInit {
   }
 
   mark(value: marks) {
-    if (!this.coreQuery.isAuthenticated) {
+    if (!this.coreQuery.isAuthenticated && !this.authService.getToken) {
+      this.notificationService.openSnackBar('info', this.translate.instant('Notifications.401'));
       return;
     }
+    if (this.coreQuery.tokenExpired && this.authService.getToken) {
+      this.notificationService.openSnackBar('error', this.translate.instant('Notifications.token'));
+      return;
+    }
+
     if ((this.markedAs === 'default' && value === 'liked')
       || (this.markedAs === 'disliked' && value === 'disliked')
       || (this.markedAs === 'disliked' && value === 'liked')) {

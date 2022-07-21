@@ -30,6 +30,9 @@ app-post-card {
       & mat-icon {
         transform: translateX(-2px);
       }
+      &.active {
+        color: $green;
+      }
       &:hover {
         color: $green;
         opacity: 1;
@@ -43,6 +46,9 @@ app-post-card {
       & mat-icon {
         transform: translateX(-2px);
       }
+      &.active {
+        color: $warn;
+      }
       &:hover {
         color: $warn;
         opacity: 1;
@@ -54,8 +60,11 @@ app-post-card {
     padding-left: 13px;
     font-size: .7rem;
     &-name {
-      &.username {
+      & .is-you {
         color: $primary
+      }
+      & .is-author {
+        color: $accent
       }
     }
   }

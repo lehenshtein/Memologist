@@ -21,6 +21,13 @@ export class PostsService extends NgEntityService<PostsState> {
       }));
   }
 
+  changeCommentScore (id: ID, markType: marks): Observable<CommentInterface> {
+    return this.httpService.post<CommentInterface>(`/comment/mark`, {id, markType}).pipe(
+      tap((res: CommentInterface) => {
+        // this.store.update(id, {score: res.score, marked: markType});
+      }));
+  }
+
   sendComment(postId: ID, commentText: string): Observable<CommentInterface> {
     const body = {
       post: postId,

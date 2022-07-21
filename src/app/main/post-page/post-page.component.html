@@ -1,55 +1,60 @@
-<p>
-  <app-post-card *ngIf="item$ | async as item else notFound" [item]="item" [mainPage]="false"></app-post-card>
-</p>
+<ng-container *ngIf="item$ | async as item else notFound">
+  <p>
+    <app-post-card *ngIf="item" [item]="item" [mainPage]="false"></app-post-card>
+  </p>
+
+  <mat-form-field appearance="outline">
+    <textarea matInput [placeholder]="'Forms.Post.Text.placeholder' | translate" [(ngModel)]="commentText"></textarea>
+  </mat-form-field>
+  <div class="buttons">
+    <button mat-button color="warn" class="button-space" (click)="cancel()">
+      {{'Forms.Buttons.cancel' | translate}}
+    </button>
+    <button mat-raised-button color="accent" class="button-space" (click)="submit()">
+      {{'Forms.Buttons.comment' | translate}}
+    </button>
+  </div>
+
+  <mat-card>
+    <div *ngIf="comments$ | async as comments else loading">
+      <div class="comment" *ngFor="let comment of comments">
+        <div class="comment__header d-flex align-center flex-wrap">
+          <div class="comment__score d-flex align-center">
+            <button mat-icon-button class="like" [ngClass]="{active: comment.marked === 'liked'}" (click)="mark('liked', comment)">
+              <mat-icon>play_arrow</mat-icon>
+            </button>
+
+            <div class="score">{{ comment.score }}</div>
+
+            <button mat-icon-button class="dislike" [ngClass]="{active: comment.marked === 'disliked'}" (click)="mark('disliked', comment)">
+              <mat-icon>play_arrow</mat-icon>
+            </button>
+          </div>
+          <div class="comment__author">
+            <div class="comment__author-name">
+              {{comment.author.name}}
+              <span class="is-you" *ngIf="comment.author.name === username"> [{{'Common.you' | translate}}]</span>
+              <span class="is-author" *ngIf="comment.author.name === item.author.name"> [{{'Common.author' | translate}}]</span>
+            </div>
+            <!--          <ng-template #notUser>-->
+            <!--            <div class="comment__author-name" *ngIf="comment.author.name !== username">{{comment.author.name}}</div>-->
+            <!--          </ng-template>-->
+          </div>
+          <div class="comment__date">{{comment.createdAt | date: 'dd.MM.yy'}}</div>
+        </div>
+        <div class="comment__body p-b-10">
+          {{comment.text}}
+        </div>
+        <mat-divider></mat-divider>
+      </div>
+    </div>
+    <ng-template #loading>Loading...</ng-template>
+  </mat-card>
+</ng-container>
+
 <ng-template #notFound>
   <p class="notification-text">
     {{'Common.notFound' | translate}}
   </p>
   <button mat-raised-button color="accent" [routerLink]="'/'"><{{'Common.back' | translate}}</button>
 </ng-template>
-
-<mat-form-field appearance="outline">
-  <textarea matInput [placeholder]="'Forms.Post.Text.placeholder' | translate" [(ngModel)]="commentText"></textarea>
-</mat-form-field>
-<div class="buttons">
-  <button mat-button color="warn" class="button-space" (click)="cancel()">
-    {{'Forms.Buttons.cancel' | translate}}
-  </button>
-  <button mat-raised-button color="accent" class="button-space" (click)="submit()">
-    {{'Forms.Buttons.comment' | translate}}
-  </button>
-</div>
-
-<mat-card>
-  <div *ngIf="comments$ | async as comments else loading">
-    <div class="comment" *ngFor="let comment of comments">
-      <div class="comment__header d-flex align-center flex-wrap">
-        <div class="comment__score d-flex align-center">
-          <button mat-icon-button class="like" (click)="mark('liked')">
-            <mat-icon>play_arrow</mat-icon>
-          </button>
-
-          <div class="score">{{ comment.score }}</div>
-
-          <button mat-icon-button class="dislike" (click)="mark('disliked')">
-            <mat-icon>play_arrow</mat-icon>
-          </button>
-        </div>
-        <div class="comment__author">
-          <div class="comment__author-name username" *ngIf="comment.author.name === username else notUser">
-            {{comment.author.name}} [{{'Common.you' | translate}}]
-          </div>
-          <ng-template #notUser>
-            <div class="comment__author-name" *ngIf="comment.author.name !== username">{{comment.author.name}}</div>
-          </ng-template>
-        </div>
-        <div class="comment__date">{{comment.createdAt | date: 'dd.MM.yy'}}</div>
-      </div>
-      <div class="comment__body p-b-10">
-        {{comment.text}}
-      </div>
-      <mat-divider></mat-divider>
-    </div>
-  </div>
-  <ng-template #loading>Loading...</ng-template>
-</mat-card>

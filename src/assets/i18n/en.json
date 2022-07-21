@@ -14,7 +14,8 @@
     "login": "Sign in",
     "signUp": "Sign up",
     "toSignUp": "Create account",
-    "you": "You"
+    "you": "You",
+    "author": "Author"
   },
   "Forms": {
     "Buttons": {
@@ -68,7 +69,8 @@
     "updated": "updated",
     "created": "created",
     "deleted": "deleted",
-    "401": "Please sign-in or sign-up"
+    "401": "Please sign-in or sign-up",
+    "token": "Your session expired. Please sign-in"
   },
   "Validations": {
     "required": "This field is required",

@@ -4,13 +4,17 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { UnsubscribeAbstract } from '@shared/helpers/unsubscribe.abstract';
 import { EMPTY, Observable, of, shareReplay, switchMap, takeUntil } from 'rxjs';
 
-import { PostInterfaceGet } from '@shared/models/post.interface';
+import { marks, PostInterfaceGet } from '@shared/models/post.interface';
 import { PostsQuery } from '@app/main/state/posts.query';
 import { PostsService } from '@app/main/state/posts.service';
 import { tap } from 'rxjs/operators';
 import { CommentInterface } from '@shared/models/comment.interface';
 import { PostsStore } from '@app/main/state/posts.store';
 import { CoreQuery } from '@app/core/state/core.query';
+import { ID } from '@datorama/akita';
+import { AuthService } from '@app/core/auth/auth.service';
+import { NotificationService } from '@shared/services/notification.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-post-page',
@@ -23,12 +27,15 @@ export class PostPageComponent extends UnsubscribeAbstract implements OnInit {
   username = this.coreQuery.userName;
 
   constructor (
-    private http:MainHttpService,
+    private http: MainHttpService,
     private route: ActivatedRoute,
     private query: PostsQuery,
-    private postService: PostsService,
+    private postsService: PostsService,
     private store: PostsStore,
-    private coreQuery: CoreQuery
+    private coreQuery: CoreQuery,
+    private authService: AuthService,
+    private notificationService: NotificationService,
+    private translate: TranslateService
   ) {
     super();
   }
@@ -43,7 +50,7 @@ export class PostPageComponent extends UnsubscribeAbstract implements OnInit {
       if (this.query.getPost(params['id'])) { // check if post exists in store
         return of(this.query.getPost(params['id']));
       }
-      return this.postService.get<PostInterfaceGet>(params['id'],{skipWrite: true}) // if no => request
+      return this.postsService.get<PostInterfaceGet>(params['id'], {skipWrite: true}); // if no => request
     })
   );
 
@@ -52,9 +59,9 @@ export class PostPageComponent extends UnsubscribeAbstract implements OnInit {
       if (!params['id']) {
         return EMPTY;
       }
-      return this.postService.getCommentsForPost(params['id']).pipe(tap((comments: CommentInterface[]) => {
-        this.store.update({postComments: comments})
-      }))
+      return this.postsService.getCommentsForPost(params['id']).pipe(tap((comments: CommentInterface[]) => {
+        this.store.update({postComments: comments});
+      }));
     })
   );
 
@@ -62,8 +69,42 @@ export class PostPageComponent extends UnsubscribeAbstract implements OnInit {
     console.log(this.username);
   }
 
-  mark (disliked: string) {
+  mark (value: marks, comment: CommentInterface) {
+    if (!this.coreQuery.isAuthenticated && !this.authService.getToken) {
+      this.notificationService.openSnackBar('info', this.translate.instant('Notifications.401'));
+      return;
+    }
+    if (this.coreQuery.tokenExpired && this.authService.getToken) {
+      this.notificationService.openSnackBar('info', this.translate.instant('Notifications.token'));
+      return;
+    }
 
+    if ((comment.marked === 'default' && value === 'liked')
+      || (comment.marked === 'disliked' && value === 'disliked')
+      || (comment.marked === 'disliked' && value === 'liked')) {
+      comment.score++;
+      this.changeMark(value, comment);
+      this.sendMarkRequest(comment._id, 'liked');
+    } else if ((comment.marked === 'default' && value === 'disliked')
+      || (comment.marked === 'liked' && value === 'liked')
+      || (comment.marked === 'liked' && value === 'disliked')) {
+      comment.score--;
+      this.changeMark(value, comment);
+      this.sendMarkRequest(comment._id, 'disliked');
+    }
+  }
+
+  changeMark (value: marks, comment: CommentInterface) {
+    if (comment.marked !== 'default') {
+      comment.marked = 'default';
+    } else {
+      comment.marked = value;
+    }
+  }
+
+  private sendMarkRequest (id: ID, markType: marks) {
+    this.postsService.changeCommentScore(id, markType).pipe(
+      takeUntil(this.ngUnsubscribe$)).subscribe();
   }
 
   submit () {
@@ -75,14 +116,14 @@ export class PostPageComponent extends UnsubscribeAbstract implements OnInit {
         if (!params['id']) {
           return EMPTY;
         }
-        return this.postService.sendComment(params['id'], this.commentText)
+        return this.postsService.sendComment(params['id'], this.commentText);
       })
     ).subscribe((res: CommentInterface) => {
       this.commentText = '';
       const currentComments: CommentInterface[] = this.query.getValue().postComments;
       currentComments.unshift(res);
       this.store.update({postComments: currentComments});
-    })
+    });
   }
 
   cancel () {

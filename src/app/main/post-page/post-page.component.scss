@@ -1,7 +1,94 @@
 @import './src/assets/scss/_variables.scss';
+
 app-post-card {
   position: relative;
 }
+
 .notification-text {
   color: $white;
+}
+
+// comment styles
+.comment {
+  &-wrapper {
+    padding: $padding-s 0;
+  }
+  &__header {
+    margin-left: -13px;
+  }
+  &__score {
+    & .score {
+      opacity: .5;
+      text-align: center;
+      min-width: 40px;
+      margin-left: -10px;
+    }
+    & .like {
+      opacity: .5;
+      color: $light;
+      transform: rotate(-90deg);
+      & mat-icon {
+        transform: translateX(-2px);
+      }
+      &.active {
+        color: $green;
+      }
+      &:hover {
+        color: $green;
+        opacity: 1;
+      }
+    }
+    & .dislike {
+      opacity: .5;
+      transform: rotate(90deg);
+      color: $light;
+      margin-left: -10px;
+      & mat-icon {
+        transform: translateX(-2px);
+      }
+      &.active {
+        color: $warn;
+      }
+      &:hover {
+        color: $warn;
+        opacity: 1;
+      }
+    }
+  }
+  &__author {
+    opacity: .5;
+    padding-left: 13px;
+    font-size: .7rem;
+    &-name {
+      & .is-you {
+        color: $primary
+      }
+      & .is-author {
+        color: $accent
+      }
+    }
+  }
+  &__date {
+    opacity: .5;
+    font-size: .6rem;
+    color: $light;
+    padding-left: $padding-m;
+  }
+}
+
+.leave-comment {
+
+}
+
+mat-form-field {
+  margin-top: 10px;
+  width: 100%;
+}
+.buttons {
+  padding-bottom: $padding-m;
+  display: flex;
+  justify-content: end;
+  button {
+    margin-left: $padding-m;
+  }
 }

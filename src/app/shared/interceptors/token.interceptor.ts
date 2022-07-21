@@ -16,6 +16,10 @@ export class TokenInterceptor implements HttpInterceptor {
   }
 
   intercept (request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    if (this.coreQuery.tokenExpired && this.authService.getToken){
+      this.authService.logout();
+    }
+
     if (this.coreQuery.isAuthenticated && this.authService.getToken) {
       request = request.clone({
         setHeaders: {

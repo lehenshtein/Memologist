@@ -7,6 +7,14 @@ mat-card {
     padding: 8px 0;
     background-color: $extraDark;
   }
+  & .author {
+    padding-top: 5px;
+    opacity: .5;
+  }
+  & .date {
+    font-size: .8rem;
+    opacity: .5;
+  }
 }
 img, mat-card-title {
   cursor: pointer;

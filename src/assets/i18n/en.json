@@ -13,12 +13,16 @@
     "signIn": "Sign in",
     "login": "Sign in",
     "signUp": "Sign up",
-    "toSignUp": "Create account"
+    "toSignUp": "Create account",
+    "you": "You",
+    "author": "Author"
   },
   "Forms": {
     "Buttons": {
       "post": "Post",
-      "logout": "Logout"
+      "logout": "Logout",
+      "cancel": "Cancel",
+      "comment": "Comment"
     },
     "Auth": {
       "Login": {
@@ -64,7 +68,9 @@
     "error": "Error",
     "updated": "updated",
     "created": "created",
-    "deleted": "deleted"
+    "deleted": "deleted",
+    "401": "Please sign-in or sign-up",
+    "token": "Your session expired. Please sign-in"
   },
   "Validations": {
     "required": "This field is required",

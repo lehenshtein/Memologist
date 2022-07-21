@@ -6,8 +6,8 @@
       <ng-template #notClickable>
         <mat-card-title #notClickable>{{item.title}}</mat-card-title>
       </ng-template>
-      <mat-card-subtitle>{{item.author.name}}</mat-card-subtitle>
-      <mat-card-subtitle>{{'Common.created' | translate}} {{item.createdAt | date:'dd.MM.yyyy'}}</mat-card-subtitle>
+      <mat-card-subtitle class="author">{{item.author.name}}</mat-card-subtitle>
+      <mat-card-subtitle class="date">{{'Common.created' | translate}} {{item.createdAt | date:'dd.MM.yy'}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       {{item.text}}

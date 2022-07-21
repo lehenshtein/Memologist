@@ -10,7 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CreatePostFormComponent } from '@shared/components/create-post-form/create-post-form.component';
 import { MatInputModule } from '@angular/material/input';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ImageModalComponent } from './modals/image-modal/image-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -19,7 +19,8 @@ import { SignInFormComponent } from '@shared/components/sign-in-form/sign-in-for
 import { SignUpFormComponent } from '@shared/components/sign-up-form/sign-up-form.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { NotificationServiceComponent } from '@shared/components/notification-service/notification-service.component';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDividerModule } from '@angular/material/divider';
 
 const material = [
   MatToolbarModule,
@@ -32,7 +33,8 @@ const material = [
   MatInputModule,
   MatDialogModule,
   MatButtonToggleModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatDividerModule
 ]
 const components = [
   CreatePostFormComponent,
@@ -52,7 +54,8 @@ const components = [
     TranslateModule,
     RouterModule,
     ReactiveFormsModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    FormsModule
   ],
   exports: [
     ...components,
@@ -60,7 +63,8 @@ const components = [
     TranslateModule,
     RouterModule,
     ReactiveFormsModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    FormsModule
   ]
 })
 export class SharedModule { }

@@ -8,11 +8,13 @@ export interface PostsState extends EntityState<PostInterfaceGet>, ActiveState {
 }
 
 @Injectable({ providedIn: 'root' })
-@StoreConfig({ name: 'posts', idKey: '_id' })
+@StoreConfig({ name: 'posts', idKey: '_id', resettable: true })
 export class PostsStore extends EntityStore<PostsState> {
 
   constructor() {
-    super({postComments: []});
+    super();
+    const defaults = (entity: PostInterfaceGet) => ({ postComments: [] });
+    this.createUIStore().setInitialEntityState(defaults);
   }
 
 }

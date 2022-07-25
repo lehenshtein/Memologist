@@ -15,5 +15,6 @@ export interface PostInterfaceGet extends Omit<PostInterfaceToSend, 'author'> {
   updatedAt: string,
   score: number,
   marked?: marks,
+  commentsAmount: number,
   _id: ID
 }

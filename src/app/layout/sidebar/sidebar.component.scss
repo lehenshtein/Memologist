@@ -1,4 +1,6 @@
+@import './src/assets/scss/variables';
 .wrapper {
+  font-size: 1rem;
   width: 320px;
   button {
     margin-bottom: 10px;
@@ -9,4 +11,51 @@
 }
 b {
   font-weight: 500;
+}
+.user-data {
+  display: flex;
+  flex-direction: column;
+  &__stats {
+    &.red {
+      color: $warn;
+    };
+    &.yellow {
+      color: $primary;
+    };
+    &.blue {
+      color: $accent;
+    };
+    &.green {
+      color: $green;
+    };
+  }
+  &__big-text {
+    font-size: 1.4rem;
+  }
+}
+.nav-card {
+  background-color: $dark;
+}
+nav {
+  font-size: 1.3rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  & a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $padding-s 0;
+    box-sizing: border-box;
+    transition: all .2s;
+    &:hover:not(.active) {
+      background-color: $accent;
+    }
+    &.active {
+      color: $accent;
+    }
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
 }

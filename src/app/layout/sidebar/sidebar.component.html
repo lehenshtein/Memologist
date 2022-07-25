@@ -1,42 +1,73 @@
 <div class="wrapper">
-  <mat-card>
-  <ng-container *ngIf="userName$ | async as userName else notAuthenticated">
-    <section class="user-data">
-      <span class="d-i-block m-b-10">{{'Common.hello' | translate}}: <b *ngIf="userName">{{userName}}</b></span>
-    </section>
-    <section>
+  <mat-card *ngIf="!showNavbar" class="nav-card">
+    <nav>
+      <a [routerLink]="'/'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <span>{{'Common.HOT' | translate}}</span>
+      </a>
+      <a [routerLink]="'/best'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <span>{{'Common.BEST' | translate}}</span>
+      </a>
+      <a [routerLink]="'/new'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <span>{{'Common.NEW' | translate}}</span>
+      </a>
+    </nav>
+    </mat-card>
+
+    <mat-card>
+    <ng-container *ngIf="userName$ | async as userName else notAuthenticated">
+      <section class="user-data">
+        <span class="d-i-block m-b-10">{{'Common.hello' | translate}}: <b *ngIf="userName">{{userName}}</b></span>
+
+        <ng-container *ngIf="user">
+          <span class="d-i-block m-b-10 user-data__stats" [ngClass]="user.rate < 0 ? 'red'
+            : user.rate >=0 && user.rate < 50 ? 'yellow' : user.rate >= 50 && user.rate < 100 ? 'blue' : 'green'">
+              <b class="user-data__big-text">{{user.rate}} </b>
+              {{'Common.your' | translate}} {{'Common.rate' | translate}}
+          </span>
+          <span class="d-i-block m-b-10 user-data__stats">
+            <b>{{objectLength(user.markedPosts)}} </b>
+            {{'Common.posts' | translate}} {{'Common.marked' | translate}}
+          </span>
+          <span class="d-i-block m-b-10 user-data__stats">
+            <b>{{objectLength(user.markedComments)}} </b>
+            {{'Common.comments' | translate}} {{'Common.marked' | translate}}
+          </span>
+        </ng-container>
+      </section>
+
+      <section>
+        <button mat-raised-button color="accent" class="button-space"
+                (click)="closeMenu.emit()"
+                [routerLink]="['create-post']"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+          {{'Forms.Buttons.post' | translate}}
+        </button>
+        <button mat-stroked-button color="warn" class="button-space"
+                (click)="logout()">
+          {{'Forms.Buttons.logout' | translate}}
+        </button>
+      </section>
+    </ng-container>
+
+    <ng-template #notAuthenticated>
+      <section class="user-data">
+        <span class="d-i-block m-b-10">{{'Common.hello' | translate}}: <b>{{'Common.guest' | translate}}</b></span>
+      </section>
       <button mat-raised-button color="accent" class="button-space"
               (click)="closeMenu.emit()"
-              [routerLink]="['create-post']"
+              [routerLink]="['auth', 'sign-in']"
               routerLinkActive="active"
-              [routerLinkActiveOptions]="{exact: true}">
-        {{'Forms.Buttons.post' | translate}}
-      </button>
-      <button mat-stroked-button color="warn" class="button-space"
-              (click)="logout()">
-        {{'Forms.Buttons.logout' | translate}}
-      </button>
-    </section>
-  </ng-container>
-
-  <ng-template #notAuthenticated>
-    <section class="user-data">
-      <span class="d-i-block m-b-10">{{'Common.hello' | translate}}: <b>{{'Common.guest' | translate}}</b></span>
-    </section>
-    <button mat-raised-button color="accent" class="button-space"
-            (click)="closeMenu.emit()"
-            [routerLink]="['auth', 'sign-in']"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{exact: true}">{{'Common.signIn' | translate}}</button>
-    <button mat-raised-button color="accent" class="button-space"
-            (click)="closeMenu.emit()"
-            [routerLink]="['auth', 'sign-up']"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{exact: true}">{{'Common.signUp' | translate}}</button>
-  </ng-template>
-  <button mat-icon-button class="favorite-icon" (click)="changeLang.emit()">
-    <mat-icon>language</mat-icon>
-  </button>
-<!--  <app-create-post-form></app-create-post-form>-->
+              [routerLinkActiveOptions]="{exact: true}">{{'Common.signIn' | translate}}</button>
+      <button mat-raised-button color="accent" class="button-space"
+              (click)="closeMenu.emit()"
+              [routerLink]="['auth', 'sign-up']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact: true}">{{'Common.signUp' | translate}}</button>
+    </ng-template>
+    <button mat-icon-button class="favorite-icon" (click)="changeLang.emit()">
+      <mat-icon>language</mat-icon>
+    </button>
+    <!--  <app-create-post-form></app-create-post-form>-->
   </mat-card>
 </div>

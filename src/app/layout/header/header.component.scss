@@ -3,6 +3,7 @@
   position: fixed;
   top: 0;
   z-index: 1000;
+  color: $dark;
 }
 .logo-block {
   display: flex;
@@ -16,6 +17,33 @@
 
 .button-space {
   margin-right: $padding-default;
+}
+
+nav {
+  font-size: 1.1rem;
+  height: 100%;
+  display: flex;
+  & a {
+    display: flex;
+    align-items: center;
+    margin-right: $padding-m;
+    box-sizing: border-box;
+    padding: 0 $padding-xs;
+    transition: all .2s;
+    &:not(.active) {
+      color: #6c5a22;
+    }
+    &:hover:not(.active) {
+      background-color: $accent;
+      color: $dark;
+    }
+    &.active {
+      border-bottom: 3px solid $dark;
+    }
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
 }
 
 @media screen and (min-width: calc($breakpoint-sidebar + 1px)) {

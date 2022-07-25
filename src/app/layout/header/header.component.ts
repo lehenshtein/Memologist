@@ -7,6 +7,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   @Input() title: string = '';
+  @Input() showNavbar: boolean = true;
   @Output() toggleMenu: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() {

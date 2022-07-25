@@ -1,4 +1,5 @@
 import { ID } from '@datorama/akita';
+import { marks } from '@shared/models/post.interface';
 
 export interface UserPostInterface {
   _id: string,
@@ -15,7 +16,9 @@ export interface UserInterface {
   status: 'default' | 'muted' | 'banned',
   statusTill: Date | null,
   options: UserOptionsInterface,
-  createdPosts: ID[]
+  createdPosts: ID[],
+  markedPosts: { [key: string]: marks },
+  markedComments: { [key: string]: marks }
 }
 
 interface UserOptionsInterface {

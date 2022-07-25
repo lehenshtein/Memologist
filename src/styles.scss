@@ -71,5 +71,8 @@ input.mat-input-element, textarea.mat-input-element {
 
 .spacer {
   flex: 1 1 auto;
+  &-s {
+    flex: .2 2 auto;
+  }
 }
 

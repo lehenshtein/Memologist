@@ -1,5 +1,5 @@
 @import './src/assets/scss/variables';
-$cardInteractionsSize: 30px;
+$cardInteractionsSize: 32px;
 $cardInteractionsIcons: 20px;
 mat-card {
   height: 100%;
@@ -24,10 +24,13 @@ img, mat-card-title {
   justify-content: space-between;
 }
 .social {
+  display: flex;
+  align-items: center;
   padding-left: 16px;
   button {
     width: $cardInteractionsSize;
     height: $cardInteractionsSize;
+    margin-right: $padding-m;
     & ::ng-deep.mat-button-wrapper {
       line-height: $cardInteractionsSize;
       display: flex;
@@ -43,6 +46,13 @@ img, mat-card-title {
     height: $cardInteractionsIcons;
   }
 }
+
+.info {
+  button {
+    width: auto;
+  }
+}
+
 .rate {
   padding-right: 16px;
   mat-button-toggle {

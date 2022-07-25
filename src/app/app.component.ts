@@ -8,26 +8,37 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { CoreService } from '@app/core/state/core.service';
 import { AuthService } from '@app/core/auth/auth.service';
 import { MatDrawerContainer } from '@angular/material/sidenav';
+import { Observable, shareReplay, take, takeUntil } from 'rxjs';
+import { CoreQuery } from '@app/core/state/core.query';
+import { UnsubscribeAbstract } from '@shared/helpers/unsubscribe.abstract';
+import { UserInterface } from '@shared/models/user.interface';
+import { InfiniteScrollService } from '@shared/services/infinite-scroll.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: [ './app.component.scss' ]
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent extends UnsubscribeAbstract implements OnInit, AfterViewInit {
   @ViewChild('scrollable') scrollable!: MatDrawerContainer;
+  @ViewChild('test') test!: ElementRef;
   updateMessage = this.translate.instant('Messages.update');
   showFiller = false;
   showSidebar = true;
+  showNavbar = true;
   showToTop = false;
+  user$: Observable<UserInterface | null> = this.coreQuery.userData$.pipe(shareReplay());
 
   constructor (private swUpdate: SwUpdate,
                 public translate: TranslateService,
                 private breakpointObserver: BreakpointObserver,
                 private coreService: CoreService,
+                private coreQuery: CoreQuery,
                 private authService: AuthService,
-                private ref: ChangeDetectorRef
+                private ref: ChangeDetectorRef,
+                private infiniteScrollService: InfiniteScrollService
   ) {
+    super();
   }
 
   ngOnInit (): void {
@@ -43,14 +54,39 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit (): void {
     this.scrollable.scrollable.elementScrolled().pipe(
-      throttleTime(300)
+      throttleTime(100),
+      takeUntil(this.ngUnsubscribe$)
     ).subscribe(res => {
-      this.showToTop = this.scrollable.scrollable.getElementRef().nativeElement.scrollTop > 1000;
+      const scrollElement = this.scrollable.scrollable.getElementRef().nativeElement;
+      this.showToTop = scrollElement.scrollTop > 1000;
+
+      this.infiniteScroll(scrollElement);
+
       this.ref.detectChanges();
     });
+    //scrollToTest
+    // setTimeout(() => {this.test.nativeElement.scrollIntoView({block: 'center', behavior: 'smooth'})}, 2000)
   }
   scrollToTop() {
     this.scrollable.scrollable.getElementRef().nativeElement.scrollTo({left: 0, top: 0, behavior: 'smooth'});
+  }
+
+  private infiniteScroll(scrollElement: HTMLElement) {
+    // we need to add clientHeight to scrollTop to get correct values of scrolled from top pixels
+    const percentsToBot = (scrollElement.scrollHeight - (scrollElement.scrollTop + scrollElement.clientHeight)) / scrollElement.scrollHeight * 100;
+    if (!this.infiniteScrollService.getPreviousScroll) {
+      this.infiniteScrollService.setPreviousScroll = percentsToBot;
+    }
+
+    if (percentsToBot <= 30 && (this.infiniteScrollService.getPreviousScroll
+        && this.infiniteScrollService.getPreviousScroll > percentsToBot)
+      && !this.infiniteScrollService.wasOnLoadPosition) {
+
+      this.infiniteScrollService.setPreviousScroll = percentsToBot;
+      this.infiniteScrollService.setScrollToBottom(Math.floor(percentsToBot));
+      this.infiniteScrollService.wasOnLoadPosition = true;
+
+    }
   }
 
   onChangeLang (): void {
@@ -64,9 +100,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   private isLoggedIn () {
     const potentialToken = localStorage.getItem('auth-token');
     if (potentialToken) {
-      this.authService.setToken = potentialToken;
-      this.authService.updateStoreUserToken(potentialToken);
-      this.authService.setAuthentication();
+      this.authService.setAllUserData(potentialToken);
     }
   };
 
@@ -77,10 +111,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     ]).subscribe((result: BreakpointState) => {
       if (result.breakpoints['(max-width: 1024px)']) {
         this.showSidebar = false;
-        // hide stuff
+        this.showNavbar = false;
       } else {
         this.showSidebar = true;
-        // show stuff
+        this.showNavbar = true;
       }
     });
   }
@@ -103,7 +137,6 @@ export class AppComponent implements OnInit, AfterViewInit {
       //   available: evt.latestVersion,
       // }))
     ).subscribe(res => {
-      console.log(res);
       if (confirm(this.updateMessage)) {
         window.location.reload();
       }

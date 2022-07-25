@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { QueryEntity } from '@datorama/akita';
 import { CoreStore, CoreState } from './core.store';
-import { UserTokenInterface } from '@shared/models/user.interface';
+import { UserInterface, UserTokenInterface } from '@shared/models/user.interface';
 import { NavigatorInterface } from '@shared/models/navigator.interface';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class CoreQuery extends QueryEntity<CoreState> {
@@ -10,6 +11,8 @@ export class CoreQuery extends QueryEntity<CoreState> {
   constructor(protected store: CoreStore) {
     super(store);
   }
+  userData$: Observable<UserInterface | null> = this.select(store => store.userData);
+
   get navigator(): NavigatorInterface {
     return this.getValue().navigator;
   }
@@ -27,4 +30,5 @@ export class CoreQuery extends QueryEntity<CoreState> {
     return this.userTokenData.name;
   }
   userName$ = this.select(store => store.userTokenData.name)
+
 }

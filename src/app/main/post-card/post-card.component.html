@@ -2,10 +2,10 @@
   <ng-container *ngIf="item; else loading">
     <mat-card-header>
       <!--        <div mat-card-avatar class="example-header-image"></div>-->
-      <mat-card-title *ngIf="mainPage else notClickable"><a [routerLink]="[item._id]" target="_blank">{{item.title}}</a></mat-card-title>
-      <ng-template #notClickable>
-        <mat-card-title #notClickable>{{item.title}}</mat-card-title>
-      </ng-template>
+      <mat-card-title [ngStyle]="{'pointer-events': mainPage ? null : 'none'}">
+        <a [routerLink]="[item._id]" target="_blank">{{item.title}}</a>
+      </mat-card-title>
+
       <mat-card-subtitle class="author">{{item.author.name}}</mat-card-subtitle>
       <mat-card-subtitle class="date">{{'Common.created' | translate}} {{item.createdAt | date:'dd.MM.yy'}}</mat-card-subtitle>
     </mat-card-header>
@@ -20,8 +20,18 @@
 
     <mat-card-footer class="footer">
       <div class="social">
+        <button mat-mini-fab [color]="'accent'" (click)="share('telegram')">
+          <mat-icon>share</mat-icon>
+        </button>
         <button class="telegram" mat-mini-fab (click)="share('telegram')">
           <img src="./assets/svg/icons8-telegram-app.svg" alt="share">
+        </button>
+      </div>
+
+      <div class="info">
+        <button mat-icon-button color="accent" [ngStyle]="{'pointer-events': mainPage ? null : 'none'}" [routerLink]="[item._id]">
+          <mat-icon>comment</mat-icon>
+          <span> {{item.commentsAmount}}</span>
         </button>
       </div>
 

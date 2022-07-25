@@ -4,6 +4,9 @@
     "update": "New version available. Load new version?"
   },
   "Common": {
+    "HOT": "HOT",
+    "BEST": "BEST",
+    "NEW": "NEW",
     "hello": "Hello",
     "guest": "Guest",
     "created": "created at: ",
@@ -15,7 +18,15 @@
     "signUp": "Sign up",
     "toSignUp": "Create account",
     "you": "You",
-    "author": "Author"
+    "author": "Author",
+    "rate": "rating",
+    "Your": "Your",
+    "your": "your",
+    "postsCreated": "posts created",
+    "posts": "posts",
+    "comments": "comments",
+    "liked": "liked",
+    "marked": "marked"
   },
   "Forms": {
     "Buttons": {

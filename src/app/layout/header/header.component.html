@@ -3,6 +3,20 @@
     <img src="./assets/oldicons/icon-72x72.png" alt="logo">
     <span>{{title}}</span>
   </a>
+  <span class="spacer-s"></span>
+
+  <nav *ngIf="showNavbar">
+    <a [routerLink]="'/'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      <span>{{'Common.HOT' | translate}}</span>
+    </a>
+    <a [routerLink]="'/best'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      <span>{{'Common.BEST' | translate}}</span>
+    </a>
+    <a [routerLink]="'/new'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      <span>{{'Common.NEW' | translate}}</span>
+    </a>
+  </nav>
+
   <span class="spacer"></span>
   <button mat-raised-button color="accent" class="button-space"
           [routerLink]="['create-post']"

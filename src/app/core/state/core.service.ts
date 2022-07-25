@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CoreStore } from './core.store';
 import { NavigatorInterface } from '@shared/models/navigator.interface';
-import { UserTokenInterface } from '@shared/models/user.interface';
+import { UserInterface, UserTokenInterface } from '@shared/models/user.interface';
 
 @Injectable({ providedIn: 'root' })
 export class CoreService {
@@ -17,5 +17,8 @@ export class CoreService {
   }
   addAuthenticated(isAuthenticated: boolean) {
     this.coreStore.update({isAuthenticated});
+  }
+  addUserData(userData: UserInterface | null) {
+    this.coreStore.update({userData});
   }
 }

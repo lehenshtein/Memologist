@@ -66,7 +66,7 @@ export class PostPageComponent extends UnsubscribeAbstract implements OnInit {
   );
 
   ngOnInit (): void {
-    console.log(this.username);
+    console.log(this.route.snapshot.data);
   }
 
   mark (value: marks, comment: CommentInterface) {

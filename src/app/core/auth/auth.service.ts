@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, take, takeUntil } from 'rxjs';
+import { Observable, of, take } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '@environment/environment';
 import {
   UserInterface,
   UserLoginInterface,
@@ -104,9 +103,5 @@ export class AuthService {
     this.setAllUserData(null);
     this.postsStore.reset();
   }
-
-
-  // const decodedToken = helper.decodeToken(myRawToken);
-  // const expirationDate = helper.getTokenExpirationDate(myRawToken);
 
 }

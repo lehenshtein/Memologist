@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { EMPTY, exhaustMap, Observable, take, takeUntil } from 'rxjs';
-import { PostInterfaceGet } from '@shared/models/post.interface';
+import { exhaustMap, Observable, take, takeUntil } from 'rxjs';
+import { PostInterfaceGet, sort } from '@shared/models/post.interface';
 import { environment } from '@environment/environment';
 import { PostsService } from '@app/main/state/posts.service';
 import { PostsQuery } from '@app/main/state/posts.query';
@@ -8,8 +8,8 @@ import { UnsubscribeAbstract } from '@shared/helpers/unsubscribe.abstract';
 import { ID } from '@datorama/akita';
 import { MetaHelper } from '@shared/helpers/meta.helper';
 import { InfiniteScrollService } from '@shared/services/infinite-scroll.service';
-import { tap } from 'rxjs/operators';
 import { PostsStore } from '@app/main/state/posts.store';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-content',
@@ -27,9 +27,11 @@ export class ContentComponent extends UnsubscribeAbstract implements OnInit {
   //   })
   // );
   page = 1;
-  limit = 20;
+  limit = 2;
+  sort: sort | null = null;
+  showFooter = false;
 
-  data: PostInterfaceGet[] = this.query.getPosts;
+  // data: PostInterfaceGet[] = this.query.getPosts;
   data$: Observable<PostInterfaceGet[]> = this.query.getPosts$();
 
   devEnv = !environment.production;
@@ -40,9 +42,15 @@ export class ContentComponent extends UnsubscribeAbstract implements OnInit {
     private store: PostsStore,
     private query: PostsQuery,
     private metaHelper: MetaHelper,
-    private infiniteScrollService: InfiniteScrollService
+    private infiniteScrollService: InfiniteScrollService,
+    private route: ActivatedRoute,
   ) {
     super();
+    if (this.sort !== route.snapshot.data['sort']) {
+      this.store.reset();
+      this.sort = route.snapshot.data['sort'];
+    }
+
   }
 
   delete (id: ID) {
@@ -61,17 +69,19 @@ export class ContentComponent extends UnsubscribeAbstract implements OnInit {
   getMorePosts () {
     this.infiniteScrollService.mainScrollToBottomInPercents$.pipe(takeUntil(this.ngUnsubscribe$),
       exhaustMap((scroll: number | null) => {
-        return this.postsService.getPostsPaginated(this.page, this.limit).pipe(takeUntil(this.ngUnsubscribe$));
+        return this.postsService.getPostsPaginated(this.page, this.limit, this.sort || 'hot').pipe(takeUntil(this.ngUnsubscribe$));
       }))
       .subscribe((res) => {
-        this.infiniteScrollService.setScrollToBottom(null);
-        this.infiniteScrollService.wasOnLoadPosition = false;
         if (res.headers.get('x-page')) {
           this.page = +res.headers.get('x-page')! + 1;
         }
         const posts: PostInterfaceGet[] | null = res.body;
         if (posts && posts.length) {
+          this.infiniteScrollService.setScrollToBottom(null);
+          this.infiniteScrollService.wasOnLoadPosition = false;
           this.store.add(posts);
+        } else {
+          this.showFooter = true;
         }
       });
 

@@ -20,12 +20,23 @@
 
     <mat-card-footer class="footer">
       <div class="social">
-        <button mat-mini-fab [color]="'accent'" (click)="share('telegram')">
+        <button mat-mini-fab [color]="'accent'" [matMenuTriggerFor]="isDeviceMobile ? null : menu"
+                matTooltip="{{'Tooltips.share' | translate}}" (click)="openShare()">
           <mat-icon>share</mat-icon>
         </button>
-        <button class="telegram" mat-mini-fab (click)="share('telegram')">
-          <img src="./assets/svg/icons8-telegram-app.svg" alt="share">
-        </button>
+
+        <mat-menu #menu="matMenu">
+          <button class="telegram" mat-mini-fab (click)="share('telegram')">
+            <img class="icon" src="./assets/svg/telegram.svg" alt="share">
+          </button>
+          <button class="facebook" mat-mini-fab (click)="share('facebook')">
+            <img class="icon" src="./assets/svg/facebook.svg" alt="share">
+          </button>
+          <button class="link" [color]="'primary'" mat-mini-fab (click)="share('copy')"
+                  matTooltip="{{'Tooltips.copyLink' | translate}}">
+            <mat-icon>link</mat-icon>
+          </button>
+        </mat-menu>
       </div>
 
       <div class="info">

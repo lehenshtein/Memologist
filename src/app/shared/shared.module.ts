@@ -21,6 +21,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { NotificationServiceComponent } from '@shared/components/notification-service/notification-service.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const material = [
   MatToolbarModule,
@@ -34,7 +36,9 @@ const material = [
   MatDialogModule,
   MatButtonToggleModule,
   MatSnackBarModule,
-  MatDividerModule
+  MatDividerModule,
+  MatMenuModule,
+  MatTooltipModule
 ]
 const components = [
   CreatePostFormComponent,

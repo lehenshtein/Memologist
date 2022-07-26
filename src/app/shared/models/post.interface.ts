@@ -1,6 +1,7 @@
 import { UserPostInterface } from '@shared/models/user.interface';
 import { ID } from '@datorama/akita';
 export type marks = 'liked' | 'disliked' | 'default';
+export type sort = 'hot' | 'new' | 'best';
 
 export interface PostInterfaceToSend {
   title: string,

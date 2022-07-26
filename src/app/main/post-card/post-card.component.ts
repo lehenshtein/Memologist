@@ -15,6 +15,7 @@ import { UnsubscribeAbstract } from '@shared/helpers/unsubscribe.abstract';
 import { AuthService } from '@app/core/auth/auth.service';
 import { NotificationService } from '@shared/services/notification.service';
 import { TranslateService } from '@ngx-translate/core';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-post-card',
@@ -27,6 +28,7 @@ export class PostCardComponent extends UnsubscribeAbstract implements OnInit {
   websiteUrl = environment.websiteUrl;
   markedAs: marks = 'default';
   score: number = 1;
+  isDeviceMobile = typeof navigator.share === 'function' && this.coreQuery.navigator && this.coreQuery.navigator.mobile;
 
 
   constructor (
@@ -37,7 +39,8 @@ export class PostCardComponent extends UnsubscribeAbstract implements OnInit {
     private postsService: PostsService,
     private authService: AuthService,
     private notificationService: NotificationService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private clipboard: Clipboard
   ) {
     super();
   }
@@ -58,18 +61,28 @@ export class PostCardComponent extends UnsubscribeAbstract implements OnInit {
     });
   }
 
-  share (social: 'telegram') {
-    if (typeof navigator.share === 'function' && this.coreQuery.navigator && this.coreQuery.navigator.mobile) {
+  openShare () {
+    if (this.isDeviceMobile) {
       navigator.share({
         url: environment.websiteUrl + this.item._id,
         title: this.item.title,
         text: this.item.text,
       })
-        .then().catch(err => console.log(err))
-    } else {
-      if (social === 'telegram') {
-        window.open(`https://telegram.me/share/url?url=${this.websiteUrl}${this.item._id}&amp;text=${this.item.title}`,'_blank');
-      }
+        .then().catch(err => console.log(err));
+    }
+  }
+
+  share (social: 'telegram' | 'facebook' | 'copy') {
+    if (social === 'telegram') {
+      window.open(`https://telegram.me/share/url?url=${this.websiteUrl}${this.item._id}&amp;text=${this.item.title}`, '_blank');
+    }
+    if (social === 'facebook') {
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${this.websiteUrl}${this.item._id}`, '_blank');
+    }
+    if (social === 'copy') {
+      this.clipboard.copy(`${this.websiteUrl}${this.item._id}`);
+      this.notificationService.openSnackBar('info',
+        this.translate.instant('Notifications.copied'), this.translate.instant('Notifications.success'))
     }
   }
 
@@ -83,17 +96,17 @@ export class PostCardComponent extends UnsubscribeAbstract implements OnInit {
     });
   }
 
-  toggleButtons ($event: MatButtonToggleChange ) { // it needs to visualize deselecting of buttons
+  toggleButtons ($event: MatButtonToggleChange) { // it needs to visualize deselecting of buttons
     let toggle = $event.source;
     if (toggle) {
       let group = toggle.buttonToggleGroup;
       if ($event.value.some((item: any) => item == toggle.value)) {
-        group.value = [toggle.value];
+        group.value = [ toggle.value ];
       }
     }
   }
 
-  mark(value: marks) {
+  mark (value: marks) {
     if (!this.coreQuery.isAuthenticated && !this.authService.getToken) {
       this.notificationService.openSnackBar('info', this.translate.instant('Notifications.401'));
       return;
@@ -109,23 +122,24 @@ export class PostCardComponent extends UnsubscribeAbstract implements OnInit {
       this.score++;
       this.changeMark(value);
       this.sendMarkRequest(this.item._id, 'liked');
-    }
-    else if ((this.markedAs === 'default' && value === 'disliked')
+    } else if ((this.markedAs === 'default' && value === 'disliked')
       || (this.markedAs === 'liked' && value === 'liked')
       || (this.markedAs === 'liked' && value === 'disliked')) {
       this.score--;
       this.changeMark(value);
-      this.sendMarkRequest(this.item._id, 'disliked')
+      this.sendMarkRequest(this.item._id, 'disliked');
     }
   }
-  changeMark(value: marks) {
+
+  changeMark (value: marks) {
     if (this.markedAs !== 'default') {
       this.markedAs = 'default';
     } else {
       this.markedAs = value;
     }
   }
-  private sendMarkRequest(id: ID, markType: marks) {
+
+  private sendMarkRequest (id: ID, markType: marks) {
     this.postsService.changeScore(id, markType).pipe(
       takeUntil(this.ngUnsubscribe$)).subscribe();
   }

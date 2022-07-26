@@ -8,7 +8,7 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { CoreService } from '@app/core/state/core.service';
 import { AuthService } from '@app/core/auth/auth.service';
 import { MatDrawerContainer } from '@angular/material/sidenav';
-import { Observable, shareReplay, take, takeUntil } from 'rxjs';
+import { Observable, shareReplay, takeUntil } from 'rxjs';
 import { CoreQuery } from '@app/core/state/core.query';
 import { UnsubscribeAbstract } from '@shared/helpers/unsubscribe.abstract';
 import { UserInterface } from '@shared/models/user.interface';
@@ -54,7 +54,7 @@ export class AppComponent extends UnsubscribeAbstract implements OnInit, AfterVi
 
   ngAfterViewInit (): void {
     this.scrollable.scrollable.elementScrolled().pipe(
-      throttleTime(100),
+      throttleTime(20),
       takeUntil(this.ngUnsubscribe$)
     ).subscribe(res => {
       const scrollElement = this.scrollable.scrollable.getElementRef().nativeElement;
@@ -136,7 +136,7 @@ export class AppComponent extends UnsubscribeAbstract implements OnInit, AfterVi
       //   current: evt.currentVersion,
       //   available: evt.latestVersion,
       // }))
-    ).subscribe(res => {
+    ).subscribe(() => {
       if (confirm(this.updateMessage)) {
         window.location.reload();
       }

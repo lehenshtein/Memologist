@@ -81,7 +81,13 @@
     "created": "created",
     "deleted": "deleted",
     "401": "Please sign-in or sign-up",
-    "token": "Your session expired. Please sign-in"
+    "token": "Your session expired. Please sign-in",
+    "thatsAll": "That's all folks!",
+    "copied": "Link copied! Share with friends"
+  },
+  "Tooltips": {
+    "copyLink": "Copy link",
+    "share": "Share"
   },
   "Validations": {
     "required": "This field is required",

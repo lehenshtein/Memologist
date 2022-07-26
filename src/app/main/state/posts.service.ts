@@ -4,7 +4,7 @@ import { PostsStore, PostsState } from './posts.store';
 import { ID } from '@datorama/akita';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
-import { marks, PostInterfaceGet } from '@shared/models/post.interface';
+import { marks, PostInterfaceGet, sort } from '@shared/models/post.interface';
 import { tap } from 'rxjs/operators';
 import { CommentInterface } from '@shared/models/comment.interface';
 
@@ -14,10 +14,11 @@ export class PostsService extends NgEntityService<PostsState> {
     super(store);
   }
 
-  getPostsPaginated(page: number, limit: number): Observable<HttpResponse<PostInterfaceGet[]>> {
+  getPostsPaginated(page: number, limit: number, sort: sort): Observable<HttpResponse<PostInterfaceGet[]>> {
     const params = new HttpParams()
       .set('page', page)
       .set('limit', limit)
+      .set('sort', sort)
     return this.httpService.get<PostInterfaceGet[]>(`/posts`,{ params, observe: 'response' })
   }
 

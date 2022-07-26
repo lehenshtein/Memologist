@@ -1,13 +1,13 @@
 <div class="wrapper">
   <mat-card *ngIf="!showNavbar" class="nav-card">
     <nav>
-      <a [routerLink]="'/'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      <a [routerLink]="'/'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="closeMenu.emit()">
         <span>{{'Common.HOT' | translate}}</span>
       </a>
-      <a [routerLink]="'/best'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      <a [routerLink]="'/best'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="closeMenu.emit()">
         <span>{{'Common.BEST' | translate}}</span>
       </a>
-      <a [routerLink]="'/new'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      <a [routerLink]="'/new'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="closeMenu.emit()">
         <span>{{'Common.NEW' | translate}}</span>
       </a>
     </nav>

@@ -27,7 +27,7 @@ export class ContentComponent extends UnsubscribeAbstract implements OnInit {
   //   })
   // );
   page = 1;
-  limit = 2;
+  limit = 20;
   sort: sort | null = null;
   showFooter = false;
 

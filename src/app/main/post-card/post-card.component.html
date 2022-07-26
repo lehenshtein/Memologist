@@ -3,7 +3,7 @@
     <mat-card-header>
       <!--        <div mat-card-avatar class="example-header-image"></div>-->
       <mat-card-title [ngStyle]="{'pointer-events': mainPage ? null : 'none'}">
-        <a [routerLink]="[item._id]" target="_blank">{{item.title}}</a>
+        <a [routerLink]="['/' + item._id]" target="_blank">{{item.title}}</a>
       </mat-card-title>
 
       <mat-card-subtitle class="author">{{item.author.name}}</mat-card-subtitle>

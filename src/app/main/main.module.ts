@@ -7,7 +7,7 @@ import { ContentComponent } from '@app/main/content/content.component';
 import { SharedModule } from '@shared/shared.module';
 import { PostPageComponent } from './post-page/post-page.component';
 import { PostCardComponent } from './post-card/post-card.component';
-import { PostResolver } from '@app/main/post.resolver';
+// import { PostResolver } from '@app/main/post.resolver';
 
 @NgModule({
   declarations: [
@@ -21,9 +21,9 @@ import { PostResolver } from '@app/main/post.resolver';
     MainRoutingModule,
     SharedModule
   ],
-  providers: [
-    PostResolver
-  ],
+  // providers: [
+  //   PostResolver
+  // ],
   exports: [
     ContentComponent
   ]

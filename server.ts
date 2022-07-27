@@ -8,25 +8,45 @@ import {join} from 'path';
 import 'node-window-polyfill/register';
 import 'localstorage-polyfill';
 import {AppServerModule} from './src/main.server';
-import * as domino from 'domino';
-import * as fs from 'fs';
-import * as path from 'path';
-//
-// global['localStorage'] = localStorage;
-// const templateA = fs
-//   .readFileSync(path.join("dist/memologist/browser", "index.html"))
-//   .toString();
-// const win = domino.createWindow(templateA);
-// // @ts-ignore
-// global["window"] = win;
-// global["document"] = win.document;
-// // @ts-ignore
-// global["branch"] = null;
-// // @ts-ignore
-// global["object"] = win.object;
-// global['navigator'] = win.navigator;
-// // @ts-ignore
-// if (typeof global.screen === 'undefined') global['screen'] = {};
+import { readFileSync } from 'fs';
+import { enableProdMode } from '@angular/core';
+
+enableProdMode();
+const DIST_FOLDER = join(process.cwd(), 'dist/memologist/browser');
+
+const template = readFileSync(join(DIST_FOLDER, 'index.html')).toString();
+
+const domino = require('domino');
+const win = domino.createWindow(template);
+global['localStorage'] = win.localStorage;
+global['window'] = win;
+global['document'] = win.document;
+global['Document'] = win.document;
+global['DOMTokenList'] = win.DOMTokenList;
+global['Node'] = win.Node;
+global['Text'] = win.Text;
+global['HTMLElement'] = win.HTMLElement;
+global['navigator'] = win.navigator;
+global['KeyboardEvent'] = win.KeyboardEvent;
+global['MouseEvent'] = win.MouseEvent;
+global['FocusEvent'] = win.FocusEvent;
+(global as any).object = win.object;
+global['sessionStorage'] = win.sessionStorage;
+global['screen'] = win.screen;
+
+global['MutationObserver'] = getMockMutationObserver();
+
+function getMockMutationObserver() {
+  return class {
+    observe() {}
+
+    disconnect() {}
+
+    takeRecords() {
+      return [];
+    }
+  };
+}
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {

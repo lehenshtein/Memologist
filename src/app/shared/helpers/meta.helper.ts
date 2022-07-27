@@ -28,11 +28,12 @@ export class MetaHelper {
   resetMeta () {
     this.resetTitle();
     this.meta.updateTag({property: 'og:title', content: 'Memologist | Hot'});
-    this.meta.updateTag({property: 'twitter:title', content: 'Memologist | Hot'});
+    this.meta.updateTag({name: 'twitter:title', content: 'Memologist | Hot'});
 
     const description = 'Мемолог, український розважальний портал.';
     this.meta.updateTag({name: 'description', content: description});
     this.meta.updateTag({property: 'og:description', content: description});
+    this.meta.updateTag({name: 'twitter:description', content: description});
 
     this.meta.updateTag({property: 'og:type', content: 'website'});
 
@@ -40,19 +41,19 @@ export class MetaHelper {
 
     this.meta.updateTag({property: 'og:image', content: '/assets/images/memologist.png'});
     this.meta.updateTag({property: 'og:image:secure_url', content: '/assets/images/memologist.png'});
-    this.meta.updateTag({property: 'twitter:image', content: '/assets/images/memologist.png'});
+    this.meta.updateTag({name: 'twitter:image', content: '/assets/images/memologist.png'});
   }
 
   updateMeta (options: MetaInterface) {
     const title = ('Мемолог | ' + options.title).slice(0, 70);
     this.meta.updateTag({property: 'og:title', content: title});
-    this.meta.updateTag({property: 'twitter:title', content: title});
+    this.meta.updateTag({name: 'twitter:title', content: title});
     this.updateTitle(title);
 
     const description = options.text.slice(0, 150);
     this.meta.updateTag({name: 'description', content: description});
     this.meta.updateTag({property: 'og:description', content: description});
-    this.meta.updateTag({property: 'twitter:description', content: description});
+    this.meta.updateTag({name: 'twitter:description', content: description});
 
     this.meta.updateTag({property: 'og:type', content: options.type});
 
@@ -62,7 +63,7 @@ export class MetaHelper {
     if (img) {
       this.meta.updateTag({property: 'og:image:url', content: img});
       this.meta.updateTag({property: 'og:image:secure_url', content: img});
-      this.meta.updateTag({property: 'twitter:image', content: img});
+      this.meta.updateTag({name: 'twitter:image', content: img});
     }
   }
 }

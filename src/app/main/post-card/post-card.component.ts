@@ -87,6 +87,7 @@ export class PostCardComponent extends UnsubscribeAbstract implements OnInit {
   }
 
   private updateMeta () {
+    console.log(this.item.imgUrl);
     this.metaHelper.updateMeta({
       title: this.item.title,
       text: this.item.text,

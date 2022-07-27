@@ -42,6 +42,7 @@ export class MetaHelper {
   updateMeta (options: MetaInterface) {
     const title = ('Мемолог | ' + options.title).slice(0, 70);
     this.meta.updateTag({property: 'og:title', content: title});
+    this.updateTitle(title);
 
     const description = options.text.slice(0, 150);
     this.meta.updateTag({name: 'description', content: description});
@@ -53,7 +54,7 @@ export class MetaHelper {
 
     const img = options.imgUrl;
     if (img) {
-      this.meta.updateTag({property: 'og:image', content: img});
+      this.meta.updateTag({property: 'og:image:url', content: img});
     }
   }
 }

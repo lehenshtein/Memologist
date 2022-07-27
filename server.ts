@@ -1,12 +1,32 @@
 import 'zone.js/dist/zone-node';
+import {AppServerModule} from './src/main.server';
 
 import {APP_BASE_HREF} from '@angular/common';
 import {ngExpressEngine} from '@nguniversal/express-engine';
 import * as express from 'express';
 import {existsSync} from 'fs';
 import {join} from 'path';
+import 'node-window-polyfill/register';
+import 'localstorage-polyfill';
+import * as domino from 'domino';
+import * as fs from 'fs';
+import * as path from 'path';
 
-import {AppServerModule} from './src/main.server';
+global['localStorage'] = localStorage;
+const templateA = fs
+  .readFileSync(path.join("dist/memologist/browser", "index.html"))
+  .toString();
+const win = domino.createWindow(templateA);
+// @ts-ignore
+global["window"] = win;
+global["document"] = win.document;
+// @ts-ignore
+global["branch"] = null;
+// @ts-ignore
+global["object"] = win.object;
+global['navigator'] = win.navigator;
+// @ts-ignore
+if (typeof global.screen === 'undefined') global['screen'] = {};
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {

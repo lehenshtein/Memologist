@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, TransferState } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MissingTranslationService } from '@app/core/services/missing-translation.service';
 
 import { LayoutModule } from '@app/layout/layout.module';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
@@ -18,6 +17,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ErrorInterceptor } from '@shared/interceptors/error.interceptor';
+import { translateBrowserLoaderFactory } from '@shared/helpers/translate-browser.loader';
+import { MissingTranslationService } from '@app/core/services/missing-translation.service';
 
 @NgModule({
   declarations: [
@@ -41,8 +42,8 @@ import { ErrorInterceptor } from '@shared/interceptors/error.interceptor';
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [ HttpClient ]
+        useFactory: translateBrowserLoaderFactory,
+        deps: [ HttpClient, TransferState ]
       },
       missingTranslationHandler: {provide: MissingTranslationHandler, useClass: MissingTranslationService},
       defaultLanguage: environment.defaultLocale
@@ -51,6 +52,7 @@ import { ErrorInterceptor } from '@shared/interceptors/error.interceptor';
     SharedModule
   ],
   providers: [
+    TransferState,
     {
       provide: HTTP_INTERCEPTORS,
       multi: true,

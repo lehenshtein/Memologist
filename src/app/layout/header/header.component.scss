@@ -9,11 +9,27 @@
   display: flex;
   align-items: center;
   height: 100%;
+  .logo {
+    position: relative;
+    margin-right: 16px;
+    height: 100%;
+  }
   & img {
     height: 100%;
-    margin-right: 16px;
+  }
+  &__glasses {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all .5s;
+  }
+  &:hover {
+    .logo-block__glasses {
+      top: -14px;
+    }
   }
 }
+
 
 .button-space {
   margin-right: $padding-default;

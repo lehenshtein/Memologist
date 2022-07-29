@@ -29,6 +29,9 @@ export class CoreQuery extends QueryEntity<CoreState> {
   get userName(): string | null {
     return this.userTokenData.name;
   }
-  userName$ = this.select(store => store.userTokenData.name)
+  userName$ = this.select(store => store.userTokenData.name);
+  get isBrowser(): boolean {
+    return this.getValue().isBrowser; // check for Angular Universal, if app running on back or front
+  }
 
 }

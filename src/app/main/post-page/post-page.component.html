@@ -1,6 +1,6 @@
-<ng-container *ngIf="item$ | async as item else notFound">
+<ng-container *ngIf="item else notFound">
   <p>
-    <app-post-card *ngIf="item" [item]="item" [mainPage]="false"></app-post-card>
+    <app-post-card [item]="item" [mainPage]="false"></app-post-card>
   </p>
 
   <mat-form-field appearance="outline">

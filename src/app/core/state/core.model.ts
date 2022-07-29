@@ -5,5 +5,6 @@ export interface Core {
   navigator: NavigatorInterface,
   userTokenData: UserTokenInterface,
   isAuthenticated: boolean,
-  userData: UserInterface | null
+  userData: UserInterface | null,
+  isBrowser: boolean
 }

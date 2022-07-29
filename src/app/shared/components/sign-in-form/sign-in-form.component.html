@@ -1,58 +1,40 @@
 <form class="form" [formGroup]="form">
   <mat-card>
-<!--    <mat-form-field appearance="outline">-->
-<!--      <mat-label>{{'Forms.Auth.Login.title' | translate}}</mat-label>-->
-<!--      <input matInput formControlName="login" [placeholder]="'Forms.Auth.Login.placeholder1' | translate">-->
-<!--      <mat-icon matSuffix [color]="'accent'" *ngIf="formLogin.valid || !formLogin.touched">sentiment_very_satisfied-->
-<!--      </mat-icon>-->
-<!--      <mat-icon matSuffix [color]="'warn'" *ngIf="formLogin.invalid && formLogin.touched">sentiment_very_dissatisfied-->
-<!--      </mat-icon>-->
-<!--      <mat-error *ngIf="formLogin?.getError('required')">{{'Validations.required' | translate}}</mat-error>-->
-<!--      <mat-error *ngIf="formLogin?.hasError('minlength')">-->
-<!--        {{'Validations.minLength' | translate}}-->
-<!--        {{formLogin?.getError('minlength')['requiredLength']}}-->
-<!--      </mat-error>-->
-<!--      <mat-error *ngIf="formLogin?.getError('maxlength')">-->
-<!--        {{'Validations.maxLength' | translate}}-->
-<!--        {{formLogin?.getError('maxlength')['requiredLength']}}-->
-<!--      </mat-error>-->
-<!--    </mat-form-field>-->
-
     <mat-form-field appearance="outline">
       <mat-label>{{'Forms.Auth.Email.title' | translate}}</mat-label>
       <input matInput type="email" formControlName="email" [placeholder]="'Forms.Auth.Email.placeholder' | translate">
       <mat-icon matSuffix [color]="'accent'" *ngIf="formEmail.valid || !formEmail.touched">email</mat-icon>
       <mat-icon matSuffix [color]="'warn'" *ngIf="formEmail.invalid && formEmail.touched">unsubscribe</mat-icon>
-      <mat-error *ngIf="formEmail?.getError('required')">{{'Validations.required' | translate}}</mat-error>
+      <mat-error *ngIf="formEmail.getError('required')">{{'Validations.required' | translate}}</mat-error>
       <mat-error
-        *ngIf="formEmail?.getError('email') && !formEmail?.hasError('minlength') && !formEmail?.getError('maxlength')">{{'Validations.email' | translate}}</mat-error>
-      <mat-error *ngIf="formEmail?.hasError('minlength')">
+        *ngIf="formEmail.getError('email') && !formEmail.hasError('minlength') && !formEmail.getError('maxlength')">{{'Validations.email' | translate}}</mat-error>
+      <mat-error *ngIf="formEmail.hasError('minlength')">
         {{'Validations.minLength' | translate}}
-        {{formEmail?.getError('minlength')['requiredLength']}}
+        {{formEmail.getError('minlength')['requiredLength']}}
       </mat-error>
-      <mat-error *ngIf="formEmail?.getError('maxlength')">
+      <mat-error *ngIf="formEmail.getError('maxlength')">
         {{'Validations.maxLength' | translate}}
-        {{formEmail?.getError('maxlength')['requiredLength']}}
+        {{formEmail.getError('maxlength')['requiredLength']}}
       </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>{{'Forms.Auth.Password.title' | translate}}</mat-label>
       <input matInput formControlName="password" [type]="showPass ? 'text' : 'password'"
-             [placeholder]="'Forms.Auth.Password.placeholder1' | translate">
+        [placeholder]="'Forms.Auth.Password.placeholder1' | translate">
       <mat-icon matSuffix [color]="'primary'" [ngStyle]="{cursor: 'pointer'}" (click)="showPassword()">remove_red_eye
       </mat-icon>
-      <mat-error *ngIf="formPassword?.getError('required')">{{'Validations.required' | translate}}</mat-error>
-      <mat-error *ngIf="formPassword?.getError('pattern')">
+      <mat-error *ngIf="formPassword.getError('required')">{{'Validations.required' | translate}}</mat-error>
+      <mat-error *ngIf="formPassword.getError('pattern')">
         {{'Validations.passPattern' | translate}}
       </mat-error>
-      <mat-error *ngIf="formPassword?.hasError('minlength')">
+      <mat-error *ngIf="formPassword.hasError('minlength')">
         {{'Validations.minLength' | translate}}
-        {{formPassword?.getError('minlength')['requiredLength']}}
+        {{formPassword.getError('minlength')['requiredLength']}}
       </mat-error>
-      <mat-error *ngIf="formPassword?.getError('maxlength')">
+      <mat-error *ngIf="formPassword.getError('maxlength')">
         {{'Validations.maxLength' | translate}}
-        {{formPassword?.getError('maxlength')['requiredLength']}}
+        {{formPassword.getError('maxlength')['requiredLength']}}
       </mat-error>
     </mat-form-field>
 

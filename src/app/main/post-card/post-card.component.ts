@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { marks, PostInterfaceGet } from '@shared/models/post.interface';
 import { ImageModalComponent } from '@shared/modals/image-modal/image-modal.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -16,6 +16,7 @@ import { AuthService } from '@app/core/auth/auth.service';
 import { NotificationService } from '@shared/services/notification.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-post-card',
@@ -30,8 +31,10 @@ export class PostCardComponent extends UnsubscribeAbstract implements OnInit {
   score: number = 1;
   isDeviceMobile = typeof navigator.share === 'function' && this.coreQuery.navigator && this.coreQuery.navigator.mobile;
 
+  private window!: Window;
 
   constructor (
+    @Inject(DOCUMENT) private document: Document,
     private dialog: MatDialog,
     private spinner: NgxSpinnerService,
     private coreQuery: CoreQuery,
@@ -43,13 +46,16 @@ export class PostCardComponent extends UnsubscribeAbstract implements OnInit {
     private clipboard: Clipboard
   ) {
     super();
+    if (this.document.defaultView) {
+      this.window = this.document.defaultView;
+    }
   }
 
   ngOnInit (): void {
     this.spinner.show('spinner', spinnerConfig);
-    if (!this.mainPage) {
-      this.updateMeta();
-    }
+    // if (!this.mainPage) {
+    //   this.updateMeta();
+    // }
     this.markedAs = this.item.marked || 'default';
     this.score = this.item.score;
   }
@@ -62,6 +68,9 @@ export class PostCardComponent extends UnsubscribeAbstract implements OnInit {
   }
 
   openShare () {
+    if (!this.coreQuery.isBrowser) {
+      return;
+    }
     if (this.isDeviceMobile) {
       navigator.share({
         url: environment.websiteUrl + this.item._id,
@@ -74,10 +83,12 @@ export class PostCardComponent extends UnsubscribeAbstract implements OnInit {
 
   share (social: 'telegram' | 'facebook' | 'copy') {
     if (social === 'telegram') {
-      window.open(`https://telegram.me/share/url?url=${this.websiteUrl}${this.item._id}&amp;text=${this.item.title}`, '_blank');
+      this.window.open(`https://telegram.me/share/url?url=${this.websiteUrl}${this.item._id}&amp;text=${this.item.title}`, '_blank',
+        'left=100,top=50,location=yes,height=570,width=650,scrollbars=yes,status=yes');
     }
     if (social === 'facebook') {
-      window.open(`https://www.facebook.com/sharer/sharer.php?u=${this.websiteUrl}${this.item._id}`, '_blank');
+      this.window.open(`https://www.facebook.com/sharer/sharer.php?u=${this.websiteUrl}${this.item._id}`, '_blank',
+        'left=100,top=50,location=yes,height=570,width=650,scrollbars=yes,status=yes');
     }
     if (social === 'copy') {
       this.clipboard.copy(`${this.websiteUrl}${this.item._id}`);
@@ -86,16 +97,15 @@ export class PostCardComponent extends UnsubscribeAbstract implements OnInit {
     }
   }
 
-  private updateMeta () {
-    console.log(this.item.imgUrl);
-    this.metaHelper.updateMeta({
-      title: this.item.title,
-      text: this.item.text,
-      type: 'article',
-      url: `${environment.apiUrl}/${this.item._id}`,
-      imgUrl: this.item.imgUrl
-    });
-  }
+  // private updateMeta () {
+  //   this.metaHelper.updateMeta({
+  //     title: this.item.title,
+  //     text: this.item.text,
+  //     type: 'article',
+  //     url: `${environment.apiUrl}/${this.item._id}`,
+  //     imgUrl: this.item.imgUrl
+  //   });
+  // }
 
   toggleButtons ($event: MatButtonToggleChange) { // it needs to visualize deselecting of buttons
     let toggle = $event.source;

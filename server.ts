@@ -3,12 +3,11 @@ import 'zone.js/dist/zone-node';
 import {APP_BASE_HREF} from '@angular/common';
 import {ngExpressEngine} from '@nguniversal/express-engine';
 import * as express from 'express';
-import {existsSync} from 'fs';
+import {existsSync, readFileSync} from 'fs';
 import {join} from 'path';
 import 'node-window-polyfill/register';
 import 'localstorage-polyfill';
 import {AppServerModule} from './src/main.server';
-import { readFileSync } from 'fs';
 import { enableProdMode } from '@angular/core';
 
 enableProdMode();

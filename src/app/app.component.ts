@@ -1,4 +1,13 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Inject,
+  OnInit,
+  PLATFORM_ID,
+  ViewChild
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '@environment/environment';
 import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
@@ -13,6 +22,7 @@ import { CoreQuery } from '@app/core/state/core.query';
 import { UnsubscribeAbstract } from '@shared/helpers/unsubscribe.abstract';
 import { UserInterface } from '@shared/models/user.interface';
 import { InfiniteScrollService } from '@shared/services/infinite-scroll.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -36,16 +46,20 @@ export class AppComponent extends UnsubscribeAbstract implements OnInit, AfterVi
                 private coreQuery: CoreQuery,
                 private authService: AuthService,
                 private ref: ChangeDetectorRef,
-                private infiniteScrollService: InfiniteScrollService
+                private infiniteScrollService: InfiniteScrollService,
+                @Inject(PLATFORM_ID) private platformId: Object
   ) {
     super();
   }
 
   ngOnInit (): void {
+    this.coreService.setIsBrowser(isPlatformBrowser(this.platformId));
     this.isLoggedIn();
-    (async () => {
-      this.coreService.addNavigator(await navigatorHelper());
-    })();
+    if (this.coreQuery.isBrowser) {
+      (async () => {
+        this.coreService.addNavigator(await navigatorHelper());
+      })();
+    }
     this.resize();
     this.translate.use(environment.defaultLocale);
     this.translateMsg();
@@ -98,6 +112,9 @@ export class AppComponent extends UnsubscribeAbstract implements OnInit, AfterVi
   }
 
   private isLoggedIn () {
+    if (!this.coreQuery.isBrowser) {
+      return;
+    }
     const potentialToken = localStorage.getItem('auth-token');
     if (potentialToken) {
       this.authService.setAllUserData(potentialToken);

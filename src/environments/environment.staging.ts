@@ -1,9 +1,9 @@
-const prodApiUrl = 'https://memologist-prod-be.herokuapp.com';
+const prodApiUrl = 'https://memologist-be.herokuapp.com';
 
 export const environment = {
   production: true,
   apiUrl: prodApiUrl,
-  websiteUrl: 'https://memologist-prod.herokuapp.com/',
+  websiteUrl: 'https://memologist.herokuapp.com/',
   locales: {
     en: 'en',
     ua: 'ua'

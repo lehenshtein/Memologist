@@ -1,4 +1,5 @@
-const prodApiUrl = 'https://memologist-be.herokuapp.com';
+const prodApiUrl = 'https://memologist-prod-be.herokuapp.com';
+const devApiUrl = 'https://memologist-be.herokuapp.com';
 const testApiUrl = 'http://localhost:3000';
 
 export const environment = {

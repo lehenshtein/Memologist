@@ -13,9 +13,10 @@
     "bs": "ng build && http-server -p 8080 -c-1 dist/memologist",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "heroku-postbuild": "npm run build:ssr",
+    "heroku-postbuild": "bash build.sh",
     "dev:ssr": "ng run memologist:serve-ssr",
     "serve:ssr": "node dist/memologist/server/main.js",
+    "build:ssr:stage": "ng build --configuration=staging && ng run memologist:server",
     "build:ssr": "ng build && ng run memologist:server",
     "prerender": "ng run memologist:prerender"
   },

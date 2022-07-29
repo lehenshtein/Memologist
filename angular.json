@@ -59,6 +59,27 @@
               ],
               "outputHashing": "all"
             },
+            "staging": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "9mb",
+                  "maximumError": "10mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "390kb",
+                  "maximumError": "400kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.staging.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -75,6 +96,9 @@
           "configurations": {
             "production": {
               "browserTarget": "memologist:build:production"
+            },
+            "staging": {
+              "browserTarget": "memologist:build:staging"
             },
             "development": {
               "browserTarget": "memologist:build:development"
@@ -141,6 +165,10 @@
               "browserTarget": "memologist:build:development",
               "serverTarget": "memologist:server:development"
             },
+            "staging": {
+              "browserTarget": "memologist:build:staging",
+              "serverTarget": "memologist:server:staging"
+            },
             "production": {
               "browserTarget": "memologist:build:production",
               "serverTarget": "memologist:server:production"
@@ -159,6 +187,10 @@
             "production": {
               "browserTarget": "memologist:build:production",
               "serverTarget": "memologist:server:production"
+            },
+            "staging": {
+              "browserTarget": "memologist:build:staging",
+              "serverTarget": "memologist:server:staging"
             },
             "development": {
               "browserTarget": "memologist:build:development",

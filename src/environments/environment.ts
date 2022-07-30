@@ -5,6 +5,7 @@ const testApiUrl = 'http://localhost:3000';
 export const environment = {
   production: false,
   apiUrl: testApiUrl,
+  type: 'local',
   websiteUrl: 'https://memologist.herokuapp.com/',
   locales: {
     en: 'en',

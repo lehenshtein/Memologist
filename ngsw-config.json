@@ -43,6 +43,7 @@
       "name": "network-first",
       "urls": [
         "https://memologist-be.herokuapp.com",
+        "https://memologist-prod-be.herokuapp.com",
         "http://localhost:3000"
       ],
       "cacheConfig": {

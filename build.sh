@@ -8,7 +8,7 @@ if [ $NODE_ENV = "staging" ]; then
  eval "$build_stage"
 fi
 
-build_prod='ng build && ng run memologist:server:production'
+build_prod='ng build --configuration=production && ng run memologist:server:production'
 if [ $NODE_ENV = "production" ]; then
  echo "running $build_prod ..."
  eval "$build_prod"

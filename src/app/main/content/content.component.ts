@@ -58,12 +58,8 @@ export class ContentComponent extends UnsubscribeAbstract implements OnInit {
   }
 
   ngOnInit (): void {
-    this.updateMeta();
-    this.getMorePosts();
-  }
-
-  private updateMeta () {
     this.metaHelper.resetMeta();
+    this.getMorePosts();
   }
 
   getMorePosts () {

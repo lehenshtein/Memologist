@@ -29,11 +29,11 @@ export class TokenInterceptor implements HttpInterceptor {
       });
     }
     const requestForStatic = !(request.url.slice(0, 8).indexOf('/assets/') === -1);
-    // const swRequest = !(request.url.indexOf('ngsw') === -1);
+    const swRequest = !(request.url.indexOf('ngsw') === -1);
 
-    // if (!isPlatformBrowser(this.platformId) && swRequest) {
-    //   return EMPTY; // disabling taking manifest on server
-    // }
+    if (!isPlatformBrowser(this.platformId) && swRequest) {
+      return EMPTY; // disabling taking manifest on server
+    }
     // console.log(request.url); // leave this for future debug
     // console.log('env url', environment.apiUrl);
     // console.log('env', environment.type);

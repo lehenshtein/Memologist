@@ -2,7 +2,7 @@
   <mat-drawer-container class="drawer" #scrollable>
     <mat-drawer #drawer class="sidenav" mode="push" position="end">
       <app-sidebar [showNavbar]="showNavbar"  [user]="user$ | async" (changeLang)="onChangeLang()" (closeMenu)="drawer.close()"></app-sidebar>
-      <small class="version">v-0.0.9</small>
+      <small class="version">v-0.1.0 beta</small>
     </mat-drawer>
     <div class="wrapper">
       <div class="content-wrapper">

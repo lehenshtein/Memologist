@@ -21,4 +21,7 @@ export class CoreService {
   addUserData(userData: UserInterface | null) {
     this.coreStore.update({userData});
   }
+  setIsBrowser(isBrowser: boolean) {
+    this.coreStore.update({isBrowser});
+  }
 }

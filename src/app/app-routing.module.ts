@@ -7,12 +7,13 @@ const routes: Routes = [
   { path: 'best', title: 'Мемолог | Найкраще', data: { sort: 'best' }, loadChildren: () => import('./main/main.module').then(m => m.MainModule)},
   { path: 'new', title: 'Мемолог | Свіженьке', data: { sort: 'new' }, loadChildren: () => import('./main/main.module').then(m => m.MainModule)},
   { path: '', title: 'Мемолог | Шкварчаще', data: { sort: 'hot' }, loadChildren: () => import('./main/main.module').then(m => m.MainModule)},
+  // TODO: fix routing,  'https://memologist-prod-be.herokuapp.com/posts/ng-cli-ws' triggers with posts
   { path: '**', redirectTo: '' }
   // { path: 'post/:id', loadChildren: () => import('./post-page/post-page.module').then(m => m.PostPageModule) }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {scrollPositionRestoration: 'top'})],
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'top', initialNavigation: 'enabledBlocking' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

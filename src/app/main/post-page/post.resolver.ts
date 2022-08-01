@@ -1,10 +1,10 @@
 // import { Injectable } from '@angular/core';
 // import {
-//   Router, Resolve,
+//   Resolve,
 //   RouterStateSnapshot,
-//   ActivatedRouteSnapshot, Params
+//   ActivatedRouteSnapshot
 // } from '@angular/router';
-// import { EMPTY, Observable, of, switchMap } from 'rxjs';
+// import { Observable, of } from 'rxjs';
 // import { PostsQuery } from '@app/main/state/posts.query';
 // import { PostsService } from '@app/main/state/posts.service';
 // import { PostInterfaceGet } from '@shared/models/post.interface';

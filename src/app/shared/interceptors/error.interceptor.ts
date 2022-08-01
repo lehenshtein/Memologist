@@ -39,7 +39,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
             this.notificationService.openSnackBar('error', error.error && error.error.message
               ? error.error.message
-              : error.error.err && error.error.err.details.length ? this.showAllErrors(error.error.err.details)
+              : error.error?.err && error.error.err.details.length ? this.showAllErrors(error.error?.err.details)
               :'Something went wrong', error.status ? 'Error: ' + error.status : undefined);
             throw error;
           })

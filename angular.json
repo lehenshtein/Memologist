@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/memologist",
+            "outputPath": "dist/memologist/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -59,6 +59,27 @@
               ],
               "outputHashing": "all"
             },
+            "staging": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "9mb",
+                  "maximumError": "10mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "390kb",
+                  "maximumError": "400kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.staging.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -75,6 +96,9 @@
           "configurations": {
             "production": {
               "browserTarget": "memologist:build:production"
+            },
+            "staging": {
+              "browserTarget": "memologist:build:staging"
             },
             "development": {
               "browserTarget": "memologist:build:development"
@@ -107,6 +131,82 @@
             ],
             "scripts": []
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/memologist/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json",
+            "inlineStyleLanguage": "scss"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
+            },
+            "staging": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.staging.ts"
+                }
+              ]
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "memologist:build:development",
+              "serverTarget": "memologist:server:development"
+            },
+            "staging": {
+              "browserTarget": "memologist:build:staging",
+              "serverTarget": "memologist:server:staging"
+            },
+            "production": {
+              "browserTarget": "memologist:build:production",
+              "serverTarget": "memologist:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "memologist:build:production",
+              "serverTarget": "memologist:server:production"
+            },
+            "staging": {
+              "browserTarget": "memologist:build:staging",
+              "serverTarget": "memologist:server:staging"
+            },
+            "development": {
+              "browserTarget": "memologist:build:development",
+              "serverTarget": "memologist:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }

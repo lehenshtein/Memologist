@@ -87,7 +87,7 @@ mat-form-field {
 .buttons {
   padding-bottom: $padding-m;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   button {
     margin-left: $padding-m;
   }

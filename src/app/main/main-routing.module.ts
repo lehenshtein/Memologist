@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './main.component';
 import { ContentComponent } from '@app/main/content/content.component';
 import { PostPageComponent } from '@app/main/post-page/post-page.component';
-// import { PostResolver } from '@app/main/post.resolver';
+// import { PostResolver } from '@app/main/post-page/post.resolver';
 
 const routes: Routes = [
   { path: '', component: MainComponent,

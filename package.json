@@ -7,13 +7,18 @@
   },
   "scripts": {
     "ng": "ng",
-    "start": "node server.js",
+    "start": "npm run serve:ssr",
     "build": "ng build",
-    "server": "http-server -p 8080 -c-1 dist/memologist",
-    "bs": "ng build && http-server -p 8080 -c-1 dist/memologist",
+    "server": "http-server -p 8080 -c-1 dist/memologist/server",
+    "bs": "ng build && http-server -p 8080 -c-1 dist/memologist/server",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "heroku-postbuild": "ng build"
+    "heroku-postbuild": "bash build.sh",
+    "dev:ssr": "ng run memologist:serve-ssr",
+    "serve:ssr": "node dist/memologist/server/main.js",
+    "build:ssr:stage": "ng build --configuration=staging && ng run memologist:server:staging",
+    "build:ssr": "ng build && ng run memologist:server",
+    "prerender": "ng run memologist:prerender"
   },
   "private": true,
   "dependencies": {
@@ -28,6 +33,7 @@
     "@angular/material": "^14.0.4",
     "@angular/platform-browser": "^14.1.0",
     "@angular/platform-browser-dynamic": "^14.1.0",
+    "@angular/platform-server": "^14.1.0",
     "@angular/router": "^14.1.0",
     "@angular/service-worker": "^14.1.0",
     "@auth0/angular-jwt": "^5.0.2",
@@ -35,11 +41,18 @@
     "@datorama/akita-ng-effects": "^1.0.6",
     "@datorama/akita-ng-entity-service": "^7.0.0",
     "@datorama/akita-ngdevtools": "^7.0.0",
+    "@nguniversal/builders": "^14.0.3",
+    "@nguniversal/express-engine": "^14.0.3",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
-    "express": "^4.18.1",
+    "@types/express": "^4.17.0",
+    "@types/node": "^14.15.0",
+    "domino": "^2.1.6",
+    "express": "^4.15.2",
     "http-server": "^14.1.1",
+    "localstorage-polyfill": "^1.0.1",
     "ngx-spinner": "^14.0.0",
+    "node-window-polyfill": "^1.0.2",
     "path": "^0.12.7",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
@@ -54,7 +67,6 @@
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.0.0",
-    "karma-jasmine-html-reporter": "~1.7.0",
-    "typescript": "~4.7.2"
+    "karma-jasmine-html-reporter": "~1.7.0"
   }
 }

@@ -15,6 +15,8 @@ import { ID } from '@datorama/akita';
 import { AuthService } from '@app/core/auth/auth.service';
 import { NotificationService } from '@shared/services/notification.service';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from '@environment/environment';
+import { MetaHelper } from '@shared/helpers/meta.helper';
 
 @Component({
   selector: 'app-post-page',
@@ -25,6 +27,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class PostPageComponent extends UnsubscribeAbstract implements OnInit {
   commentText = '';
   username = this.coreQuery.userName;
+  item: PostInterfaceGet | undefined = undefined;
 
   constructor (
     private http: MainHttpService,
@@ -35,12 +38,14 @@ export class PostPageComponent extends UnsubscribeAbstract implements OnInit {
     private coreQuery: CoreQuery,
     private authService: AuthService,
     private notificationService: NotificationService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private metaHelper: MetaHelper
   ) {
     super();
+    this.item = this.route.snapshot.data['data'];
   }
 
-  route$ = this.route.params.pipe(tap(() => console.log('request')), shareReplay(1), takeUntil(this.ngUnsubscribe$));
+  route$ = this.route.params.pipe(shareReplay(1), takeUntil(this.ngUnsubscribe$));
 
   item$: Observable<PostInterfaceGet | undefined> = this.route$.pipe(
     switchMap((params: Params) => {
@@ -50,7 +55,9 @@ export class PostPageComponent extends UnsubscribeAbstract implements OnInit {
       if (this.query.getPost(params['id'])) { // check if post exists in store
         return of(this.query.getPost(params['id']));
       }
-      return this.postsService.get<PostInterfaceGet>(params['id'], {skipWrite: true}); // if no => request
+      return this.postsService.get<PostInterfaceGet>(params['id'], {skipWrite: true}).pipe(tap((res: PostInterfaceGet) => {
+        this.updateMeta(res);
+      })); // if no => request
     })
   );
 
@@ -66,7 +73,15 @@ export class PostPageComponent extends UnsubscribeAbstract implements OnInit {
   );
 
   ngOnInit (): void {
-    console.log(this.route.snapshot.data);
+  }
+  private updateMeta (item: PostInterfaceGet) {
+    this.metaHelper.updateMeta({
+      title: item.title,
+      text: item.text,
+      type: 'article',
+      url: `${environment.apiUrl}/${item._id}`,
+      imgUrl: item.imgUrl
+    });
   }
 
   mark (value: marks, comment: CommentInterface) {

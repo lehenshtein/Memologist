@@ -8,7 +8,8 @@ export interface CoreState extends EntityState<Core> {
   navigator: NavigatorInterface,
   userTokenData: UserTokenInterface,
   isAuthenticated: boolean,
-  userData: UserInterface | null
+  userData: UserInterface | null,
+  isBrowser: boolean
 }
 
 const initState: Partial<CoreState> = {
@@ -20,6 +21,7 @@ const initState: Partial<CoreState> = {
     tokenExpired: true
   },
   userData: null,
+  isBrowser: true
 };
 
 @Injectable({providedIn: 'root'})
@@ -29,6 +31,4 @@ export class CoreStore extends EntityStore<CoreState> {
   constructor () {
     super(initState);
   }
-
-
 }

@@ -8,7 +8,7 @@ export async function navigatorHelper (): Promise<NavigatorInterface> {
     width: '',
     height: ''
   };
-  if (screen.width) {
+  if (screen && screen.width) {
     screenSize.width = (screen.width) ? screen.width : '';
     screenSize.height = (screen.height) ? screen.height : '';
   }
@@ -20,7 +20,6 @@ export async function navigatorHelper (): Promise<NavigatorInterface> {
   let version: string = '' + parseFloat(navigator.appVersion);
   let majorVersion: number = parseInt(navigator.appVersion, 10);
   let nameOffset, verOffset, ix;
-
   // Opera
   if ((verOffset = nAgt.indexOf('Opera')) != -1) {
     browser = 'Opera';
@@ -163,12 +162,13 @@ export async function navigatorHelper (): Promise<NavigatorInterface> {
       osVersion = osVersion[1] + '.' + osVersion[2] + '.' + (osVersion[3] | 0);
       break;
   }
-  let position: GeolocationPosition | null = null;
-try {
-  position = await getCoordinates();
-} catch (err) {
-  console.log(err);
-}
+
+let position: GeolocationPosition | null = null;
+// try {
+//   position = await getCoordinates();
+// } catch (err) {
+//   console.log(err);
+// }
 
   return {
     screenSize,
@@ -179,7 +179,8 @@ try {
     os,
     osVersion,
     cookieEnabled,
-    position: position ? `${position.coords.latitude}, ${position.coords.longitude}` : null,
+    position: null,
+    // position: position ? `${position.coords.latitude}, ${position.coords.longitude}` : null,
     languages: navigator.languages
   }
 }

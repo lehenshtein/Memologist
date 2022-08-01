@@ -58,12 +58,8 @@ export class ContentComponent extends UnsubscribeAbstract implements OnInit {
   }
 
   ngOnInit (): void {
-    this.updateMeta();
-    this.getMorePosts();
-  }
-
-  private updateMeta () {
     this.metaHelper.resetMeta();
+    this.getMorePosts();
   }
 
   getMorePosts () {
@@ -80,6 +76,9 @@ export class ContentComponent extends UnsubscribeAbstract implements OnInit {
           this.infiniteScrollService.setScrollToBottom(null);
           this.infiniteScrollService.wasOnLoadPosition = false;
           this.store.add(posts);
+          if (posts.length < this.limit) {
+            this.showFooter = true;
+          }
         } else {
           this.showFooter = true;
         }

@@ -1,4 +1,4 @@
-<ng-container *ngIf="item else notFound">
+<ng-container *ngIf="item$ | async as item else notFound">
   <p>
     <app-post-card [item]="item" [mainPage]="false"></app-post-card>
   </p>

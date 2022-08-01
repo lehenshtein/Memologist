@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MainHttpService } from '@app/main/main-http.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { UnsubscribeAbstract } from '@shared/helpers/unsubscribe.abstract';
-import { EMPTY, Observable, shareReplay, switchMap, takeUntil } from 'rxjs';
+import { EMPTY, Observable, of, shareReplay, switchMap, takeUntil } from 'rxjs';
 
 import { marks, PostInterfaceGet } from '@shared/models/post.interface';
 import { PostsQuery } from '@app/main/state/posts.query';
@@ -15,6 +15,8 @@ import { ID } from '@datorama/akita';
 import { AuthService } from '@app/core/auth/auth.service';
 import { NotificationService } from '@shared/services/notification.service';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from '@environment/environment';
+import { MetaHelper } from '@shared/helpers/meta.helper';
 
 @Component({
   selector: 'app-post-page',
@@ -36,7 +38,8 @@ export class PostPageComponent extends UnsubscribeAbstract implements OnInit {
     private coreQuery: CoreQuery,
     private authService: AuthService,
     private notificationService: NotificationService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private metaHelper: MetaHelper
   ) {
     super();
     this.item = this.route.snapshot.data['data'];
@@ -44,17 +47,19 @@ export class PostPageComponent extends UnsubscribeAbstract implements OnInit {
 
   route$ = this.route.params.pipe(shareReplay(1), takeUntil(this.ngUnsubscribe$));
 
-  // item$: Observable<PostInterfaceGet | undefined> = this.route$.pipe(
-  //   switchMap((params: Params) => {
-  //     if (!params['id']) {
-  //       return EMPTY;
-  //     }
-  //     if (this.query.getPost(params['id'])) { // check if post exists in store
-  //       return of(this.query.getPost(params['id']));
-  //     }
-  //     return this.postsService.get<PostInterfaceGet>(params['id'], {skipWrite: true}); // if no => request
-  //   })
-  // );
+  item$: Observable<PostInterfaceGet | undefined> = this.route$.pipe(
+    switchMap((params: Params) => {
+      if (!params['id']) {
+        return EMPTY;
+      }
+      if (this.query.getPost(params['id'])) { // check if post exists in store
+        return of(this.query.getPost(params['id']));
+      }
+      return this.postsService.get<PostInterfaceGet>(params['id'], {skipWrite: true}).pipe(tap((res: PostInterfaceGet) => {
+        this.updateMeta(res);
+      })); // if no => request
+    })
+  );
 
   comments$: Observable<CommentInterface[]> = this.route$.pipe(
     switchMap((params: Params) => {
@@ -68,6 +73,15 @@ export class PostPageComponent extends UnsubscribeAbstract implements OnInit {
   );
 
   ngOnInit (): void {
+  }
+  private updateMeta (item: PostInterfaceGet) {
+    this.metaHelper.updateMeta({
+      title: item.title,
+      text: item.text,
+      type: 'article',
+      url: `${environment.apiUrl}/${item._id}`,
+      imgUrl: item.imgUrl
+    });
   }
 
   mark (value: marks, comment: CommentInterface) {

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserLoginInterface } from '@shared/models/user.interface';
+import { passPattern } from '@shared/helpers/regex-patterns';
 
 @Component({
   selector: 'app-sign-in-form',
@@ -10,7 +11,7 @@ import { UserLoginInterface } from '@shared/models/user.interface';
 export class SignInFormComponent implements OnInit {
   @Output() onSubmit = new EventEmitter<UserLoginInterface>();
   form!: FormGroup;
-  passPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]/;
+  passPattern = passPattern;
   showPass = false;
 
   constructor(

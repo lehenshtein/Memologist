@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { compareValidator } from '@shared/validators/compare.validator';
 import { UserRegisterInterface } from '@shared/models/user.interface';
+import { passPattern } from '@app/shared/helpers/regex-patterns';
 
 @Component({
   selector: 'app-sign-up-form',
@@ -11,7 +12,7 @@ import { UserRegisterInterface } from '@shared/models/user.interface';
 export class SignUpFormComponent implements OnInit {
   @Output() onSubmit = new EventEmitter<UserRegisterInterface>();
   form!: FormGroup;
-  passPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]/;
+  passPattern = passPattern;
   showPass = false;
 
   constructor(

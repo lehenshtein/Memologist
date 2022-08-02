@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { take } from 'rxjs';
+import { debounceTime, distinctUntilChanged, Observable, of, take } from 'rxjs';
 import { PostsService } from '@app/main/state/posts.service';
 import { Router } from '@angular/router';
 import { NotificationService } from '@shared/services/notification.service';
 import { TranslateService } from '@ngx-translate/core';
+import { imgPattern } from '@app/shared/helpers/regex-patterns';
 
 @Component({
   selector: 'app-create-post-form',
@@ -13,7 +14,8 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class CreatePostFormComponent implements OnInit {
   form!: FormGroup;
-  urlPattern = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+  imgPattern = imgPattern;
+  imgPreview: Observable<string | undefined> = of(undefined);
 
   constructor(
     private fb: FormBuilder,
@@ -38,8 +40,10 @@ export class CreatePostFormComponent implements OnInit {
       title: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(30)]],
       text: ['', [Validators.required, Validators.minLength(20), Validators.maxLength(2000)]],
       tags: ['', Validators.maxLength(100)],
-      imgUrl: [null, [Validators.pattern(this.urlPattern), Validators.maxLength(120)]]
+      imgUrl: [null, [Validators.pattern(this.imgPattern), Validators.maxLength(120)]]
     });
+
+    this.showImgPreview();
   }
 
   get formTitle() {
@@ -53,6 +57,13 @@ export class CreatePostFormComponent implements OnInit {
   }
   get formImgUrl() {
     return this.form.get('imgUrl') as FormControl;
+  }
+
+  private showImgPreview() {
+    this.imgPreview = this.formImgUrl.valueChanges.pipe(debounceTime(300), distinctUntilChanged());
+    this.formImgUrl.valueChanges.pipe(debounceTime(300), distinctUntilChanged()).subscribe(value => {
+      console.log(value);
+    })
   }
 
   submit () {

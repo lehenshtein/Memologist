@@ -1,7 +1,8 @@
 {
   "Memologist": "Memologist",
   "Messages": {
-    "update": "New version available. Load new version?"
+    "update": "New version available. Load new version?",
+    "imgPreview": "You must see your image over here. If you doesn't, then something wrong. Try to click right mouse button on an image you try to add, or hold finger, if you are using phone and select: 'Open image in a new tab'."
   },
   "Common": {
     "HOT": "HOT",
@@ -93,7 +94,8 @@
     "required": "This field is required",
     "minLength": "Min length is: ",
     "maxLength": "Max length is: ",
-    "urlPattern": "That's not look like an image",
+    "urlPattern": "That's not look like a link",
+    "imgPattern": "That's not look like a link to an image",
     "passPattern": "At least one uppercase, one lowercase letter and one number",
     "email": "That's not look like an email",
     "notSame": "Passwords are different"

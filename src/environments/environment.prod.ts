@@ -4,7 +4,7 @@ export const environment = {
   production: true,
   apiUrl: prodApiUrl,
   type: 'prod',
-  websiteUrl: 'https://memologist-prod.herokuapp.com/',
+  websiteUrl: 'https://memologist.com.ua/',
   locales: {
     en: 'en',
     ua: 'ua'

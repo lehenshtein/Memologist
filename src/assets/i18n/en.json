@@ -18,6 +18,8 @@
     "login": "Sign in",
     "signUp": "Sign up",
     "toSignUp": "Create account",
+    "toVerify": "Verify your email",
+    "send": "Send",
     "you": "You",
     "author": "Author",
     "rate": "rating",
@@ -54,6 +56,10 @@
       "PasswordRepeat": {
         "title": "Repeat password",
         "placeholder": "Yes again... We know"
+      },
+      "Verify": {
+        "title": "Verification code",
+        "placeholder": "If field is empty, paste the code from your email"
       }
     },
     "Post": {
@@ -84,7 +90,9 @@
     "401": "Please sign-in or sign-up",
     "token": "Your session expired. Please sign-in",
     "thatsAll": "That's all folks!",
-    "copied": "Link copied! Share with friends"
+    "copied": "Link copied! Share with friends",
+    "registered": "Congratulations with registration. Please verify your email, using link we sent you.",
+    "verified": "Your email was verified, welcome! Try to create post or leave a comment."
   },
   "Tooltips": {
     "copyLink": "Copy link",

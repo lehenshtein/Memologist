@@ -1,0 +1,23 @@
+<form class="form" [formGroup]="form">
+  <mat-card>
+    <mat-form-field appearance="outline">
+      <mat-label>{{'Forms.Auth.Verify.title' | translate}}</mat-label>
+      <input matInput type="text" formControlName="verificationCode" [placeholder]="'Forms.Auth.Verify.placeholder' | translate">
+      <mat-icon matSuffix [color]="formVerificationCode.valid || !formVerificationCode.touched ? 'accent' : 'warn'">verified_user</mat-icon>
+      <mat-error *ngIf="formVerificationCode.getError('required')">{{'Validations.required' | translate}}</mat-error>
+      <mat-error *ngIf="formVerificationCode.hasError('minlength')">
+        {{'Validations.minLength' | translate}}
+        {{formVerificationCode.getError('minlength')['requiredLength']}}
+      </mat-error>
+      <mat-error *ngIf="formVerificationCode.getError('maxlength')">
+        {{'Validations.maxLength' | translate}}
+        {{formVerificationCode.getError('maxlength')['requiredLength']}}
+      </mat-error>
+    </mat-form-field>
+
+    <div class="buttons">
+      <button mat-raised-button [disabled]="form.invalid" color="accent" (click)="submit()">
+        {{'Common.send' | translate}}</button>
+    </div>
+  </mat-card>
+</form>

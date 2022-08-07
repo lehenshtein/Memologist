@@ -1,19 +1,22 @@
 <div class="wrapper">
   <mat-card *ngIf="!showNavbar" class="nav-card">
     <nav>
-      <a [routerLink]="'/'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="closeMenu.emit()">
+      <a [routerLink]="'/'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+         (click)="closeMenu.emit()">
         <span>{{'Common.HOT' | translate}}</span>
       </a>
-      <a [routerLink]="'/best'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="closeMenu.emit()">
+      <a [routerLink]="'/best'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+         (click)="closeMenu.emit()">
         <span>{{'Common.BEST' | translate}}</span>
       </a>
-      <a [routerLink]="'/new'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="closeMenu.emit()">
+      <a [routerLink]="'/new'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+         (click)="closeMenu.emit()">
         <span>{{'Common.NEW' | translate}}</span>
       </a>
     </nav>
-    </mat-card>
+  </mat-card>
 
-    <mat-card>
+  <mat-card>
     <ng-container *ngIf="userName$ | async as userName else notAuthenticated">
       <section class="user-data">
         <span class="d-i-block m-b-10">{{'Common.hello' | translate}}: <b *ngIf="userName">{{userName}}</b></span>
@@ -22,7 +25,7 @@
           <span class="d-i-block m-b-10 user-data__stats" [ngClass]="user.rate < 0 ? 'red'
             : user.rate >=0 && user.rate < 50 ? 'yellow' : user.rate >= 50 && user.rate < 100 ? 'blue' : 'green'">
               <b class="user-data__big-text">{{user.rate}} </b>
-              {{'Common.your' | translate}} {{'Common.rate' | translate}}
+            {{'Common.your' | translate}} {{'Common.rate' | translate}}
           </span>
           <span class="d-i-block m-b-10 user-data__stats">
             <b>{{objectLength(user.markedPosts)}} </b>
@@ -43,10 +46,20 @@
                 [routerLinkActiveOptions]="{exact: true}">
           {{'Forms.Buttons.post' | translate}}
         </button>
+
         <button mat-stroked-button color="warn" class="button-space"
                 (click)="logout()">
           {{'Forms.Buttons.logout' | translate}}
         </button>
+
+        <span *ngIf="user && !user.verified" (mouseenter)="updateDate()"
+              matTooltip="{{nextEmailDate > date ? ('Tooltips.blockResendEmail' | translate :
+              {minutes: timeToResendMail().minutes, seconds: timeToResendMail().seconds}) : null}}">
+          <button mat-raised-button color="primary" [disabled]="nextEmailDate > date"
+                  class="button-space" (click)="resendEmail()"
+          >{{'Common.resendEmail' | translate}}</button>
+        </span>
+
       </section>
     </ng-container>
 
@@ -65,9 +78,19 @@
               routerLinkActive="active"
               [routerLinkActiveOptions]="{exact: true}">{{'Common.signUp' | translate}}</button>
     </ng-template>
-    <button mat-icon-button class="favorite-icon" (click)="changeLang.emit()">
-      <mat-icon>language</mat-icon>
-    </button>
+
+    <footer>
+      <button mat-button class="lang-icon" (click)="onChangeLang()">
+        <img *ngIf="language === 'ua'" src="./assets/images/flags/uk-flag.svg" alt="ua">
+        <img *ngIf="language === 'en'" src="./assets/images/flags/usa-flag.png" alt="usa">
+      </button>
+
+      <mat-icon *ngIf="user && !user.verified" [color]="'primary'" matTooltip="{{'Tooltips.unverified' | translate}}">
+        warning
+      </mat-icon>
+    </footer>
+
+
     <!--  <app-create-post-form></app-create-post-form>-->
   </mat-card>
 </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { exhaustMap, Observable, take, takeUntil } from 'rxjs';
+import { EMPTY, exhaustMap, Observable, switchMap, take, takeUntil } from 'rxjs';
 import { PostInterfaceGet, sort } from '@shared/models/post.interface';
 import { environment } from '@environment/environment';
 import { PostsService } from '@app/main/state/posts.service';
@@ -10,6 +10,8 @@ import { MetaHelper } from '@shared/helpers/meta.helper';
 import { InfiniteScrollService } from '@shared/services/infinite-scroll.service';
 import { PostsStore } from '@app/main/state/posts.store';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmModalComponent } from '@shared/modals/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-content',
@@ -44,6 +46,7 @@ export class ContentComponent extends UnsubscribeAbstract implements OnInit {
     private metaHelper: MetaHelper,
     private infiniteScrollService: InfiniteScrollService,
     private route: ActivatedRoute,
+    private dialog: MatDialog
   ) {
     super();
     if (this.sort !== route.snapshot.data['sort']) {
@@ -54,7 +57,16 @@ export class ContentComponent extends UnsubscribeAbstract implements OnInit {
   }
 
   delete (id: ID) {
-    this.http.delete(id).pipe(take(1)).subscribe();
+    const dialogRef = this.dialog.open(ConfirmModalComponent, {
+      data: {title: 'Confirm', text: 'Are you sure you want to delete this post?', isCancelable: true},
+      maxHeight: '90vh'
+    });
+    dialogRef.afterClosed().pipe(switchMap((result) => {
+      if (!result) {
+        return EMPTY;
+      }
+      return this.http.delete(id).pipe(take(1))
+    })).subscribe();
   }
 
   ngOnInit (): void {

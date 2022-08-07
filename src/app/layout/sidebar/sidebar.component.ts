@@ -6,7 +6,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { environment } from '@environment/environment';
 import { takeUntil } from 'rxjs';
 import { UnsubscribeAbstract } from '@shared/helpers/unsubscribe.abstract';
-import { NotificationService } from '@shared/services/notification.service';
+import { ConfirmModalComponent } from '@shared/modals/confirm-modal/confirm-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-sidebar',
@@ -27,7 +28,7 @@ export class SidebarComponent extends UnsubscribeAbstract implements OnInit, OnC
     private coreQuery: CoreQuery,
     private authService: AuthService,
     private translate: TranslateService,
-    private notificationService: NotificationService
+    private dialog: MatDialog
   ) {
     super();
   }
@@ -77,7 +78,10 @@ export class SidebarComponent extends UnsubscribeAbstract implements OnInit, OnC
 
   resendEmail () {
     this.authService.resendEmail().pipe(takeUntil(this.ngUnsubscribe$)).subscribe(user => {
-      this.notificationService.openSnackBar('success', this.translate.instant('Notifications.emailResent'));
+      this.dialog.open(ConfirmModalComponent, {
+        data: {title: this.translate.instant('Notifications.success'), text: this.translate.instant('Notifications.emailResent')},
+        maxHeight: '90vh'
+      });
       this.updateNextEmailDate(user.verificationDate);
     })
   }

@@ -26,6 +26,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import {
   VerificationEmailFormComponent
 } from '@shared/components/verification-email-form/verification-email-form.component';
+import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.component';
 
 const material = [
   MatToolbarModule,
@@ -54,7 +55,8 @@ const components = [
 @NgModule({
   declarations: [
     NotificationServiceComponent,
-    ...components
+    ...components,
+    ConfirmModalComponent
   ],
   imports: [
     ...material,

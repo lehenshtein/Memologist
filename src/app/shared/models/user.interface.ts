@@ -18,7 +18,9 @@ export interface UserInterface {
   options: UserOptionsInterface,
   createdPosts: ID[],
   markedPosts: { [key: string]: marks },
-  markedComments: { [key: string]: marks }
+  markedComments: { [key: string]: marks },
+  verified: boolean,
+  verificationDate: Date
 }
 
 interface UserOptionsInterface {

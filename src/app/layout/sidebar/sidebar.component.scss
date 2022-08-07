@@ -59,3 +59,18 @@ nav {
     }
   }
 }
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  & .lang-icon {
+    img {
+      width: 32px;
+      height: 21px;
+    }
+  }
+  & > mat-icon {
+    padding: $padding-s $padding-s 0 $padding-s;
+    cursor: help;
+  }
+}

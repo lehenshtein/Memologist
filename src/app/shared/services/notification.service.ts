@@ -11,7 +11,7 @@ export class NotificationService {
 
   openSnackBar(type: 'success' | 'error' | 'info', message: string, title?: string) {
     this.snackBar.openFromComponent(NotificationServiceComponent, {
-      duration: 4000,
+      duration: 6000,
       horizontalPosition: 'right',
       panelClass: ['dark-snackbar', 'dark-snackbar--border'],
       data: {type, message, title}

@@ -2,6 +2,15 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.4.
 
+## Local server side rendering
+
+Run `npm run dev:ssr` for a local server with ssr. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+
+## Staging server side rendering
+
+Run `npm run build:ssr:stage` for a staging build and server with ssr. Navigate to `http://localhost:4200/`. The application will send requests to staging api.
+
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.

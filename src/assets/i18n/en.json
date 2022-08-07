@@ -19,6 +19,7 @@
     "signUp": "Sign up",
     "toSignUp": "Create account",
     "toVerify": "Verify your email",
+    "resendEmail": "Resend verification email",
     "send": "Send",
     "you": "You",
     "author": "Author",
@@ -92,11 +93,14 @@
     "thatsAll": "That's all folks!",
     "copied": "Link copied! Share with friends",
     "registered": "Congratulations with registration. Please verify your email, using link we sent you.",
-    "verified": "Your email was verified, welcome! Try to create post or leave a comment."
+    "verified": "Your email was verified, welcome! Try to create post or leave a comment.",
+    "emailResent": "Email was sent again."
   },
   "Tooltips": {
     "copyLink": "Copy link",
-    "share": "Share"
+    "share": "Share",
+    "unverified": "Your email is not verified. Check your email including spam box or resend the verification code again",
+    "blockResendEmail": "You can resend email again in {{minutes}} min. {{seconds}} sec."
   },
   "Validations": {
     "required": "This field is required",

@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+<div mat-dialog-content>
+  {{data.text}}
+</div>
+<div mat-dialog-actions>
+  <button mat-stroked-button mat-button color="warn" [mat-dialog-close]="false" *ngIf="data.isCancelable">Cancel</button>
+  <button mat-raised-button color="accent" [mat-dialog-close]="true" cdkFocusInitial>Ok</button>
+</div>

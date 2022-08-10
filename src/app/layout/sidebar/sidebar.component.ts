@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { environment } from '@environment/environment';
 import { takeUntil } from 'rxjs';
 import { UnsubscribeAbstract } from '@shared/helpers/unsubscribe.abstract';
+import { NotificationService } from '@shared/services/notification.service';
 import { ConfirmModalComponent } from '@shared/modals/confirm-modal/confirm-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -28,7 +29,8 @@ export class SidebarComponent extends UnsubscribeAbstract implements OnInit, OnC
     private coreQuery: CoreQuery,
     private authService: AuthService,
     private translate: TranslateService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private notificationService: NotificationService
   ) {
     super();
   }

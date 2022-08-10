@@ -10,4 +10,5 @@ export const environment = {
     ua: 'ua'
   },
   defaultLocale: 'ua',
+  googleAnalyticsTrackingCode: 'fakeStage'
 };

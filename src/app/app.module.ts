@@ -19,10 +19,12 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { ErrorInterceptor } from '@shared/interceptors/error.interceptor';
 import { translateBrowserLoaderFactory } from '@shared/helpers/translate-browser.loader';
 import { MissingTranslationService } from '@app/core/services/missing-translation.service';
+import { GoogleAnalyticsComponent } from '@app/core/google-analytics/google-analytics.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    GoogleAnalyticsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

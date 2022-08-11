@@ -44,7 +44,8 @@
       "urls": [
         "https://memologist-be.herokuapp.com",
         "https://memologist-prod-be.herokuapp.com",
-        "http://localhost:3000"
+        "http://localhost:3000",
+        "https://www.googletagmanager.com"
       ],
       "cacheConfig": {
         "strategy": "freshness",

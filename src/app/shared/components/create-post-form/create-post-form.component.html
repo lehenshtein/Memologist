@@ -44,7 +44,7 @@
     <mat-label>{{'Forms.Post.Img.title' | translate}}</mat-label>
     <input matInput formControlName="imgUrl" [placeholder]="'Forms.Post.Img.placeholder' | translate">
     <mat-icon matSuffix [color]="formImgUrl.valid || !formImgUrl.touched ? 'accent' : 'warn'">add_photo_alternate</mat-icon>
-    <mat-error *ngIf="formImgUrl.getError('pattern')">
+    <mat-error *ngIf="formImgUrl.getError('pattern') || formImgUrl.getError('wrongImageLink')">
       {{'Validations.imgPattern' | translate}}
     </mat-error>
     <mat-error *ngIf="formImgUrl.getError('maxlength')">
@@ -58,4 +58,4 @@
   </div>
   </mat-card>
 </form>
-<img class="img-preview" *ngIf="formImgUrl.valid && (imgPreview | async) as img" [src]="img" alt="{{'Messages.imgPreview' | translate}}">
+<img class="img-preview" (error)="imageError($event)" *ngIf="(imgPreview | async) as img" [src]="img" alt="{{'Messages.imgPreview' | translate}}">

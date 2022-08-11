@@ -12,7 +12,7 @@
     <mat-card-content>
       {{item.text}}
     </mat-card-content>
-    <img *ngIf="item.imgUrl" mat-card-image [src]="item.imgUrl" alt="Photo" (click)="openImage(item.imgUrl)">
+    <img *ngIf="item.imgUrl" mat-card-image [src]="item.imgUrl" loading="lazy" alt="Photo" (click)="openImage(item.imgUrl)">
 
     <mat-card-actions>
       <button mat-button *ngFor="let tag of item.tags">{{tag}}</button>

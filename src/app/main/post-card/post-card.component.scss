@@ -3,6 +3,9 @@ $cardInteractionsSize: 32px;
 $cardInteractionsIcons: 20px;
 mat-card {
   height: 100%;
+  & mat-card-content {
+    white-space: pre;
+  }
   & mat-card-footer {
     padding: 8px 0;
     background-color: $extraDark;

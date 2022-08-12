@@ -4,7 +4,7 @@ $cardInteractionsIcons: 20px;
 mat-card {
   height: 100%;
   & mat-card-content {
-    white-space: break-spaces;
+    white-space: pre-line;
   }
   & mat-card-footer {
     padding: 8px 0;

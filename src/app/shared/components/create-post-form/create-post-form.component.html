@@ -19,7 +19,6 @@
   <mat-form-field appearance="outline">
     <mat-label>{{'Forms.Post.Text.title' | translate}}</mat-label>
     <textarea matInput formControlName="text" [placeholder]="'Forms.Post.Text.placeholder' | translate"></textarea>
-    <mat-error *ngIf="formText.getError('required')">{{'Validations.required' | translate}}</mat-error>
     <mat-error *ngIf="formText.hasError('minlength')">
       {{'Validations.minLength' | translate}}
       {{formText.getError('minlength')['requiredLength']}}
@@ -52,6 +51,10 @@
       {{formImgUrl.getError('maxlength')['requiredLength']}}
     </mat-error>
   </mat-form-field>
+
+  <mat-error *ngIf="(formImgUrl.touched || formText.touched) && form.invalid &&
+    form.getError('atLeastOneFieldShouldBeFilled')">
+    {{'Validations.postAtLeastOneField' | translate}}</mat-error>
 
   <div class="buttons">
     <button mat-raised-button [disabled]="form.invalid" color="accent" (click)="submit()">+ {{'Forms.Buttons.post' | translate}}</button>

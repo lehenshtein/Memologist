@@ -13,6 +13,13 @@
 }
 .form {
   width: 100%;
+  & > mat-card {
+    & > mat-error {
+      font-size: 75%;
+      padding: 0 1em;
+    }
+  }
+
   .mat-form-field {
     width: 100%;
   }
@@ -21,3 +28,4 @@
   display: flex;
   justify-content: flex-end;
 }
+

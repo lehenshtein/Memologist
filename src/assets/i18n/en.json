@@ -30,7 +30,8 @@
     "posts": "posts",
     "comments": "comments",
     "liked": "liked",
-    "marked": "marked"
+    "marked": "marked",
+    "withUs": "with us from: "
   },
   "Forms": {
     "Buttons": {

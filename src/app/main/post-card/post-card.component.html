@@ -2,11 +2,12 @@
   <ng-container *ngIf="item; else loading">
     <mat-card-header>
       <!--        <div mat-card-avatar class="example-header-image"></div>-->
-      <mat-card-title [ngStyle]="{'pointer-events': mainPage ? null : 'none'}">
-        <a [routerLink]="['/' + item._id]" target="_blank">{{item.title}}</a>
+      <mat-card-title  [ngStyle]="{'pointer-events': mainPage ? null : 'none'}">
+        <a [ngClass]="{'hoverable': mainPage}" [routerLink]="['/' + item._id]" target="_blank">{{item.title}}</a>
       </mat-card-title>
+      <br>
 
-      <mat-card-subtitle class="author">{{item.author.name}}</mat-card-subtitle>
+      <mat-card-subtitle class="author" [routerLink]="['/user', item.author.name]">{{item.author.name}}</mat-card-subtitle>
       <mat-card-subtitle class="date">{{'Common.created' | translate}} {{item.createdAt | date:'dd.MM.yy'}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content *ngIf="item.text">

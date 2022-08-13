@@ -78,3 +78,10 @@
 .position-fixed {
   position: fixed !important;
 }
+
+mat-card {
+  & .date {
+    font-size: .8rem;
+    opacity: .5;
+  }
+}

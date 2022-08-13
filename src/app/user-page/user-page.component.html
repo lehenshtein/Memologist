@@ -1,0 +1,46 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      {{username}}
+    </mat-card-title>
+  </mat-card-header>
+
+  <ng-container *ngIf="username && (user$ | async) as user">
+    <mat-card-header>
+      <mat-card-subtitle class="date">{{'Common.withUs' | translate}} {{user.createdAt | date:'dd.MM.yy'}}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+
+    </mat-card-content>
+
+    <mat-card-footer>
+      <div class="stat-block yellow">
+        <header class="stat-block__header">
+          {{user.rate}}
+        </header>
+        <footer class="stat-block__footer">
+          {{'Common.rate' | translate}}
+        </footer>
+      </div>
+      <div class="stat-block">
+        <header class="stat-block__header">
+          {{objectLength(user.markedPosts)}}
+        </header>
+        <footer class="stat-block__footer">
+          {{'Common.posts' | translate}} {{'Common.marked' | translate}}
+        </footer>
+      </div>
+      <div class="stat-block">
+        <header class="stat-block__header">
+          {{objectLength(user.markedComments)}}
+        </header>
+        <footer class="stat-block__footer">
+          {{'Common.comments' | translate}} {{'Common.marked' | translate}}
+        </footer>
+      </div>
+    </mat-card-footer>
+  </ng-container>
+</mat-card>
+
+<app-post-card *ngFor="let item of userPosts" [item]="item"></app-post-card>

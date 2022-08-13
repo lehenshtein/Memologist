@@ -7,6 +7,7 @@ import { NotificationService } from '@shared/services/notification.service';
 import { TranslateService } from '@ngx-translate/core';
 import { imgPattern } from '@app/shared/helpers/regex-patterns';
 import { tap } from 'rxjs/operators';
+import { atLeastOneField } from '@shared/validators/at-least-one-field.validator';
 
 @Component({
   selector: 'app-create-post-form',
@@ -39,11 +40,13 @@ export class CreatePostFormComponent implements OnInit {
 
   private initForm () {
     this.form = this.fb.group({
-      title: [ '', [ Validators.required, Validators.minLength(8), Validators.maxLength(30) ] ],
-      text: [ '', [ Validators.required, Validators.minLength(20), Validators.maxLength(2000) ] ],
+      title: [ '', [ Validators.required, Validators.minLength(5), Validators.maxLength(30) ] ],
+      text: [ '', [ Validators.minLength(10), Validators.maxLength(2000) ] ],
       tags: [ '', Validators.maxLength(100) ],
       imgUrl: [ null, [ Validators.pattern(this.imgPattern), Validators.maxLength(240) ] ]
     });
+
+    this.form.setValidators(atLeastOneField(this.formText, this.formImgUrl));
 
     this.showImgPreview();
   }

@@ -110,6 +110,7 @@
     "imgPattern": "That's not look like a link to an image",
     "passPattern": "At least one uppercase, one lowercase letter and one number",
     "email": "That's not look like an email",
-    "notSame": "Passwords are different"
+    "notSame": "Passwords are different",
+    "postAtLeastOneField": "At least one field of 'Text' or 'Image' should be filled and be valid"
   }
 }

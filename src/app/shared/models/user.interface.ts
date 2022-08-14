@@ -20,7 +20,8 @@ export interface UserInterface {
   markedPosts: { [key: string]: marks },
   markedComments: { [key: string]: marks },
   verified: boolean,
-  verificationDate: Date
+  verificationDate: Date,
+  createdAt: Date
 }
 
 interface UserOptionsInterface {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { EMPTY, exhaustMap, Observable, switchMap, take, takeUntil } from 'rxjs';
 import { PostInterfaceGet, sort } from '@shared/models/post.interface';
 import { environment } from '@environment/environment';
@@ -12,6 +12,7 @@ import { PostsStore } from '@app/main/state/posts.store';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmModalComponent } from '@shared/modals/confirm-modal/confirm-modal.component';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-content',
@@ -28,6 +29,8 @@ export class ContentComponent extends UnsubscribeAbstract implements OnInit {
   //     return this.postsService.get<PostInterfaceGet[]>();
   //   })
   // );
+  @Input() userName?: string;
+  @Input() contentType: 'posts' | 'userPosts' = 'posts';
   page = 1;
   limit = 20;
   sort: sort | null = null;
@@ -35,8 +38,13 @@ export class ContentComponent extends UnsubscribeAbstract implements OnInit {
 
   // data: PostInterfaceGet[] = this.query.getPosts;
   data$: Observable<PostInterfaceGet[]> = this.query.getPosts$();
-
   devEnv = !environment.production;
+  getPosts = (sort: sort| null): Observable<HttpResponse<PostInterfaceGet[]>> => {
+    return this.postsService.getPostsPaginated(this.page, this.limit, sort || 'hot')
+  };
+  getPostsForUser = (username: string): Observable<HttpResponse<PostInterfaceGet[]>> => {
+    return this.postsService.getUserPostsPaginated(this.page, this.limit, username);
+  };
 
   constructor (
     private http: PostsService,
@@ -75,9 +83,11 @@ export class ContentComponent extends UnsubscribeAbstract implements OnInit {
   }
 
   getMorePosts () {
+    const request = this.contentType === 'userPosts' && this.userName ? this.getPostsForUser(this.userName) : this.getPosts(this.sort);
+
     this.infiniteScrollService.mainScrollToBottomInPercents$.pipe(takeUntil(this.ngUnsubscribe$),
       exhaustMap((scroll: number | null) => {
-        return this.postsService.getPostsPaginated(this.page, this.limit, this.sort || 'hot').pipe(takeUntil(this.ngUnsubscribe$));
+        return request.pipe(takeUntil(this.ngUnsubscribe$));
       }))
       .subscribe((res) => {
         if (res.headers.get('x-page')) {

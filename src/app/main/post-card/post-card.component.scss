@@ -3,6 +3,11 @@ $cardInteractionsSize: 32px;
 $cardInteractionsIcons: 20px;
 mat-card {
   height: 100%;
+  .hoverable {
+    @include text-hover(2px);
+    display: inline-flex;
+    padding-bottom: 3px;
+  }
   & mat-card-content {
     white-space: pre-line;
   }
@@ -11,12 +16,14 @@ mat-card {
     background-color: $extraDark;
   }
   & .author {
+    display: inline-flex;
     padding-top: 5px;
     opacity: .5;
-  }
-  & .date {
-    font-size: .8rem;
-    opacity: .5;
+    cursor: pointer;
+    @include text-hover(1px);
+    &:hover {
+      opacity: 1;
+    }
   }
 }
 img, mat-card-title {

@@ -19,7 +19,9 @@
   <mat-card>
     <ng-container *ngIf="userName$ | async as userName else notAuthenticated">
       <section class="user-data">
-        <span class="d-i-block m-b-10">{{'Common.hello' | translate}}: <b *ngIf="userName">{{userName}}</b></span>
+        <span class="d-i-block m-b-10">{{'Common.hello' | translate}}:
+          <b class="hoverable" *ngIf="userName" [routerLink]="['/user', userName]">{{userName}}</b>
+        </span>
 
         <ng-container *ngIf="user">
           <span class="d-i-block m-b-10 user-data__stats" [ngClass]="user.rate < 0 ? 'red'

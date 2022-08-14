@@ -23,17 +23,17 @@ export class UserPageComponent implements OnInit {
   ngOnInit (): void {
     if (this.username) {
       this.user$ = this.userHttp.getUserByName(this.username);
-      this.getUserPosts();
+      // this.getUserPosts();
     }
 
   }
 
-  getUserPosts() {
-    this.userHttp.getUserPosts(this.username).subscribe(res => {
-      this.userPosts = res;
-      console.log(res);
-    })
-  }
+  // getUserPosts() {
+  //   this.userHttp.getUserPosts(this.username).subscribe(res => {
+  //     this.userPosts = res;
+  //     console.log(res);
+  //   })
+  // }
 
   objectLength (obj: { [key: string]: string }): number {
     return Object.keys(obj).length;

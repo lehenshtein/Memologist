@@ -43,4 +43,4 @@
   </ng-container>
 </mat-card>
 
-<app-post-card *ngFor="let item of userPosts" [item]="item"></app-post-card>
+<app-content *ngIf="username" [contentType]="'userPosts'" [userName]="username"></app-content>

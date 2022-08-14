@@ -25,8 +25,7 @@ import { PostCardComponent } from './post-card/post-card.component';
   //   PostResolver
   // ],
   exports: [
-    ContentComponent,
-    PostCardComponent
+    ContentComponent
   ]
 })
 export class MainModule { }

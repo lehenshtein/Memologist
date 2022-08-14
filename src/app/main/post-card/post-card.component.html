@@ -41,7 +41,7 @@
       </div>
 
       <div class="info">
-        <button mat-icon-button color="accent" [ngStyle]="{'pointer-events': mainPage ? null : 'none'}" [routerLink]="[item._id]">
+        <button mat-icon-button color="accent" [ngStyle]="{'pointer-events': mainPage ? null : 'none'}" [routerLink]="['/', item._id]">
           <mat-icon>comment</mat-icon>
           <span> {{item.commentsAmount}}</span>
         </button>

@@ -74,3 +74,9 @@ footer {
     cursor: help;
   }
 }
+
+.hoverable {
+  cursor: pointer;
+  padding-bottom: 2px;
+  @include text-hover(2px);
+}

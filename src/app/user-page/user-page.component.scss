@@ -1,4 +1,7 @@
 @import './src/assets/scss/variables';
+mat-card {
+  margin: 0 0 $padding-l;
+}
 
 mat-card-footer {
   display: flex;

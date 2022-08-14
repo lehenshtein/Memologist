@@ -17,7 +17,6 @@ export class UserPageComponent implements OnInit {
 
   constructor (private route: ActivatedRoute, private userHttp: UserHttpService) {
     this.username = this.route.snapshot.params['username'];
-    console.log(this.username);
   }
 
   ngOnInit (): void {

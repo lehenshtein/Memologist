@@ -83,7 +83,6 @@ export class ContentComponent extends UnsubscribeAbstract implements OnInit {
   }
 
   getMorePosts () {
-    console.log(this.userName);
     const request = this.contentType === 'userPosts' && this.userName ? this.getPostsForUser(this.userName) : this.getPosts(this.sort);
 
     this.infiniteScrollService.mainScrollToBottomInPercents$.pipe(takeUntil(this.ngUnsubscribe$),

@@ -16,7 +16,7 @@ export type authPagesTypes = 'sign-in' | 'sign-up' | 'verification';
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss']
 })
-export class AuthComponent extends UnsubscribeAbstract implements OnInit {
+export class AuthComponent extends UnsubscribeAbstract {
   page: authPagesTypes = 'sign-in';
   verificationCode: string | undefined = undefined;
   constructor(
@@ -32,9 +32,6 @@ export class AuthComponent extends UnsubscribeAbstract implements OnInit {
     this.verificationCode = this.route.snapshot.params['code'];
   }
 
-  ngOnInit(): void {
-
-  }
   login(data: UserLoginInterface) {
     this.authService.login(data).pipe(
       takeUntil(this.ngUnsubscribe$),
@@ -42,6 +39,7 @@ export class AuthComponent extends UnsubscribeAbstract implements OnInit {
       this.router.navigate(['/']);
     })
   }
+
   register(data: UserRegisterInterface) {
     this.authService.register(data).pipe(
       takeUntil(this.ngUnsubscribe$),

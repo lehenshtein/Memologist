@@ -1,0 +1,25 @@
+@import './src/assets/scss/variables';
+mat-card {
+  margin: 0 0 $padding-l;
+}
+
+mat-card-footer {
+  display: flex;
+  margin: 0;
+  .stat-block {
+    text-align: center;
+    margin-right: $padding-s;
+    &:last-of-type {
+      margin-right: 0;
+    }
+    &.yellow {
+      color: $primary;
+    }
+    &__header {
+      font-size: 1.4rem;
+    }
+    &__footer {
+      font-size: .8rem;
+    }
+  }
+}

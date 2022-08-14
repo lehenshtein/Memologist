@@ -22,6 +22,14 @@ export class PostsService extends NgEntityService<PostsState> {
     return this.httpService.get<PostInterfaceGet[]>(`/posts`,{ params, observe: 'response' })
   }
 
+  getUserPostsPaginated(page: number, limit: number, name: string): Observable<HttpResponse<PostInterfaceGet[]>> {
+    const params = new HttpParams()
+      .set('page', page)
+      .set('limit', limit)
+      .set('sort', 'new')
+    return this.httpService.get<PostInterfaceGet[]>(`/posts/user/${name}`,{ params, observe: 'response' })
+  }
+
   changeScore (id: ID, markType: marks): Observable<PostInterfaceGet> {
     return this.httpService.post<PostInterfaceGet>(`/posts/mark`, {id, markType}).pipe(
       tap((res: PostInterfaceGet) => {

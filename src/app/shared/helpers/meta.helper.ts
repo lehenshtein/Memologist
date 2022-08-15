@@ -39,7 +39,7 @@ export class MetaHelper {
 
     this.meta.updateTag({property: 'og:url', content: environment.websiteUrl});
 
-    const defaultImg = 'https://memologist.herokuapp.com/assets/images/memologist.jpg';
+    const defaultImg = 'https://memologist.com.ua/assets/images/memologist.jpg';
     this.meta.updateTag({property: 'og:image', content: defaultImg});
     this.meta.updateTag({property: 'og:image:secure_url', content: defaultImg});
     this.meta.updateTag({name: 'twitter:image', content: defaultImg});

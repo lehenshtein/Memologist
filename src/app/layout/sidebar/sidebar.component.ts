@@ -98,7 +98,6 @@ export class SidebarComponent extends UnsubscribeAbstract implements OnInit, OnC
   }
 
   adminToggle ($event: MatSlideToggleChange, role: roles) {
-    console.log($event);
     if ($event.checked) {
       this.coreService.setUserMode(role);
       return;

@@ -6,14 +6,17 @@ export interface UserPostInterface {
   name: string
 }
 
+export type roles = 'superAdmin' | 'admin' | 'moderator' | 'user';
+export type statuses = 'default' | 'muted' | 'banned';
+
 export interface UserInterface {
   _id: ID,
   name: string,
   email: string,
-  role: 'superAdmin' | 'admin' | 'moderator' | 'user',
+  role: roles,
   rate: number,
   points: number,
-  status: 'default' | 'muted' | 'banned',
+  status: statuses,
   statusTill: Date | null,
   options: UserOptionsInterface,
   createdPosts: ID[],

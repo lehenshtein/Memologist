@@ -27,6 +27,7 @@ import {
   VerificationEmailFormComponent
 } from '@shared/components/verification-email-form/verification-email-form.component';
 import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 const material = [
   MatToolbarModule,
@@ -42,7 +43,8 @@ const material = [
   MatSnackBarModule,
   MatDividerModule,
   MatMenuModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatSlideToggleModule,
 ]
 const components = [
   CreatePostFormComponent,

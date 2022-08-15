@@ -1,14 +1,16 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { CoreQuery } from '@app/core/state/core.query';
 import { AuthService } from '@app/core/auth/auth.service';
-import { UserInterface } from '@shared/models/user.interface';
+import { roles, UserInterface } from '@shared/models/user.interface';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '@environment/environment';
-import { takeUntil } from 'rxjs';
+import { Observable, takeUntil } from 'rxjs';
 import { UnsubscribeAbstract } from '@shared/helpers/unsubscribe.abstract';
 import { NotificationService } from '@shared/services/notification.service';
 import { ConfirmModalComponent } from '@shared/modals/confirm-modal/confirm-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { CoreService } from '@app/core/state/core.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -21,12 +23,14 @@ export class SidebarComponent extends UnsubscribeAbstract implements OnInit, OnC
   @Output() changeLang: EventEmitter<any> = new EventEmitter<any>();
   @Output() closeMenu: EventEmitter<any> = new EventEmitter<any>();
   userName$ = this.coreQuery.userName$;
+  userRole$: Observable<roles| undefined> = this.coreQuery.userRole$;
   language = 'ua';
   date = new Date;
   nextEmailDate = new Date();
 
   constructor (
     private coreQuery: CoreQuery,
+    private coreService: CoreService,
     private authService: AuthService,
     private translate: TranslateService,
     private dialog: MatDialog,
@@ -91,5 +95,13 @@ export class SidebarComponent extends UnsubscribeAbstract implements OnInit, OnC
   private updateNextEmailDate(nextDate: Date) {
     const date = new Date(nextDate);
     this.nextEmailDate = new Date(date.setHours(date.getHours() + 1));
+  }
+
+  adminToggle ($event: MatSlideToggleChange, role: roles) {
+    if ($event.checked) {
+      this.coreService.setUserMode(role);
+      return;
+    }
+    this.coreService.setUserMode('user');
   }
 }

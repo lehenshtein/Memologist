@@ -91,6 +91,12 @@
         warning
       </mat-icon>
     </footer>
+    <ng-container *ngIf="(userRole$ | async) as role">
+      <footer *ngIf="role === 'superAdmin' || role === 'admin' || role === 'moderator'">
+        <mat-slide-toggle (change)="adminToggle($event, role)">Admin</mat-slide-toggle>
+      </footer>
+    </ng-container>
+
 
 
     <!--  <app-create-post-form></app-create-post-form>-->

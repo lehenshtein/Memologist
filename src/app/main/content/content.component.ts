@@ -13,6 +13,8 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmModalComponent } from '@shared/modals/confirm-modal/confirm-modal.component';
 import { HttpResponse } from '@angular/common/http';
+import { CoreQuery } from '@app/core/state/core.query';
+import { roles } from '@shared/models/user.interface';
 
 @Component({
   selector: 'app-content',
@@ -38,7 +40,7 @@ export class ContentComponent extends UnsubscribeAbstract implements OnInit {
 
   // data: PostInterfaceGet[] = this.query.getPosts;
   data$: Observable<PostInterfaceGet[]> = this.query.getPosts$();
-  devEnv = !environment.production;
+  userMode$: Observable<roles> = this.coreQuery.userMode$;
   getPosts = (sort: sort| null): Observable<HttpResponse<PostInterfaceGet[]>> => {
     return this.postsService.getPostsPaginated(this.page, this.limit, sort || 'hot')
   };
@@ -54,7 +56,8 @@ export class ContentComponent extends UnsubscribeAbstract implements OnInit {
     private metaHelper: MetaHelper,
     private infiniteScrollService: InfiniteScrollService,
     private route: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private coreQuery: CoreQuery
   ) {
     super();
     if (this.sort !== route.snapshot.data['sort']) {

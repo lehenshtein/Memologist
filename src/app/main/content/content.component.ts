@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { EMPTY, exhaustMap, Observable, switchMap, take, takeUntil } from 'rxjs';
 import { PostInterfaceGet, sort } from '@shared/models/post.interface';
-import { environment } from '@environment/environment';
 import { PostsService } from '@app/main/state/posts.service';
 import { PostsQuery } from '@app/main/state/posts.query';
 import { UnsubscribeAbstract } from '@shared/helpers/unsubscribe.abstract';
@@ -41,11 +40,11 @@ export class ContentComponent extends UnsubscribeAbstract implements OnInit {
   // data: PostInterfaceGet[] = this.query.getPosts;
   data$: Observable<PostInterfaceGet[]> = this.query.getPosts$();
   userMode$: Observable<roles> = this.coreQuery.userMode$;
-  getPosts = (sort: sort| null): Observable<HttpResponse<PostInterfaceGet[]>> => {
-    return this.postsService.getPostsPaginated(this.page, this.limit, sort || 'hot')
+  getPosts = (page: number, limit: number, sort: sort| null): Observable<HttpResponse<PostInterfaceGet[]>> => {
+    return this.postsService.getPostsPaginated(page, limit, sort || 'hot')
   };
-  getPostsForUser = (username: string): Observable<HttpResponse<PostInterfaceGet[]>> => {
-    return this.postsService.getUserPostsPaginated(this.page, this.limit, username);
+  getPostsForUser = (page: number, limit: number, username: string): Observable<HttpResponse<PostInterfaceGet[]>> => {
+    return this.postsService.getUserPostsPaginated(page, limit, username);
   };
 
   constructor (
@@ -86,7 +85,8 @@ export class ContentComponent extends UnsubscribeAbstract implements OnInit {
   }
 
   getMorePosts () {
-    const request = this.contentType === 'userPosts' && this.userName ? this.getPostsForUser(this.userName) : this.getPosts(this.sort);
+    const request = this.contentType === 'userPosts' && this.userName ?
+      this.getPostsForUser(this.page, this.limit, this.userName) : this.getPosts(this.page, this.limit, this.sort);
 
     this.infiniteScrollService.mainScrollToBottomInPercents$.pipe(takeUntil(this.ngUnsubscribe$),
       exhaustMap((scroll: number | null) => {

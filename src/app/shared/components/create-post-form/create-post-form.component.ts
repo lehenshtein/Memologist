@@ -40,7 +40,7 @@ export class CreatePostFormComponent implements OnInit {
 
   private initForm () {
     this.form = this.fb.group({
-      title: [ '', [ Validators.required, Validators.minLength(5), Validators.maxLength(30) ] ],
+      title: [ '', [ Validators.required, Validators.minLength(5), Validators.maxLength(50) ] ],
       text: [ '', [ Validators.minLength(10), Validators.maxLength(2000) ] ],
       tags: [ '', Validators.maxLength(100) ],
       imgUrl: [ null, [ Validators.pattern(this.imgPattern), Validators.maxLength(240) ] ]

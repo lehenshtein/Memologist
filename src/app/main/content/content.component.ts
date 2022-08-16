@@ -85,12 +85,10 @@ export class ContentComponent extends UnsubscribeAbstract implements OnInit {
   }
 
   getMorePosts () {
-    const request = this.contentType === 'userPosts' && this.userName ?
-      this.getPostsForUser(this.page, this.limit, this.userName) : this.getPosts(this.page, this.limit, this.sort);
 
     this.infiniteScrollService.mainScrollToBottomInPercents$.pipe(takeUntil(this.ngUnsubscribe$),
       exhaustMap((scroll: number | null) => {
-        return request.pipe(takeUntil(this.ngUnsubscribe$));
+        return this.createRequest().pipe(takeUntil(this.ngUnsubscribe$));
       }))
       .subscribe((res) => {
         if (res.headers.get('x-page')) {
@@ -108,6 +106,10 @@ export class ContentComponent extends UnsubscribeAbstract implements OnInit {
           this.showFooter = true;
         }
       });
+  }
 
+  createRequest(): Observable<HttpResponse<PostInterfaceGet[]>> {
+    return this.contentType === 'userPosts' && this.userName ?
+      this.getPostsForUser(this.page, this.limit, this.userName) : this.getPosts(this.page, this.limit, this.sort);
   }
 }

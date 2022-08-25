@@ -15,6 +15,14 @@
     </mat-card-content>
     <img *ngIf="item.imgUrl" mat-card-image [src]="item.imgUrl" loading="lazy" alt="Photo" (click)="openImage(item.imgUrl)">
 
+    <mat-card-content *ngIf="item.content && item.content.length">
+      <ng-container *ngFor="let content of item.content">
+        <ng-container *ngIf="content.type === 'text' && content.text"><p>{{content.text}}</p></ng-container>
+        <img *ngIf="content.type === 'imgUrl' && content.imgUrl" mat-card-image [src]="content.imgUrl"
+            loading="lazy" alt="Photo" (click)="openImage(content.imgUrl)">
+      </ng-container>
+    </mat-card-content>
+
     <mat-card-actions *ngIf="item.tags.length">
       <button mat-button *ngFor="let tag of item.tags">{{tag}}</button>
     </mat-card-actions>

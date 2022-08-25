@@ -29,6 +29,17 @@
   ],
   "dataGroups": [
     {
+      "name": "no-cache",
+      "urls": [
+        "/assets/i18n/**"
+      ],
+      "cacheConfig": {
+        "maxSize": 0,
+        "maxAge": "0u",
+        "strategy": "freshness"
+      }
+    },
+    {
       "name": "cache-first",
       "urls": [
         "https://fonts.gstatic.com"

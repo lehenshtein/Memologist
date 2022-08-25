@@ -1,0 +1,106 @@
+<mat-card>
+  <form class="form" [formGroup]="form">
+    <mat-form-field appearance="outline">
+      <mat-label>{{'Forms.Post.Title.title' | translate}}</mat-label>
+      <input matInput formControlName="title" [placeholder]="'Forms.Post.Title.placeholder' | translate">
+      <mat-icon matSuffix [color]="'accent'" *ngIf="formTitle.valid || !formTitle.touched">sentiment_very_satisfied
+      </mat-icon>
+      <mat-icon matSuffix [color]="'warn'" *ngIf="formTitle.invalid && formTitle.touched">sentiment_very_dissatisfied
+      </mat-icon>
+      <mat-error *ngIf="formTitle.getError('required')">{{'Validations.required' | translate}}</mat-error>
+      <mat-error *ngIf="formTitle.hasError('minlength')">
+        {{'Validations.minLength' | translate}}
+        {{formTitle.getError('minlength')['requiredLength']}}
+      </mat-error>
+      <mat-error *ngIf="formTitle.getError('maxlength')">
+        {{'Validations.maxLength' | translate}}
+        {{formTitle.getError('maxlength')['requiredLength']}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{'Forms.Post.Tags.title' | translate}}</mat-label>
+      <input matInput formControlName="tags" [placeholder]="'Forms.Post.Tags.placeholder' | translate">
+      <mat-icon matSuffix [color]="formTags.valid || !formTags.touched ? 'accent' : 'warn'">#</mat-icon>
+      <mat-error *ngIf="formTags.getError('maxlength')">
+        {{'Validations.maxLength' | translate}}
+        {{formTags.getError('maxlength')['requiredLength']}}
+      </mat-error>
+    </mat-form-field>
+
+    <ng-container formArrayName="content"
+                  *ngFor="let item of getFormContent.controls; let i = index;">
+      <div [formGroupName]="i" class="form-array-field">
+        <mat-form-field appearance="outline" *ngIf="item.value.type === 'text'">
+          <mat-label>{{'Forms.Post.Text.title' | translate}}</mat-label>
+          <textarea matInput formControlName="text"
+                    [placeholder]="'Forms.Post.Text.placeholder' | translate"></textarea>
+          <mat-error *ngIf="getFormContentText(i)?.hasError('minlength')">
+            {{'Validations.minLength' | translate}}
+            {{getFormContentText(i)?.getError('minlength')['requiredLength']}}
+          </mat-error>
+          <mat-error *ngIf="getFormContentText(i)?.getError('maxlength')">
+            {{'Validations.maxLength' | translate}}
+            {{getFormContentText(i)?.getError('maxlength')['requiredLength']}}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" *ngIf="item.value.type === 'imgUrl'">
+          <mat-label>{{'Forms.Post.Img.title' | translate}}</mat-label>
+          <input matInput formControlName="imgUrl" [placeholder]="'Forms.Post.Img.placeholder' | translate">
+          <mat-icon matSuffix
+                    [color]="getFormContentImgUrl(i)?.valid || !getFormContentImgUrl(i)?.touched ? 'accent' : 'warn'">
+            add_photo_alternate
+          </mat-icon>
+          <mat-error
+            *ngIf="getFormContentImgUrl(i)?.getError('pattern') || getFormContentImgUrl(i)?.getError('wrongImageLink')">
+            {{'Validations.imgPattern' | translate}}
+          </mat-error>
+          <mat-error *ngIf="getFormContentImgUrl(i)?.getError('maxlength')">
+            {{'Validations.maxLength' | translate}}
+            {{getFormContentImgUrl(i)?.getError('maxlength')['requiredLength']}}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" *ngIf="item.value.type === 'imgName'">
+          <mat-label>{{'Forms.Post.ImgLoad.placeholder' | translate}}</mat-label>
+          <ngx-mat-file-input placeholder="{{'Forms.Post.ImgLoad.placeholder' | translate}}" formControlName="file"
+                              accept=".png, .jpg, .jpeg, .gif, .webp, .jfif"
+                              (change)="logger($event)">
+          </ngx-mat-file-input>
+          <mat-error *ngIf="getFormContentImg(i)?.getError('maxSize')">
+            {{'Validations.maxImgSize' | translate: {size: maxImgSize} }}
+          </mat-error>
+        </mat-form-field>
+
+        <button mat-mini-fab color="warn" (click)="removeContent(i)">
+          <mat-icon>delete_forever</mat-icon>
+        </button>
+      </div>
+    </ng-container>
+  </form>
+
+  <div class="d-flex justify-center flex-wrap">
+    <button mat-raised-button class="m-r-10 m-b-10" (click)="addText()">{{'Forms.Post.AddText' | translate}}</button>
+    <button mat-raised-button class="m-r-10 m-b-10" (click)="addImgUrl()">{{'Forms.Post.AddImgUrl' | translate}}</button>
+    <button mat-raised-button class="m-b-10" (click)="addImg()">{{'Forms.Post.AddImg' | translate}}</button>
+  </div>
+
+  <div class="buttons">
+<!--        <button (click)="logger(form)">Check</button>-->
+    <button mat-raised-button [disabled]="form.invalid || loading" color="accent" (click)="submit()">
+      {{!loading ? '+ ' + ('Forms.Buttons.post' | translate) : ('Forms.Buttons.loading' | translate)}}</button>
+  </div>
+</mat-card>
+
+<!--TODO: move post preview to separated component-->
+
+<div class="post-preview" *ngIf="getFormContent.controls.length">
+  <h2>{{'Forms.Post.PostPreview' | translate}}</h2>
+  <ng-container *ngFor="let item of getFormContent.controls; let i = index">
+    <p *ngIf="item.value.type === 'text'">{{item.value.text}}</p>
+    <img class="img-preview" *ngIf="item.value.type === 'imgUrl' && item.value.imgUrl" [src]="item.value.imgUrl" (error)="imageError($event, i)" alt="{{'Messages.imgPreview' | translate}}">
+    <img class="img-preview" *ngIf="item.value.type === 'imgName' && item.value.file"
+        [src]="(item.value.file | fileToImg) | safePipe" alt="{{'Messages.imgPreview' | translate}}">
+  </ng-container>
+</div>

@@ -28,6 +28,10 @@ import {
 } from '@shared/components/verification-email-form/verification-email-form.component';
 import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { PostFormComponent } from '@shared/components/post-form/post-form.component';
+import { NgxMatFileInputModule } from '@angular-material-components/file-input';
+import { SafePipe } from '@shared/pipes/safe-pipe.pipe';
+import { FileToImgPipe } from '@shared/pipes/file-to-img.pipe';
 
 const material = [
   MatToolbarModule,
@@ -45,20 +49,24 @@ const material = [
   MatMenuModule,
   MatTooltipModule,
   MatSlideToggleModule,
+  NgxMatFileInputModule
 ]
 const components = [
-  CreatePostFormComponent,
+  PostFormComponent,
+  CreatePostFormComponent, // TODO: should be removed
   SignInFormComponent,
   SignUpFormComponent,
   ImageModalComponent,
-  VerificationEmailFormComponent
+  VerificationEmailFormComponent,
+  ConfirmModalComponent
 ]
 
 @NgModule({
   declarations: [
     NotificationServiceComponent,
     ...components,
-    ConfirmModalComponent
+    SafePipe,
+    FileToImgPipe
   ],
   imports: [
     ...material,

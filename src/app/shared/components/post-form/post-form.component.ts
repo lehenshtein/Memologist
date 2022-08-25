@@ -182,11 +182,8 @@ export class PostFormComponent implements OnInit {
 
   imageError (err: ErrorEvent, i: number) {
     if (err) {
-      console.log(err);
-      console.log(this.getFormContentItem(i));
       this.getFormContentImgUrl(i)?.setErrors({wrongImageLink: true});
       this.form.updateValueAndValidity();
-      // this.formImgUrl.setErrors({wrongImageLink: true});
     }
   }
 

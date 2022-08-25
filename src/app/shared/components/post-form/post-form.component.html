@@ -65,8 +65,7 @@
         <mat-form-field appearance="outline" *ngIf="item.value.type === 'imgName'">
           <mat-label>{{'Forms.Post.ImgLoad.placeholder' | translate}}</mat-label>
           <ngx-mat-file-input placeholder="{{'Forms.Post.ImgLoad.placeholder' | translate}}" formControlName="file"
-                              accept=".png, .jpg, .jpeg, .gif, .webp, .jfif"
-                              (change)="logger($event)">
+                              accept=".png, .jpg, .jpeg, .gif, .webp, .jfif">
           </ngx-mat-file-input>
           <mat-error *ngIf="getFormContentImg(i)?.getError('maxSize')">
             {{'Validations.maxImgSize' | translate: {size: maxImgSize} }}

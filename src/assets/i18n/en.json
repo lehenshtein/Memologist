@@ -38,7 +38,8 @@
       "post": "Post",
       "logout": "Logout",
       "cancel": "Cancel",
-      "comment": "Comment"
+      "comment": "Comment",
+      "loading": "Loading..."
     },
     "Auth": {
       "Login": {
@@ -78,9 +79,17 @@
         "placeholder": "Add hashtags separated by commas"
       },
       "Img": {
-        "title": "Image",
+        "title": "Image link",
         "placeholder": "Add link to an image"
-      }
+      },
+      "ImgLoad": {
+        "title": "Image",
+        "placeholder": "Load image"
+      },
+      "AddText": "Add text",
+      "AddImgUrl": "Add link to an image",
+      "AddImg": "Add image from device",
+      "PostPreview": "Your post preview"
     }
   },
   "Notifications": {
@@ -107,6 +116,7 @@
     "required": "This field is required",
     "minLength": "Min length is: ",
     "maxLength": "Max length is: ",
+    "maxImgSize": "Max image size is: {{size}} Mb.",
     "urlPattern": "That's not look like a link",
     "imgPattern": "That's not look like a link to an image",
     "passPattern": "At least one uppercase, one lowercase letter and one number",

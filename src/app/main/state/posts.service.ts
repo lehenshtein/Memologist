@@ -14,6 +14,11 @@ export class PostsService extends NgEntityService<PostsState> {
     super(store);
   }
 
+  createPost(data: FormData) {
+    console.log(data);
+    return this.httpService.post(`/posts`, data)
+  }
+
   getPostsPaginated(page: number, limit: number, sort: sort): Observable<HttpResponse<PostInterfaceGet[]>> {
     const params = new HttpParams()
       .set('page', page)

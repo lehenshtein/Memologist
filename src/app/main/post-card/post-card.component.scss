@@ -10,6 +10,7 @@ mat-card {
   }
   & mat-card-content {
     white-space: pre-line;
+    margin-top: $padding-default;
   }
   & mat-card-footer {
     padding: 8px 0;

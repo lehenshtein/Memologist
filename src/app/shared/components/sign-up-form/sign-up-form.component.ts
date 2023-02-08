@@ -7,7 +7,7 @@ import { passPattern } from '@app/shared/helpers/regex-patterns';
 @Component({
   selector: 'app-sign-up-form',
   templateUrl: './sign-up-form.component.html',
-  styleUrls: ['./sign-up-form.component.scss']
+  styleUrls: ['../auth-forms-styles.scss']
 })
 export class SignUpFormComponent implements OnInit {
   @Output() onSubmit = new EventEmitter<UserRegisterInterface>();

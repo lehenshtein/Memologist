@@ -3,3 +3,8 @@
 .wrapper {
   max-width: $content-size;
 }
+@media screen and (max-width: $breakpoint-M) {
+  h1 {
+    padding-left: $padding-default;
+  }
+}

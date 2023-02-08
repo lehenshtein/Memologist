@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 @Component({
   selector: 'app-verification-email-form',
   templateUrl: './verification-email-form.component.html',
-  styleUrls: ['./verification-email-form.component.scss']
+  styleUrls: ['../auth-forms-styles.scss']
 })
 export class VerificationEmailFormComponent implements OnInit {
   @Input() verificationCode: string | undefined = undefined;

@@ -1,0 +1,16 @@
+<div class="form">
+  <mat-form-field [color]="'accent'" appearance="outline">
+    <mat-label>{{'Common.search' | translate}}</mat-label>
+    <input matInput [placeholder]="'Common.search' | translate" #searchInput (keydown.enter)="search(searchInput)" [value]="(coreQuery.search$ | async) || ''">
+    <div matSuffix class="input-actions">
+      <button mat-icon-button class="input-button close-button" [color]="'warn'" *ngIf="searchInput.value" (click)="resetSearch(searchInput)">
+        <mat-icon>close</mat-icon>
+      </button>
+
+      <button mat-mini-fab class="search-button input-button" [color]="'accent'" (click)="search(searchInput)">
+        <mat-icon>search
+        </mat-icon>
+      </button>
+    </div>
+  </mat-form-field>
+</div>

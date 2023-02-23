@@ -17,6 +17,8 @@
   </mat-card>
 
   <mat-card>
+    <app-search (closeMenu)="closeMenu.emit()"></app-search>
+
     <ng-container *ngIf="userName$ | async as userName else notAuthenticated">
       <section class="user-data">
         <span class="d-i-block m-b-10">{{'Common.hello' | translate}}:

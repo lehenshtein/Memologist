@@ -60,6 +60,11 @@ nav {
   }
 }
 
+app-search {
+  display: block;
+  padding-bottom: $padding-default;
+}
+
 footer {
   display: flex;
   justify-content: space-between;

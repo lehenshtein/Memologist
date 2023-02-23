@@ -3,13 +3,12 @@ import {CommonModule} from '@angular/common';
 import {HeaderComponent} from './header/header.component';
 import {SharedModule} from '@shared/shared.module';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { LoginFormComponent } from './login-form/login-form.component';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     SidebarComponent,
-    LoginFormComponent
   ],
   exports: [
     HeaderComponent,
@@ -17,7 +16,7 @@ import { LoginFormComponent } from './login-form/login-form.component';
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
   ]
 })
 export class LayoutModule {

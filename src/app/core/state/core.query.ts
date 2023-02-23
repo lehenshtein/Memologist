@@ -40,4 +40,6 @@ export class CoreQuery extends QueryEntity<CoreState> {
     return this.getValue().isBrowser; // check for Angular Universal, if app running on back or front
   }
 
+  search$ = this.select(store => store.search);
+
 }

@@ -27,4 +27,10 @@ export class CoreService {
   setUserMode(userMode: roles) {
     this.coreStore.update({userMode});
   }
+  setSearch(search?: string) {
+    this.coreStore.update({search});
+  }
+  resetSearch() {
+    this.coreStore.update({search: ''});
+  }
 }

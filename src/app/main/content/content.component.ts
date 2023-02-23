@@ -35,16 +35,17 @@ export class ContentComponent extends UnsubscribeAbstract implements OnInit {
   page = 1;
   limit = 20;
   sort: sort | null = null;
+  searchValue?: string = '';
   showFooter = false;
 
   // data: PostInterfaceGet[] = this.query.getPosts;
   data$: Observable<PostInterfaceGet[]> = this.query.getPosts$();
   userMode$: Observable<roles> = this.coreQuery.userMode$;
-  getPosts = (page: number, limit: number, sort: sort| null): Observable<HttpResponse<PostInterfaceGet[]>> => {
-    return this.postsService.getPostsPaginated(page, limit, sort || 'hot')
+  getPosts = (page: number, limit: number, sort: sort| null, search?: string): Observable<HttpResponse<PostInterfaceGet[]>> => {
+    return this.postsService.getPostsPaginated(page, limit, sort || 'hot', search)
   };
-  getPostsForUser = (page: number, limit: number, username: string): Observable<HttpResponse<PostInterfaceGet[]>> => {
-    return this.postsService.getUserPostsPaginated(page, limit, username);
+  getPostsForUser = (page: number, limit: number, username: string, search?: string): Observable<HttpResponse<PostInterfaceGet[]>> => {
+    return this.postsService.getUserPostsPaginated(page, limit, username, search);
   };
 
   constructor (
@@ -81,11 +82,10 @@ export class ContentComponent extends UnsubscribeAbstract implements OnInit {
 
   ngOnInit (): void {
     this.metaHelper.resetMeta();
-    this.getMorePosts();
+    this.search();
   }
 
   getMorePosts () {
-
     this.infiniteScrollService.mainScrollToBottomInPercents$.pipe(takeUntil(this.ngUnsubscribe$),
       exhaustMap((scroll: number | null) => {
         return this.createRequest().pipe(takeUntil(this.ngUnsubscribe$));
@@ -110,6 +110,15 @@ export class ContentComponent extends UnsubscribeAbstract implements OnInit {
 
   createRequest(): Observable<HttpResponse<PostInterfaceGet[]>> {
     return this.contentType === 'userPosts' && this.userName ?
-      this.getPostsForUser(this.page, this.limit, this.userName) : this.getPosts(this.page, this.limit, this.sort);
+      this.getPostsForUser(this.page, this.limit, this.userName, this.searchValue) : this.getPosts(this.page, this.limit, this.sort, this.searchValue);
+  }
+
+  private search () {
+    this.coreQuery.search$.subscribe((searchValue: string | undefined) => {
+      this.store.reset();
+      this.page = 1;
+      this.searchValue = searchValue;
+      this.getMorePosts();
+    })
   }
 }

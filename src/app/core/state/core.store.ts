@@ -10,7 +10,8 @@ export interface CoreState extends EntityState<Core> {
   isAuthenticated: boolean,
   userData: UserInterface | null,
   isBrowser: boolean,
-  userMode: roles
+  userMode: roles,
+  search: string
 }
 
 const initState: Partial<CoreState> = {

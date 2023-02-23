@@ -6,7 +6,7 @@
     </span>
     <span>{{title}}</span>
   </a>
-  <span class="spacer-s"></span>
+  <span class="spacer-m"></span>
 
   <nav *ngIf="showNavbar">
     <a [routerLink]="'/'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
@@ -20,19 +20,12 @@
     </a>
   </nav>
 
-  <span class="spacer"></span>
-<!--  <button mat-raised-button color="accent" class="button-space"-->
-<!--          [routerLink]="['create-post']"-->
-<!--          routerLinkActive="active"-->
-<!--          [routerLinkActiveOptions]="{exact: true}">-->
-<!--    {{'Forms.Buttons.post' | translate}}-->
-<!--  </button>-->
-  <button mat-icon-button (click)="toggleMenu.emit();" class="menu-btn">
+  <span class="spacer spacer-s"></span>
+
+<!--  <span class="spacer"></span>-->
+  <button mat-icon-button (click)="toggleMenu.emit();" class="menu-btn" [matBadge]="(coreQuery.search$ | async) ? 'search' : null" matBadgeColor="warn" matBadgePosition="before">
     <mat-icon>menu</mat-icon>
   </button>
-  <!--  <button mat-icon-button>-->
-  <!--    <mat-icon>share</mat-icon>-->
-  <!--  </button>-->
 </mat-toolbar>
 
 

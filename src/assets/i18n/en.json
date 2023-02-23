@@ -31,7 +31,8 @@
     "comments": "comments",
     "liked": "liked",
     "marked": "marked",
-    "withUs": "with us from: "
+    "withUs": "with us from: ",
+    "search": "Search"
   },
   "Forms": {
     "Buttons": {

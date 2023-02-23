@@ -8,7 +8,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { CreatePostFormComponent } from '@shared/components/create-post-form/create-post-form.component';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -32,6 +31,8 @@ import { PostFormComponent } from '@shared/components/post-form/post-form.compon
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { SafePipe } from '@shared/pipes/safe-pipe.pipe';
 import { FileToImgPipe } from '@shared/pipes/file-to-img.pipe';
+import { SearchComponent } from './components/search/search.component';
+import { MatBadgeModule } from '@angular/material/badge';
 
 const material = [
   MatToolbarModule,
@@ -49,16 +50,17 @@ const material = [
   MatMenuModule,
   MatTooltipModule,
   MatSlideToggleModule,
-  NgxMatFileInputModule
+  NgxMatFileInputModule,
+  MatBadgeModule
 ]
 const components = [
   PostFormComponent,
-  CreatePostFormComponent, // TODO: should be removed
   SignInFormComponent,
   SignUpFormComponent,
   ImageModalComponent,
   VerificationEmailFormComponent,
-  ConfirmModalComponent
+  ConfirmModalComponent,
+  SearchComponent
 ]
 
 @NgModule({
@@ -66,7 +68,7 @@ const components = [
     NotificationServiceComponent,
     ...components,
     SafePipe,
-    FileToImgPipe
+    FileToImgPipe,
   ],
   imports: [
     ...material,

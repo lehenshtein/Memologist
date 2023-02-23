@@ -10,7 +10,12 @@ mat-card {
   }
   & mat-card-content {
     white-space: pre-line;
-    margin-top: $padding-default;
+    //margin-top: $padding-default;
+    &.tags {
+      padding: 0 $padding-s;
+      margin-top: 0;
+      margin-bottom: $padding-s;
+    }
   }
   & mat-card-footer {
     padding: 8px 0;
@@ -30,6 +35,7 @@ mat-card {
 img, mat-card-title {
   cursor: pointer;
 }
+
 .footer {
   display: flex;
   justify-content: space-between;
@@ -37,7 +43,7 @@ img, mat-card-title {
 .social, ::ng-deep .mat-menu-content {
   display: flex;
   align-items: center;
-  padding-left: 16px;
+  padding-left: calc($padding-default + $padding-s);
   button {
     width: $cardInteractionsSize;
     height: $cardInteractionsSize;
@@ -72,7 +78,7 @@ img, mat-card-title {
 }
 
 .rate {
-  padding-right: $padding-default;
+  padding-right: calc($padding-default + $padding-s);
   mat-button-toggle {
     height: $cardInteractionsSize;
     & ::ng-deep.mat-button-toggle-label-content {

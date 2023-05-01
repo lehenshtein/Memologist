@@ -1,7 +1,12 @@
 <div class="wrapper">
-  <h1>{{page === 'sign-in' ? ('Common.login' | translate) : 'Common.toSignUp' | translate}}</h1>
-  <app-sign-in-form *ngIf="page === 'sign-in' else signUp" (onSubmit)="login($event)"></app-sign-in-form>
-  <ng-template #signUp>
-    <app-sign-up-form (onSubmit)="register($event)"></app-sign-up-form>
-  </ng-template>
+  <h1>{{page === 'sign-in' ? ('Common.login' | translate) : page === 'sign-up' ? ('Common.toSignUp' | translate)
+    : 'Common.toVerify' | translate }}</h1>
+  <app-sign-in-form *ngIf="page === 'sign-in'" (onSubmit)="login($event)"></app-sign-in-form>
+
+  <app-sign-up-form *ngIf="page === 'sign-up'" (onSubmit)="register($event)"></app-sign-up-form>
+
+  <app-verification-email-form *ngIf="page === 'verification'"
+                              (onSubmit)="verify($event)"
+                              [verificationCode]="verificationCode">
+  </app-verification-email-form>
 </div>

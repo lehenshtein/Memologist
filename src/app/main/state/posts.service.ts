@@ -14,12 +14,26 @@ export class PostsService extends NgEntityService<PostsState> {
     super(store);
   }
 
-  getPostsPaginated(page: number, limit: number, sort: sort): Observable<HttpResponse<PostInterfaceGet[]>> {
+  createPost(data: FormData) {
+    return this.httpService.post(`/posts`, data)
+  }
+
+  getPostsPaginated(page: number, limit: number, sort: sort, search?: string): Observable<HttpResponse<PostInterfaceGet[]>> {
     const params = new HttpParams()
       .set('page', page)
       .set('limit', limit)
       .set('sort', sort)
+      .set('search', search || '')
     return this.httpService.get<PostInterfaceGet[]>(`/posts`,{ params, observe: 'response' })
+  }
+
+  getUserPostsPaginated(page: number, limit: number, name: string, search?: string): Observable<HttpResponse<PostInterfaceGet[]>> {
+    const params = new HttpParams()
+      .set('page', page)
+      .set('limit', limit)
+      .set('sort', 'new')
+      .set('search', search || '')
+    return this.httpService.get<PostInterfaceGet[]>(`/posts/user/${name}`,{ params, observe: 'response' })
   }
 
   changeScore (id: ID, markType: marks): Observable<PostInterfaceGet> {

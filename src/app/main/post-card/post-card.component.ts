@@ -17,6 +17,7 @@ import { NotificationService } from '@shared/services/notification.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { DOCUMENT } from '@angular/common';
+import { CoreService } from '@app/core/state/core.service';
 
 @Component({
   selector: 'app-post-card',
@@ -38,6 +39,7 @@ export class PostCardComponent extends UnsubscribeAbstract implements OnInit {
     private dialog: MatDialog,
     private spinner: NgxSpinnerService,
     private coreQuery: CoreQuery,
+    private coreService: CoreService,
     private metaHelper: MetaHelper,
     private postsService: PostsService,
     private authService: AuthService,
@@ -153,5 +155,9 @@ export class PostCardComponent extends UnsubscribeAbstract implements OnInit {
   private sendMarkRequest (id: ID, markType: marks) {
     this.postsService.changeScore(id, markType).pipe(
       takeUntil(this.ngUnsubscribe$)).subscribe();
+  }
+
+  search (tag: string) {
+    this.coreService.setSearch(tag);
   }
 }

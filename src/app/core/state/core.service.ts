@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CoreStore } from './core.store';
 import { NavigatorInterface } from '@shared/models/navigator.interface';
-import { UserInterface, UserTokenInterface } from '@shared/models/user.interface';
+import { roles, UserInterface, UserTokenInterface } from '@shared/models/user.interface';
 
 @Injectable({ providedIn: 'root' })
 export class CoreService {
@@ -23,5 +23,14 @@ export class CoreService {
   }
   setIsBrowser(isBrowser: boolean) {
     this.coreStore.update({isBrowser});
+  }
+  setUserMode(userMode: roles) {
+    this.coreStore.update({userMode});
+  }
+  setSearch(search?: string) {
+    this.coreStore.update({search});
+  }
+  resetSearch() {
+    this.coreStore.update({search: ''});
   }
 }

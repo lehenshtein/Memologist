@@ -31,6 +31,14 @@ export class AuthService {
     );
   }
 
+  verify (code: string): Observable<null> {
+    return this.http.get<null>(`/auth/verification/${code}`);
+  }
+
+  resendEmail (): Observable<UserInterface> {
+    return this.http.get<UserInterface>(`/auth/verification/resend`);
+  }
+
   login (data: UserLoginInterface): Observable<{ token: string }> {
     return this.http.post<{ token: string }>(`/auth/login`, data).pipe(
       tap(({token}) => {

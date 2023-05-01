@@ -8,7 +8,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { CreatePostFormComponent } from '@shared/components/create-post-form/create-post-form.component';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -23,6 +22,17 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {
+  VerificationEmailFormComponent
+} from '@shared/components/verification-email-form/verification-email-form.component';
+import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { PostFormComponent } from '@shared/components/post-form/post-form.component';
+import { NgxMatFileInputModule } from '@angular-material-components/file-input';
+import { SafePipe } from '@shared/pipes/safe-pipe.pipe';
+import { FileToImgPipe } from '@shared/pipes/file-to-img.pipe';
+import { SearchComponent } from './components/search/search.component';
+import { MatBadgeModule } from '@angular/material/badge';
 
 const material = [
   MatToolbarModule,
@@ -38,19 +48,27 @@ const material = [
   MatSnackBarModule,
   MatDividerModule,
   MatMenuModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatSlideToggleModule,
+  NgxMatFileInputModule,
+  MatBadgeModule
 ]
 const components = [
-  CreatePostFormComponent,
+  PostFormComponent,
   SignInFormComponent,
   SignUpFormComponent,
-  ImageModalComponent
+  ImageModalComponent,
+  VerificationEmailFormComponent,
+  ConfirmModalComponent,
+  SearchComponent
 ]
 
 @NgModule({
   declarations: [
     NotificationServiceComponent,
-    ...components
+    ...components,
+    SafePipe,
+    FileToImgPipe,
   ],
   imports: [
     ...material,

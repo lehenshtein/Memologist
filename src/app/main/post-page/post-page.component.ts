@@ -77,10 +77,12 @@ export class PostPageComponent extends UnsubscribeAbstract implements OnInit {
   private updateMeta (item: PostInterfaceGet) {
     this.metaHelper.updateMeta({
       title: item.title,
+      tags: item.tags,
       text: item.text,
       type: 'article',
       url: `${environment.websiteUrl}/${item._id}`,
-      imgUrl: item.imgUrl
+      imgUrl: item.imgUrl,
+      content: item.content
     });
   }
 

@@ -124,9 +124,9 @@ export class AppComponent extends UnsubscribeAbstract implements OnInit, AfterVi
   private resize () {
     this.breakpointObserver.observe([
       '(max-width: 900px)',
-      '(max-width: 1024px)'
+      '(max-width: 1090px)'
     ]).subscribe((result: BreakpointState) => {
-      if (result.breakpoints['(max-width: 1024px)']) {
+      if (result.breakpoints['(max-width: 1090px)']) {
         this.showSidebar = false;
         this.showNavbar = false;
       } else {

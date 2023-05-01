@@ -1,4 +1,5 @@
 //@import "~@angular/material/prebuilt-themes/purple-green.css";
+@use 'sass:map';
 @import 'app/app.component.scss-theme.scss';
 @import 'assets/scss/variables';
 @import 'assets/scss/common';
@@ -71,8 +72,17 @@ input.mat-input-element, textarea.mat-input-element {
 
 .spacer {
   flex: 1 1 auto;
+  &-m {
+    flex: .5 5 auto;
+  }
   &-s {
     flex: .2 2 auto;
   }
 }
 
+.mat-button-toggle-checked {
+  background: map.get($my-darkpalette, 900);
+}
+.input-actions {
+  margin-right: -0.75rem;
+}

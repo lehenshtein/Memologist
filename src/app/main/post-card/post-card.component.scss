@@ -3,22 +3,39 @@ $cardInteractionsSize: 32px;
 $cardInteractionsIcons: 20px;
 mat-card {
   height: 100%;
+  .hoverable {
+    @include text-hover(2px);
+    display: inline-flex;
+    padding-bottom: 3px;
+  }
+  & mat-card-content {
+    white-space: pre-line;
+    //margin-top: $padding-default;
+    &.tags {
+      padding: 0 $padding-s;
+      margin-top: 0;
+      margin-bottom: $padding-s;
+    }
+  }
   & mat-card-footer {
     padding: 8px 0;
     background-color: $extraDark;
   }
   & .author {
+    display: inline-flex;
     padding-top: 5px;
     opacity: .5;
-  }
-  & .date {
-    font-size: .8rem;
-    opacity: .5;
+    cursor: pointer;
+    @include text-hover(1px);
+    &:hover {
+      opacity: 1;
+    }
   }
 }
 img, mat-card-title {
   cursor: pointer;
 }
+
 .footer {
   display: flex;
   justify-content: space-between;
@@ -26,7 +43,7 @@ img, mat-card-title {
 .social, ::ng-deep .mat-menu-content {
   display: flex;
   align-items: center;
-  padding-left: 16px;
+  padding-left: calc($padding-default + $padding-s);
   button {
     width: $cardInteractionsSize;
     height: $cardInteractionsSize;
@@ -61,7 +78,7 @@ img, mat-card-title {
 }
 
 .rate {
-  padding-right: $padding-default;
+  padding-right: calc($padding-default + $padding-s);
   mat-button-toggle {
     height: $cardInteractionsSize;
     & ::ng-deep.mat-button-toggle-label-content {

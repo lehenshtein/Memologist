@@ -10,7 +10,7 @@
 <div *ngIf="data$ | async as data" class="wrapper">
   <p *ngFor="let item of data" class="content-block">
     <app-post-card [item]="item"></app-post-card>
-    <button *ngIf="devEnv" mat-raised-button color="warn" (click)="delete(item._id)">Delete</button>
+    <button *ngIf="(userMode$ | async) === 'superAdmin'" mat-raised-button color="warn" (click)="delete(item._id)">Delete</button>
   </p>
 </div>
 <!--</ng-template>-->

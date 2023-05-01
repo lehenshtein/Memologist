@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { QueryEntity } from '@datorama/akita';
 import { CoreStore, CoreState } from './core.store';
-import { UserInterface, UserTokenInterface } from '@shared/models/user.interface';
+import { roles, UserInterface, UserTokenInterface } from '@shared/models/user.interface';
 import { NavigatorInterface } from '@shared/models/navigator.interface';
 import { Observable } from 'rxjs';
 
@@ -23,6 +23,9 @@ export class CoreQuery extends QueryEntity<CoreState> {
   get userTokenData(): UserTokenInterface {
     return this.getValue().userTokenData;
   }
+  get userData(): UserInterface | null {
+    return this.getValue().userData;
+  }
   get tokenExpired(): boolean {
     return this.userTokenData.tokenExpired;
   }
@@ -30,8 +33,13 @@ export class CoreQuery extends QueryEntity<CoreState> {
     return this.userTokenData.name;
   }
   userName$ = this.select(store => store.userTokenData.name);
+  userRole$ = this.select(store => store.userData?.role);
+  userMode$ = this.select(store => store.userMode);
+
   get isBrowser(): boolean {
     return this.getValue().isBrowser; // check for Angular Universal, if app running on back or front
   }
+
+  search$ = this.select(store => store.search);
 
 }

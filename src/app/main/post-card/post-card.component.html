@@ -2,64 +2,76 @@
   <ng-container *ngIf="item; else loading">
     <mat-card-header>
       <!--        <div mat-card-avatar class="example-header-image"></div>-->
-      <mat-card-title [ngStyle]="{'pointer-events': mainPage ? null : 'none'}">
-        <a [routerLink]="['/' + item._id]" target="_blank">{{item.title}}</a>
+      <mat-card-title  [ngStyle]="{'pointer-events': mainPage ? null : 'none'}">
+        <a [ngClass]="{'hoverable': mainPage}" [routerLink]="['/' + item._id]" target="_blank">{{item.title}}</a>
       </mat-card-title>
+      <br>
 
-      <mat-card-subtitle class="author">{{item.author.name}}</mat-card-subtitle>
+      <mat-card-subtitle class="author" [routerLink]="['/user', item.author.name]">{{item.author.name}}</mat-card-subtitle>
       <mat-card-subtitle class="date">{{'Common.created' | translate}} {{item.createdAt | date:'dd.MM.yy'}}</mat-card-subtitle>
     </mat-card-header>
-    <mat-card-content>
+    <mat-card-content *ngIf="item.text">
       {{item.text}}
     </mat-card-content>
-    <img *ngIf="item.imgUrl" mat-card-image [src]="item.imgUrl" alt="Photo" (click)="openImage(item.imgUrl)">
+    <img *ngIf="item.imgUrl" mat-card-image [src]="item.imgUrl" loading="lazy" alt="Photo" (click)="openImage(item.imgUrl)">
 
-    <mat-card-actions>
-      <button mat-button *ngFor="let tag of item.tags">{{tag}}</button>
-    </mat-card-actions>
+    <mat-card-content *ngIf="item.content && item.content.length">
+      <ng-container *ngFor="let content of item.content">
+        <ng-container *ngIf="content.type === 'text' && content.text"><p>{{content.text}}</p></ng-container>
+        <img *ngIf="content.type === 'imgUrl' && content.imgUrl" mat-card-image [src]="content.imgUrl"
+            loading="lazy" alt="Photo" (click)="openImage(content.imgUrl)">
+      </ng-container>
+    </mat-card-content>
 
-    <mat-card-footer class="footer">
-      <div class="social">
-        <button mat-mini-fab [color]="'accent'" [matMenuTriggerFor]="isDeviceMobile ? null : menu"
-                matTooltip="{{'Tooltips.share' | translate}}" (click)="openShare()">
-          <mat-icon>share</mat-icon>
-        </button>
 
-        <mat-menu #menu="matMenu">
-          <button class="telegram" mat-mini-fab (click)="share('telegram')">
-            <img class="icon" src="./assets/svg/telegram.svg" alt="share">
+
+    <mat-card-footer>
+      <mat-card-content class="tags" *ngIf="item.tags.length">
+        <button mat-button *ngFor="let tag of item.tags" (click)="search(tag)">{{tag}}</button>
+      </mat-card-content>
+      <div class="footer">
+        <div class="social">
+          <button mat-mini-fab [color]="'accent'" [matMenuTriggerFor]="isDeviceMobile ? null : menu"
+                  matTooltip="{{'Tooltips.share' | translate}}" (click)="openShare()">
+            <mat-icon>share</mat-icon>
           </button>
-          <button class="facebook" mat-mini-fab (click)="share('facebook')">
-            <img class="icon" src="./assets/svg/facebook.svg" alt="share">
+
+          <mat-menu #menu="matMenu">
+            <button class="telegram" mat-mini-fab (click)="share('telegram')">
+              <img class="icon" src="./assets/svg/telegram.svg" alt="share">
+            </button>
+            <button class="facebook" mat-mini-fab (click)="share('facebook')">
+              <img class="icon" src="./assets/svg/facebook.svg" alt="share">
+            </button>
+            <button class="link" [color]="'primary'" mat-mini-fab (click)="share('copy')"
+                    matTooltip="{{'Tooltips.copyLink' | translate}}">
+              <mat-icon>link</mat-icon>
+            </button>
+          </mat-menu>
+        </div>
+
+        <div class="info">
+          <button mat-icon-button color="accent" [ngStyle]="{'pointer-events': mainPage ? null : 'none'}" [routerLink]="['/', item._id]">
+            <mat-icon>comment</mat-icon>
+            <span> {{item.commentsAmount}}</span>
           </button>
-          <button class="link" [color]="'primary'" mat-mini-fab (click)="share('copy')"
-                  matTooltip="{{'Tooltips.copyLink' | translate}}">
-            <mat-icon>link</mat-icon>
-          </button>
-        </mat-menu>
-      </div>
+        </div>
 
-      <div class="info">
-        <button mat-icon-button color="accent" [ngStyle]="{'pointer-events': mainPage ? null : 'none'}" [routerLink]="[item._id]">
-          <mat-icon>comment</mat-icon>
-          <span> {{item.commentsAmount}}</span>
-        </button>
-      </div>
+        <div class="rate">
+          <mat-button-toggle-group multiple (change)="toggleButtons($event)" aria-label="rate">
 
-      <div class="rate">
-        <mat-button-toggle-group multiple (change)="toggleButtons($event)" aria-label="rate">
+            <mat-button-toggle class="like" [checked]="markedAs === 'liked'" (click)="mark('liked')">
+              <mat-icon>play_arrow</mat-icon>
+            </mat-button-toggle>
 
-          <mat-button-toggle class="like" [checked]="markedAs === 'liked'" (click)="mark('liked')">
-            <mat-icon>play_arrow</mat-icon>
-          </mat-button-toggle>
+            <mat-button-toggle class="score" disabled>{{ score }}</mat-button-toggle>
 
-          <mat-button-toggle class="score" disabled>{{ score }}</mat-button-toggle>
+            <mat-button-toggle class="dislike" [checked]="markedAs === 'disliked'" (click)="mark('disliked')">
+              <mat-icon color="warn">play_arrow</mat-icon>
+            </mat-button-toggle>
 
-          <mat-button-toggle class="dislike" [checked]="markedAs === 'disliked'" (click)="mark('disliked')">
-            <mat-icon color="warn">play_arrow</mat-icon>
-          </mat-button-toggle>
-
-        </mat-button-toggle-group>
+          </mat-button-toggle-group>
+        </div>
       </div>
     </mat-card-footer>
   </ng-container>

@@ -17,11 +17,12 @@
     "dev:ssr": "ng run memologist:serve-ssr",
     "serve:ssr": "node dist/memologist/server/main.js",
     "build:ssr:stage": "ng build --configuration=staging && ng run memologist:server:staging",
-    "build:ssr": "ng build && ng run memologist:server",
+    "build:ssr": "ng build --output-hashing=all && ng run memologist:server",
     "prerender": "ng run memologist:prerender"
   },
   "private": true,
   "dependencies": {
+    "@angular-material-components/file-input": "^8.0.0",
     "@angular/animations": "^14.1.0",
     "@angular/cdk": "^14.0.4",
     "@angular/cli": "~14.1.0",

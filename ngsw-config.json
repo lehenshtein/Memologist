@@ -29,6 +29,17 @@
   ],
   "dataGroups": [
     {
+      "name": "no-cache",
+      "urls": [
+        "/assets/i18n/**"
+      ],
+      "cacheConfig": {
+        "maxSize": 0,
+        "maxAge": "0u",
+        "strategy": "freshness"
+      }
+    },
+    {
       "name": "cache-first",
       "urls": [
         "https://fonts.gstatic.com"
@@ -44,7 +55,8 @@
       "urls": [
         "https://memologist-be.herokuapp.com",
         "https://memologist-prod-be.herokuapp.com",
-        "http://localhost:3000"
+        "http://localhost:3000",
+        "https://www.googletagmanager.com"
       ],
       "cacheConfig": {
         "strategy": "freshness",

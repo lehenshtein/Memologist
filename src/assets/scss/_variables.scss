@@ -2,22 +2,47 @@
   --header-height: 64px;
 }
 $header-height: var(--header-height);
-$breakpoint-sidebar: 1024px;
+$breakpoint-sidebar: 1090px;
 $breakpoint-M: 600px;
 $content-size: 700px;
+$padding-xxl: 25px;
+$padding-xl: 20px;
 $padding-default: 16px;
+$padding-l: 12px;
 $padding-m: 10px;
 $padding-s: 8px;
 $padding-xs: 5px;
 
 $white: #fff;
-$light: #7c7c7c;
-$dark: #2e2e2e;
-$extraDark: #1f1f1f;
+$light: #242423;
+$dark: #1c1c1c;
+$extraDark: #141414;
 $green: #4CAF50;
 $primary: #ffc107;
 $accent: #2196f3;
 $warn: #f44336;
+$transparent: rgba(0, 0, 0, 0);
+
+@mixin text-hover($border-width) {
+  background:
+    linear-gradient(
+        to right,
+        $transparent,
+        $transparent
+    ),
+    linear-gradient(
+        to right,
+        $accent,
+        $primary
+    );
+  background-size: 100% $border-width, 0 $border-width;
+  background-position: 100% 100%, 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 300ms ease-in-out, opacity 200ms;
+  &:hover {
+    background-size: 0 $border-width, 100% $border-width;
+  }
+}
 
 @media screen and (max-width: $breakpoint-M) {
   :root {

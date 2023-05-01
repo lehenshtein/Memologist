@@ -18,6 +18,9 @@
     "login": "Sign in",
     "signUp": "Sign up",
     "toSignUp": "Create account",
+    "toVerify": "Verify your email",
+    "resendEmail": "Resend verification email",
+    "send": "Send",
     "you": "You",
     "author": "Author",
     "rate": "rating",
@@ -27,14 +30,17 @@
     "posts": "posts",
     "comments": "comments",
     "liked": "liked",
-    "marked": "marked"
+    "marked": "marked",
+    "withUs": "with us from: ",
+    "search": "Search"
   },
   "Forms": {
     "Buttons": {
       "post": "Post",
       "logout": "Logout",
       "cancel": "Cancel",
-      "comment": "Comment"
+      "comment": "Comment",
+      "loading": "Loading..."
     },
     "Auth": {
       "Login": {
@@ -54,6 +60,10 @@
       "PasswordRepeat": {
         "title": "Repeat password",
         "placeholder": "Yes again... We know"
+      },
+      "Verify": {
+        "title": "Verification code",
+        "placeholder": "If field is empty, paste the code from your email"
       }
     },
     "Post": {
@@ -70,9 +80,17 @@
         "placeholder": "Add hashtags separated by commas"
       },
       "Img": {
-        "title": "Image",
+        "title": "Image link",
         "placeholder": "Add link to an image"
-      }
+      },
+      "ImgLoad": {
+        "title": "Image",
+        "placeholder": "Load image"
+      },
+      "AddText": "Add text",
+      "AddImgUrl": "Add link to an image",
+      "AddImg": "Add image from device",
+      "PostPreview": "Your post preview"
     }
   },
   "Notifications": {
@@ -84,20 +102,27 @@
     "401": "Please sign-in or sign-up",
     "token": "Your session expired. Please sign-in",
     "thatsAll": "That's all folks!",
-    "copied": "Link copied! Share with friends"
+    "copied": "Link copied! Share with friends",
+    "registered": "Congratulations with registration. Please verify your email, using link we sent you.",
+    "verified": "Your email was verified, welcome! Try to create post or leave a comment.",
+    "emailResent": "Email was sent again."
   },
   "Tooltips": {
     "copyLink": "Copy link",
-    "share": "Share"
+    "share": "Share",
+    "unverified": "Your email is not verified. Check your email including spam box or resend the verification code again",
+    "blockResendEmail": "You can resend email again in {{minutes}} min. {{seconds}} sec."
   },
   "Validations": {
     "required": "This field is required",
     "minLength": "Min length is: ",
     "maxLength": "Max length is: ",
+    "maxImgSize": "Max image size is: {{size}} Mb.",
     "urlPattern": "That's not look like a link",
     "imgPattern": "That's not look like a link to an image",
     "passPattern": "At least one uppercase, one lowercase letter and one number",
     "email": "That's not look like an email",
-    "notSame": "Passwords are different"
+    "notSame": "Passwords are different",
+    "postAtLeastOneField": "At least one field of 'Text' or 'Image' should be filled and be valid"
   }
 }

@@ -1,4 +1,7 @@
 @import './src/assets/scss/variables';
+.spacer-s {
+  flex: 1 1 auto;
+}
 .header {
   position: fixed;
   top: 0;
@@ -39,6 +42,7 @@ nav {
   font-size: 1.1rem;
   height: 100%;
   display: flex;
+  margin-left: -165px;
   & a {
     display: flex;
     align-items: center;
@@ -62,7 +66,24 @@ nav {
   }
 }
 
+app-search {
+  width: 20%;
+  display: none;
+}
+::ng-deep.mat-badge-content {
+  left: -4px!important;
+  top: -2px!important;
+  font-family: 'Material Icons';
+}
+
+
 @media screen and (min-width: calc($breakpoint-sidebar + 1px)) {
+  app-search {
+    display: block;
+  }
+  .spacer-s {
+    flex: 0.2 2 auto;
+  }
   .menu-btn {
     display: none;
   }

@@ -79,7 +79,7 @@ export class PostPageComponent extends UnsubscribeAbstract implements OnInit {
       title: item.title,
       text: item.text,
       type: 'article',
-      url: `${environment.apiUrl}/${item._id}`,
+      url: `${environment.websiteUrl}/${item._id}`,
       imgUrl: item.imgUrl
     });
   }
